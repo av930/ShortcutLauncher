@@ -1,9 +1,10 @@
 CH := {}
 
 { ; program setting
-CH.ps					:= "sendinput, ^!s "			 ;;program settings
-CH.c					:= "Run, d:\"
-CH.d					:= "Run, c:\"
+CH.ps                   := "sendinput, ^!s "             ;;program settings
+CH.c                    := "Run, d:\"
+CH.d                    := "Run, c:\"
+CH.h                    := "sendinput, !d `n sendinput, chrome://history"
 }
 
 /*
