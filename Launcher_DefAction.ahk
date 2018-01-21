@@ -1,27 +1,27 @@
 ;;;;;;;; list of functions ;;;;;;;;;
 ;;;; execute program as administrator
 ;;;; execute Runlist
-F_RunMore( RunList* ) {
+_OSRunMore( RunList* ) {
     For RunNum, RunItem in RunList
         Run %RunItem%
 }
 
 
-F_Admin( RunList* ) { 
+_OSAdmin( RunList* ) { 
     For RunNum, RunItem in RunList
         Run *RunAs %RunItem%
 }
 
 
 ;;;; copy text to clipboard
-F_CopyText( CopyText ) { 
+_OSCopyText( CopyText ) { 
     Clipboard := CopyText
     TrayTip, Launcher, %CopyText% copied to clipboard
 }
 
 
 ;;;; empty trash can
-F_EmptyRecycleBin() {
+_OSEmptyRecycleBin() {
     NumPut( VarSetCapacity( SHQUERYRBINFO,20,0 ), SHQUERYRBINFO )
     DllCall( "Shell32\SHQueryRecycleBinA", Int,0, UInt,&SHQUERYRBINFO )
     If (NumGet( SHQUERYRBINFO, 0 ? 12 : 4,"Int64" )) {
@@ -32,30 +32,30 @@ F_EmptyRecycleBin() {
 
 
 ;;;; go other AHK functions
-F_GoSub( Subroutine ) {
+_OSGoSub( Subroutine ) {
     GoSub %Subroutine%
 }
 
 
 ;;;; show key input history
-F_KeyHist() {
+_OSKeyHist() {
     KeyHistory
 }
 
 
 ;;;; show key input history
-F_Hotkeys() {
+_OSHotkeys() {
     ListHotkeys
 }
 
 ;;;; ?
-F_ShowMenu( MenuName ) {
+_OSShowMenu( MenuName ) {
     Menu, %MenuName%, Show
 }
 
 
 ;;;; explorer exit & restart
-F_RestartExplorer( WaitTime = 100 ) {
+_OSRestartExplorer( WaitTime = 100 ) {
     PostMessage, 0x12, 0, 0, , ahk_exe explorer.exe ; WM_Quit
     Sleep %WaitTime%
     PostMessage, 0x12, 0, 0, , ahk_exe explorer.exe ; WM_Quit
