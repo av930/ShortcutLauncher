@@ -16,8 +16,8 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 #Include Launcher_DefOS.ahk
 
 #Include Launcher_forCHrome.ahk
-;#Include Launcher_forAndroidStudio.ahk
-;#Include Launcher_forNotepadPlus.ahk
+#Include Launcher_forAndroidStudio.ahk
+#Include Launcher_forNotepadPlus.ahk
 
 
 Return ; END OF AUTO-EXECUTE SECTION
@@ -33,8 +33,10 @@ Return
 
 
 
-;; Abbreviation 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Common logic ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ProgramKeyMapper( ProgramKey, Command ) {
     If ( ProgramKey[Command] ) {
         If ProgramKey[Command] is alnum {
@@ -46,31 +48,37 @@ ProgramKeyMapper( ProgramKey, Command ) {
         }
         return true ;; no-more run next step
     }
-    If Command is not alpha
-        SendInput, % Command
+    ;;If Command is not alpha
+    ;;    SendInput, % Command
     return false
 }
 
 
 ProgramSelect:
-    if WinActive("ahk_exe" . "studio64.exe")
+
+    if WinActive("ahk_exe studio64.exe")        {
         MAP := AS
-    if WinActive("ahk_exe" . "chrome.exe")
+    }else if WinActive("ahk_exe chrome.exe")    {
         MAP := CH
-    if WinActive("ahk_exe" . "notepad++.exe")
+    }else if WinActive("ahk_exe notepad++.exe") {
         MAP := NP
+    }
+    
+    ;debug array
+    ;MsgBox, 64, % MAP["name"],% MAP.ps . "`n"
+    ;                        . MAP.c . "`n"
+    ;                        . MAP.h . "`n"
+    ;                        . MAP["^tab"]
 return
 
 
-LauncherGo:
-    Gosub ProgramSelect
-    
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Handler ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+PopupGoPost:
     Gui, Submit
     Gui, Destroy
 
-    Str_MAP := Obj2Str(MAP)
-    WinGetTitle, Str_WIN, A
-    Msgbox, ,%Str_WIN%, %Str_MAP%
 
     ;;IfWinActive, ahk_exe studio64.exe
     LastQSQuery := Query
@@ -81,46 +89,31 @@ LauncherGo:
             SoundPlay *-1
 
             ;; debug
-            Str_MAP := Obj2Str(MAP)
-            WinGetTitle, Str_WIN, A
-            Msgbox, ,%Str_WIN%, %Str_MAP%
+            ;Str_MAP := Obj2Str(MAP)
+            ;WinGetTitle, Str_WIN, A
+            ;Msgbox, ,%Str_WIN%, %Str_MAP%
         }
 return
 
 
-
-;; HotKey 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-HotkeyGo:
-    Gosub ProgramSelect
-    
-    if (ProgramKeyMapper(MAP, A_ThisHotkey) = false)
-    { ;;;; nothing matched
-        SoundPlay *-1
-    }
-return
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Handler ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Abbreviation Handler
+;; Abbreviation Trigger
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #q::
+#w::
+    Gosub ProgramSelect
+
     Gui, Destroy
     Gui, Font, s11, Consolas
     Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%
-    Gui, Add, Button, x210 y5 w25 h25 +Default gLauncherGo,
+    Gui, Add, Button, x210 y5 w25 h25 +Default gPopupGoPost,
     Gui, Show, w240 h35, Launcher
     Gui, Font
 Return
 
 
-;; HotKey Handler
+;; HotKey Trigger
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-#UseHook ON ;;prevent recursive key generation 
+;;#UseHook OFF ;;prevent recursive key generation 
 ;;;; move
 !Right::    ;;move next position
 !Left::     ;;move previous position
@@ -140,6 +133,14 @@ Return
 ^/::        ;;comment with line-comment
 ^+/::       ;;comment with block-comment
 ^+u::       ;;toggle upper or lower case
-Goto, HotkeyGo
+^!i::       ;;indent block
+^+!i::      ;;indent file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    Gosub ProgramSelect
+
+    if (ProgramKeyMapper(MAP, A_ThisHotkey) = false)
+    { ;;;; nothing matched
+        SoundPlay *-1
+    }
 return
-#UseHook OFF

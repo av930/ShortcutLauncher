@@ -1,11 +1,12 @@
 CH := {}
+CH["name"] := "Chrome"
 
-
-{ ; program setting
+ ; program setting
 CH.ps                   := "sendinput, !d `n sendinput, chrome://settings"
-CH.c                    := "Run, d:\"
 CH.h                    := "sendinput, !d `n sendinput, chrome://history"
-}
+CH.c                    := "Run, d:\"
+CH["^tab"]            := "sendinput, ^{tab}"             ;;!Right::    ;;move next position
+
 /*
 { ;;;; definition of move, edit, debug
 AH["!Right"]            := "sendinput, ^{tab}"             ;;!Right::    ;;move next position
