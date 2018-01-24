@@ -73,8 +73,8 @@ NP["^+!i"]              := "sendinput, ^!+i"            ;;^+!::       ;;indent f
 
 ;;;;;;;; edit & etc, 
 ;;;; functionality possible to map abbreviation instead of shortcut 
-NP.ef                   := "sendinput, !+0"             ;;fold all
-NP.efc                  := "sendinput, !0"              ;;unfold all
+NP.efo                  := "sendinput, !+0"             ;;fold open, unfold
+NP.efc                  := "sendinput, !0"              ;;fold all
 NP.eval                 := "SoundPlay *-1"              ;;evaluate expression for debugging
 
 

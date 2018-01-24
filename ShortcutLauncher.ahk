@@ -139,7 +139,7 @@ return
     ;Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%,
     Gui, Add, Edit, x5 y5 w300 h25 vQuery gAutoComplete, %LastQSQuery%
     Gui, Add, Button, x310 y5 w25 h25 +Default gPopupGoPost,
-    Gui, Add, ListBox, x5 y40 w328 vLastQSQuery r6, % list
+    Gui, Add, ListBox, x5 y40 w328 vLastQSQuery r12, % list
     ;Gui, Show, w240 h35, Launcher
     Gui, Show, , Launcher
     Gui, Font
@@ -175,7 +175,8 @@ Return
     Gosub ProgramSelect
 
     if (ProgramKeyMapper(MAP, A_ThisHotkey) = false)
-    { ;;;; nothing matched
-        SoundPlay *-1
-    }
+        if (ProgramKeyMapper(OS, A_ThisHotkey) = false)
+        { ;;;; nothing matched
+            SoundPlay *-1
+        }
 return

@@ -70,8 +70,8 @@ AS["^+!i"]              := "sendinput, ^!l"             ;;^+!::       ;;indent f
 
 ;;;;;;;; edit & etc, 
 ;;;; functionality possible to map abbreviation instead of shortcut 
-AS.ef                   := "sendinput, ^+-"              ;;fold all
-AS.efc                  := "sendinput, ^+="              ;;unfold all
+AS.efo                  := "sendinput, ^+="              ;;unfold
+AS.efc                  := "sendinput, ^+-"              ;;fold 
 AS.eval                 := "sendinput, !{F8}"            ;;evaluate expression for debugging
 
 
@@ -152,6 +152,7 @@ AS.wdir                 := "sendinput, !1"              ;;directory view
 AS.wsym                 := "sendinput, !7"              ;;symbol view
 AS.whier                := AS.shier                     ;;hierarchy view
 AS.wcall                := "sendinput, ^!h"             ;;call flow
+AS.wmsg                 := "sendinput, !1"              ;;message like compile error
 AS.wlog                 := "sendinput, !6"              ;;logger
 AS.wdebug               := "sendinput, !5"              ;;debugger
 
