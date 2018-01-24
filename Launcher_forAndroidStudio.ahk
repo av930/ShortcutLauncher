@@ -26,55 +26,6 @@ _ASAction( Menu, Sleep, Key ) {
 ;; AS.fe                := Func( "_ASAction" ).Bind( "^+a", 500, "{text}File Encoding" )
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; shortcut keymap definition
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;; move
-;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
-AS["!Right"]            := "sendinput, ^!{Right}"       ;;!Right::    ;;move next position
-AS["!Left"]             := "sendinput, ^!{Left}"        ;;!Left::     ;;move previous position
-AS["!+Up"]              := "sendinput, !{F7}"           ;;!+Up::      ;;search caller
-AS["!+Down"]            := "sendinput, ^b"              ;;!+Down::    ;;jump to definition
-AS["^tab"]              := "sendinput, ^{tab}"          ;;^tab::      ;;next file or tab
-AS["^+tab"]             := "sendinput, ^+{tab}"         ;;^+tab::     ;;previous file or tab
-AS["^+t"]               := "sendinput, ^+t"             ;;^+t:        ;;reopen recent closed tab or file
-AS["^g"]                := "sendinput, ^g"              ;;^g::        ;;goto line
-AS["^\"]                := "sendinput, ^+m"             ;;^\::        ;;goto matching brace toggle
-AS["^F3"]               := "sendinput, ^{F3}"           ;;^F3::       ;;find word at current cursor
-
-;;;;;; edit
-AS["^y"]                := "sendinput, ^+z"             ;;^y::        ;;redo
-AS["^d"]                := "sendinput, ^d"              ;;^d::        ;;duplicate line
-AS["^+d"]               := "sendinput, ^y"              ;;^+d::       ;;delete line
-AS["^/"]                := "sendinput, ^/"              ;;^/::        ;;comment with line-comment
-AS["^+/"]               := "sendinput, ^+/"             ;;^+/::       ;;comment with block-comment
-AS["^+u"]               := "sendinput, ^+u"             ;;^+u::       ;;toggle upper or lower case
-AS["^+i"]               := "sendinput, ^!i"             ;;^!i::       ;;indent block
-AS["^+!i"]              := "sendinput, ^!l"             ;;^+!::       ;;indent file
-
-
-;;;;;;;; debug
-;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
-;;;; therefore not mapped
-;; run                                                  ;;{F9}
-;; stop                                                 ;;^{F2}
-;; step over                                            ;;{F8}
-;; step in                                              ;;{F7}
-;; step out                                             ;;+{F8}
-;; go till here                                         ;;!{F9}
-;; toogle break                                         ;;^{F8}
-;; break option                                         ;;^+{F8}
-
-
-;;;;;;;; edit & etc, 
-;;;; functionality possible to map abbreviation instead of shortcut 
-AS.efo                  := "sendinput, ^+="              ;;unfold
-AS.efc                  := "sendinput, ^+-"              ;;fold 
-AS.eval                 := "sendinput, !{F8}"            ;;evaluate expression for debugging
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; abbreviation definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -158,7 +109,135 @@ AS.wdebug               := "sendinput, !5"              ;;debugger
 
 
 ;;;;;;;; tool
-AS.tex                  := Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show in Explorer")    
+AS.tex                  := Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show in Explorer")
 AS.tt                   := AS.tex                       ;;explorer
 AS.tcmd                 := "sendinput, !{F12}"          ;;command line interface
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; shortcut keymap definition
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;; edit & etc,
+;;;; functionality possible to map abbreviation instead of shortcut
+AS.efo                  := "sendinput, ^+="              ;;unfold
+AS.efc                  := "sendinput, ^+-"              ;;fold
+AS.eval                 := "sendinput, !{F8}"            ;;evaluate expression for debugging
+
+;;;;;;;; debug
+;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
+;;;; therefore not mapped
+;; run                                                  ;;{F9}
+;; stop                                                 ;;^{F2}
+;; step over                                            ;;{F8}
+;; step in                                              ;;{F7}
+;; step out                                             ;;+{F8}
+;; go till here                                         ;;!{F9}
+;; toogle break                                         ;;^{F8}
+;; break option                                         ;;^+{F8}
+
+
+Hotkey, IfWinActive, ahk_class Notepad++
+;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
+;;;;;;;; move
+Hotkey, !Right   ,AS.MoveNextPostion
+Hotkey, !Left    ,AS.MovePrevPosition
+Hotkey, !+Up     ,AS.SearchCaller
+Hotkey, !+Down   ,AS.JumpToDefinition
+;Hotkey, ^tab    ,AS.NextFileorTab
+;Hotkey, ^+tab   ,AS.PrevFileorTab
+;Hotkey, ^+t     ,AS.ReopenRecentFileorTab
+Hotkey, ^g       ,AS.JumpToLine
+Hotkey, ^\       ,AS.JumpToMatchingBrace
+;Hotkey, ^F3     ,AS.FindWordAtCurrentPosition
+                  
+;;;;;;;; edit     
+Hotkey, ^y       ,AS.Redo
+;Hotkey, ^d      ,AS.DuplicateCurrentLine
+Hotkey, ^+d      ,AS.DeleteCurrentLine
+;Hotkey, ^/      ,AS.CommentWithLineComment
+;Hotkey, ^+/     ,AS.CommentWithBlockComment
+;Hotkey, ^+u     ,AS.ToggleUpperOrLowerCase
+;Hotkey, ^+i     ,AS.IndentBlock
+Hotkey, ^+!i     ,AS.IndentFile
+;;;;;;;;
+Hotkey, IfWinActive
+Goto, AS.EndOfFile
+
+
+;;;;;;;; move
+AS.MoveNextPostion:              ;;!Right::    ;;move next position
+    sendinput, ^!{Right}
+    return
+
+AS.MovePrevPosition:             ;;!Left::     ;;move previous position
+    sendinput, ^!{Left}
+    return
+
+AS.SearchCaller:                 ;;!+Up::      ;;search caller
+    sendinput, !{F7}
+    return
+
+AS.JumpToDefinition:             ;;!+Down::    ;;jump to definition
+    sendinput, ^b
+    return
+
+AS.NextFileorTab:                ;;^tab::      ;;next file or tab
+    sendinput, ^{tab}
+    return
+
+AS.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
+    sendinput, ^+{tab}
+    return
+
+AS.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
+    sendinput, ^+t
+    return
+
+AS.JumpToLine:                   ;;^g::        ;;goto line
+    sendinput, ^g
+    return
+
+AS.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
+    sendinput, ^+m
+    return
+
+AS.FindWordAtCurrentPosition:    ;;^F3::       ;;find word at current cursor
+    sendinput, ^{F3}
+    return
+;;;;;;;; edit
+AS.Redo:                         ;;^y::        ;;redo
+    sendinput, ^+z
+    return
+
+AS.DuplicateCurrentLine:         ;;^d::        ;;duplicate line
+    sendinput, ^d
+    return
+
+AS.DeleteCurrentLine:            ;;^+d::       ;;delete line
+    sendinput, ^y
+    return
+
+AS.CommentWithLineComment:       ;;^/::        ;;comment with line-comment
+    sendinput, ^/
+    return
+
+AS.CommentWithBlockComment:      ;;^+/::       ;;comment with block-comment
+    sendinput, ^+/
+    return
+
+AS.ToggleUpperOrLowerCase:       ;;^+u::       ;;toggle upper or lower case
+    sendinput, ^+u
+    return
+
+AS.IndentBlock:                  ;;^!i::       ;;indent block
+    sendinput, ^!i
+    return
+
+AS.IndentFile:                   ;;^+!::       ;;indent file
+    sendinput, ^!l
+    return
+
+    
+AS.EndOfFile:

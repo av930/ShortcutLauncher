@@ -144,3 +144,39 @@ return
     Gui, Show, , Launcher
     Gui, Font
 Return
+
+
+;; HotKey Trigger
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;#UseHook OFF ;;prevent recursive key generation 
+;;;; move
+!Right::    ;;move next position
+!Left::     ;;move previous position
+!+Up::      ;;search caller
+!+Down::    ;;jump to definition
+;^tab::      ;;next file or tab
+;^+tab::     ;;previous file or tab
+^+t:        ;;reopen recent closed tab or file
+^g::        ;;goto line
+;^\::        ;;goto matching brace toggle
+^F3::       ;;find word at current cursor
+
+;;;; edit
+^y::        ;;redo
+^d::        ;;duplicate line
+^+d::       ;;delete line
+^/::        ;;comment with line-comment
+^+/::       ;;comment with block-comment
+^+u::       ;;toggle upper or lower case
+^!i::       ;;indent block
+^+!i::      ;;indent file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    Gosub ProgramSelect
+
+    if (ProgramKeyMapper(MAP, A_ThisHotkey) = false)
+        if (ProgramKeyMapper(OS, A_ThisHotkey) = false)
+        { ;;;; nothing matched
+            SoundPlay *-1
+        }
+return
