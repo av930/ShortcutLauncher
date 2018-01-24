@@ -47,9 +47,9 @@ getKeyfromObj(obj) {
 
 ProgramKeyMapper( ProgramKey, Command ) {
     ;; debug
-    Str_MAP := Obj2Str(ProgramKey)
-    WinGetTitle, Str_WIN, A
-    Msgbox, ,%Str_WIN%, %Str_MAP%
+    ;Str_MAP := Obj2Str(ProgramKey)
+    ;WinGetTitle, Str_WIN, A
+    ;Msgbox, ,%Str_WIN%, %Str_MAP%
     
     If ( ProgramKey[Command] ) {
         If ProgramKey[Command] is alnum {
@@ -68,7 +68,7 @@ ProgramKeyMapper( ProgramKey, Command ) {
 
 
 ProgramSelect:
-
+    MAP := OS
     if WinActive("ahk_exe studio64.exe")        {
         MAP := AS
     }else if WinActive("ahk_exe chrome.exe")    {
@@ -92,9 +92,13 @@ PopupGoPost:
     Gui, Submit
     Gui, Destroy
 
+    ;; sync-up command from editor & list control
+    if LastQSQuery <> 
+        Query := LastQSQuery
+    
+        LastQSQuery := Query
 
-    ;;IfWinActive, ahk_exe studio64.exe
-    LastQSQuery := Query
+    ;MsgBox, % LastQSQuery " , " Query
 
     if (ProgramKeyMapper(MAP, Query) = false)
         if (ProgramKeyMapper(OS, Query) = false)
@@ -110,15 +114,16 @@ return
 
 AutoComplete:
 	Gui, submit, nohide
+  
 	loop, parse, list, | ; parse the list to see if the name is in it
 	{
-		if A_LoopField contains %Query%
+		if A_LoopField contains % Query
 			newlist .= A_LoopField . "|" ; populate the new list
 	}
 
 	if newlist =
 		newlist := list
-	GuiControl,, ColorChoice, |%newlist% ; by starting with | it'll replace the list in total
+	GuiControl,, LastQSQuery, |%newlist% ; by starting with | it'll replace the list in total
 	newlist := ; to clear the variable for population later on
     
 return
@@ -130,11 +135,11 @@ return
     list := getKeyfromObj(MAP)
     
     Gui, Destroy
-    Gui, Font, s11, Consolas
-    ;Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%
-    Gui, Add, Edit, x5 y5 w300 h25 vQuery, %LastQSQuery%
+    Gui, Font, s12, Consolas
+    ;Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%,
+    Gui, Add, Edit, x5 y5 w300 h25 vQuery gAutoComplete, %LastQSQuery%
     Gui, Add, Button, x310 y5 w25 h25 +Default gPopupGoPost,
-    Gui, Add, ListBox, x5 y40 w328 vColorChoice r6, % list
+    Gui, Add, ListBox, x5 y40 w328 vLastQSQuery r6, % list
     ;Gui, Show, w240 h35, Launcher
     Gui, Show, , Launcher
     Gui, Font
