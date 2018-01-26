@@ -50,14 +50,20 @@ ProgramKeyMapper( ProgramKey, Command ) {
     ;Str_MAP := Obj2Str(ProgramKey)
     ;WinGetTitle, Str_WIN, A
     ;Msgbox, ,%Str_WIN%, %Str_MAP%
+    MsgBox, % Command . "," . ProgramKey[Command] 
+    MsgBox, % Command . "," . ProgramKey[Command][x]
+    MsgBox, % Command . "," . ProgramKey[Command][1]
+    MsgBox, % Command . "," . ProgramKey[Command][2]
+    
     
     If ( ProgramKey[Command] ) {
-        If ProgramKey[Command] is alnum {
+        If ProgramKey[Command][x] is alnum {
             ;;Send % ProgramKey[Command]
-            Exec( ProgramKey[Command] )
+            MsgBox, % ProgramKey[Command]
+            ;;Exec( ProgramKey[Command][x] )
         }
         Else { ;;;; function matched
-            ProgramKey[Command].Call()
+            ProgramKey[Command][x].Call()
         }
         return true ;; no-more run next step
     }
@@ -144,39 +150,3 @@ return
     Gui, Show, , Launcher
     Gui, Font
 Return
-
-
-;; HotKey Trigger
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;#UseHook OFF ;;prevent recursive key generation 
-;;;; move
-!Right::    ;;move next position
-!Left::     ;;move previous position
-!+Up::      ;;search caller
-!+Down::    ;;jump to definition
-;^tab::      ;;next file or tab
-;^+tab::     ;;previous file or tab
-^+t:        ;;reopen recent closed tab or file
-^g::        ;;goto line
-;^\::        ;;goto matching brace toggle
-^F3::       ;;find word at current cursor
-
-;;;; edit
-^y::        ;;redo
-^d::        ;;duplicate line
-^+d::       ;;delete line
-^/::        ;;comment with line-comment
-^+/::       ;;comment with block-comment
-^+u::       ;;toggle upper or lower case
-^!i::       ;;indent block
-^+!i::      ;;indent file
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-    Gosub ProgramSelect
-
-    if (ProgramKeyMapper(MAP, A_ThisHotkey) = false)
-        if (ProgramKeyMapper(OS, A_ThisHotkey) = false)
-        { ;;;; nothing matched
-            SoundPlay *-1
-        }
-return

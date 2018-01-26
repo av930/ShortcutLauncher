@@ -36,16 +36,16 @@ _OSTextEditor := "D:\OneDrive\_MyProgram\_IDEditor\Notepad++\Notepad++.exe "
 
 
 ;;;;;;;; Windows OS
-OS.c                    := "Run, c:\"
-OS.d                    := "Run, d:\"
-OS.cmd                  := Func( "_OSAdmin" ).Bind( "cmd.exe" )
-OS.control              := "Run, Control Panel"
-OS.ip                   := Func( "_OSCopyText" ).Bind( A_IPAddress1 )
-OS.pf                   := "Run," . A_ProgramFiles
-OS.pfa                  := Func( "_OSRunMore" ).Bind( "C:\Program Files\", A_ProgramFiles ) ; Opens both "Program Files" and "Program Files (x86)"
-OS.startup              := Func( "_OSRunMore" ).Bind( "shell:startup" )
-OS.qdir                 := "Run, D:\OneDrive\_MyProgram\_FileBrowser\_Q-Dir_portable\Q-Dir.exe"
-
-;;;;;;;; Autohotkey
-OS.hotkey               := Func( "_OSHotKeys" )
+OS.c                    := ["Run, c:\", "launch explorer"]
+OS.d                    := ["Run, d:\", "launch explorer"]
+OS.cmd                  := [Func( "_OSAdmin" ).Bind( "cmd.exe" ), "launch cmd.exe"]
+OS.control              := ["Run, Control Panel", "launch control panel"]
+OS.ip                   := [Func( "_OSCopyText" ).Bind( A_IPAddress1 ), "copy current IP address"]
+OS.pf                   := ["Run," . A_ProgramFiles, "launch explorer: program files"]
+OS.pfa                  := [Func( "_OSRunMore" ).Bind( "C:\Program Files\", A_ProgramFiles ), "launch explorer"] 
+OS.startup              := [Func( "_OSRunMore" ).Bind( "shell:startup" ) , "launch explorer"]
+OS.qdir                 := ["Run, D:\OneDrive\_MyProgram\_FileBrowser\_Q-Dir_portable\Q-Dir.exe" , "launch explorer"]
+                           
+;;;;;;;; Autohotkey        
+OS.hotkey               := [Func( "_OSHotKeys" ) , "listup assigned hotkeys"]
 

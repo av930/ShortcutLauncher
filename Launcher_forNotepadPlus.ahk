@@ -1,5 +1,5 @@
 NP := {}
-NP["name"] := "Notepad++"
+NP.name := "Notepad++"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
@@ -33,47 +33,46 @@ _NPAction( Menu, Sleep, Key ) {
 
 
 ;;;;;;;; program
-NP.plist                := "SoundPlay *-1"   ;;project list
-NP.pset                 := "SoundPlay *-1"   ;;project setting
-NP.pconf                := "sendinput, !t `n sendinput, p"  ;;project configuration
-NP.pkey                 := "sendinput, ^+!s"            ;;need to set shortcutKeymap
-NP.pk                   := NP.pkey                      ;;Keymap
-NP.pexit                := "sendinput, !{F4}"           ;;project configuration
-NP.px                   := NP.pexit
+NP.plist                := ["SoundPlay *-1"                                 ,"project list"                                 ]
+NP.pset                 := ["SoundPlay *-1"                                 ,"program setting"                              ]
+NP.pconf                := ["sendinput, !t `n sendinput, p"                 ,"project configuration"                        ]
+NP.pkey                 := ["sendinput, ^+!s"                               ,"program shortcut setting"                     ]
+NP.pk                   := NP.pkey                                                                                          
+NP.pexit                := ["sendinput, !{F4}"                              ,"program exit"                                 ]
+NP.px                   := NP.pexit                                                                                         
 
 
-;;;;;;;; file
-NP.fo                   := "sendinput, ^o"              ;;open
-NP.fr                   := "sendinput, !f `n sendinput, l"          ;;reload & sync
-NP.fsync                := NP.fr
-NP.fc                   := "sendinput, ^w"              ;;close
-NP.fsa                  := "sendinput, ^+s"             ;;save all
-NP.fca                  := "sendinput, ^+w"             ;;close all
-NP.fe                   := "sendinput, !+e"             ;;need to set shortcut, mapped "convert UTF-8"
+;;;;;;;;     file
+NP.fo                   := ["sendinput, ^o"                                  ,"file open"                                   ]
+NP.fr                   := ["sendinput, !f `n sendinput, l"                  ,"reload & sync"                               ]
+NP.fsync                := NP.fr                                                                                            
+NP.fc                   := ["sendinput, ^w"                                  ,"close"                                       ]
+NP.fsa                  := ["sendinput, ^+s"                                 ,"save all"                                    ]
+NP.fca                  := ["sendinput, ^+w"                                 ,"close all"                                   ]
+NP.fe                   := ["sendinput, !+e"                                  ,"need to set shortcut, mapped convert UTF-8" ]
 
 
 ;;;;;;;; symbol search
-NP.sf                   := "sendinput, ^+f",            ;;search symbol all space
-NP.sr                   := "sendinput, ^h"              ;;replace symbol all space
-NP.sfind                := NP.sf                        ;;search/replace project-range
-NP.sreplace             := NP.sf                        ;;replace smartly
-
+NP.sf                   := ["sendinput, ^+f"                                 ,"search symbol all space"                     ]
+NP.sr                   := ["sendinput, ^h"                                  ,"replace symbol all space"                    ]
+NP.sfind                := NP.sf                                           
+NP.sreplace             := NP.sf                                           
 
 ;;;;;;;; windows, need to install Explorer plugin
-NP.wfull                := "sendinput, {F11}"          ;;toggle full-screen
-NP.w                    := Func( "_NPAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ;;window list
-NP.wedit                := "sendinput, {ESC}{ESC}{ESC}" ;;editor
-NP.wdir                 := "sendinput, ^!+e"            ;;directory view
-NP.wsym                 := "sendinput, !s"              ;;symbol view
-NP.whier                := "SoundPlay *-1"              ;;hierarchy view
-NP.wlog                 := "SoundPlay *-1"              ;;logger
-NP.wdebug               := "SoundPlay *-1"              ;;debugger
+NP.wfull                := ["sendinput, {F11}"                               ,"toggle full-screen"                           ]
+NP.w                    := [Func( "_NPAction" ).Bind( "^+a", 500, "{text}Tool Windows")      ,"window list"                  ]
+NP.wedit                := ["sendinput, {ESC}{ESC}{ESC}"                     ,"editor"                                       ]
+NP.wdir                 := ["sendinput, ^!+e"                                ,"directory view"                               ]
+NP.wsym                 := ["sendinput, !s"                                  ,"symbol view"                                  ]
+NP.whier                := ["SoundPlay *-1"                                  ,"hierarchy view"                               ]
+NP.wlog                 := ["SoundPlay *-1"                                  ,"logger"                                       ]
+NP.wdebug               := ["SoundPlay *-1"                                  ,"debugger"                                     ]
 
 
-;;;; tool, need to install RunMe plugin
-NP.tex                  := Func( "_NPAction" ).Bind( "{F5}", 500, "{text}explorer.exe $(CURRENT_DIRECTORY)")
-NP.tt                   := "sendinput, ^+{F5}"           ;;explorer using plugin
-NP.cmd                  := "sendinput, ^!{F5}"           ;;command line interface
+;;;; tool, need to install [RunMe plugin
+NP.tex                  := [Func( "_NPAction" ).Bind( "{F5}", 500, "{text}explorer.exe $(CURRENT_DIRECTORY)"), ""           ]
+NP.tt                   := ["sendinput, ^+{F5}"                              ,"explorer using plugin"                       ]
+NP.cmd                  := ["sendinput, ^!{F5}"                              ,"command line interface"                      ]
 
 
 
@@ -83,9 +82,9 @@ NP.cmd                  := "sendinput, ^!{F5}"           ;;command line interfac
 
 ;;;;;;;; edit & etc,
 ;;;; functionality possible to map abbreviation instead of shortcut
-NP.efo                  := "sendinput, !+0"             ;;fold open, unfold
-NP.efc                  := "sendinput, !0"              ;;fold all
-NP.eval                 := "SoundPlay *-1"              ;;evaluate expression for debugging
+NP.efo                  := ["sendinput, !+0"             ,"fold open, unfold"                                                 ]
+NP.efc                  := ["sendinput, !0"              ,"fold all"                                                          ]
+NP.eval                 := ["SoundPlay *-1"              ,"evaluate expression for debugging"                                 ]
 
 
 ;;;;;;;; move
@@ -143,5 +142,5 @@ NP.CommentWithBlockComment:      ;;^+/::       ;;comment with block-comment
     sendinput, % (_t2 := !_t2) ? ("^+q") : ("")
     return
 
-    
+
 NP.EndOfFile:

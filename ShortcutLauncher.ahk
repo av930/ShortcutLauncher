@@ -36,12 +36,31 @@ Return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Common logic ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-getKeyfromObj(obj) { 
-    For e in obj {
-        if e is alpha
-            r .= e "|"
+getKeyfromObj(obj) {
+
+    Linear := True
+
+    While (A_Index != obj.MaxIndex()) {
+        if !(obj.hasKey(A_Index)) {
+            Linear := False
+            break
+        }
     }
-    return trim(r, ", ")
+
+    For e, v in obj {
+        if (Linear == False) {
+            if (IsObject(v))
+               r .= Format("{:-10}: {:-10}|", e, getKeyfromObj(v))
+               ;r .= e ":" getKeyfromObj(v) "|"
+               ;r .= "|"
+        } else {
+            if e = 2
+                r .= v
+
+        }
+    }
+    return Linear ? trim(r, ", ")
+                 : trim(r, ", ")
 }
 
 
@@ -50,14 +69,14 @@ ProgramKeyMapper( ProgramKey, Command ) {
     ;Str_MAP := Obj2Str(ProgramKey)
     ;WinGetTitle, Str_WIN, A
     ;Msgbox, ,%Str_WIN%, %Str_MAP%
-    
+
     If ( ProgramKey[Command] ) {
-        If ProgramKey[Command] is alnum {
+        If ProgramKey[Command][1] is alnum {
             ;;Send % ProgramKey[Command]
-            Exec( ProgramKey[Command] )
+            Exec( ProgramKey[Command][1] )
         }
         Else { ;;;; function matched
-            ProgramKey[Command].Call()
+            ProgramKey[Command][1].Call()
         }
         return true ;; no-more run next step
     }
@@ -76,9 +95,9 @@ ProgramSelect:
     }else if WinActive("ahk_exe notepad++.exe") {
         MAP := NP
     }
-    
+
     ;debug array
-    ;MsgBox, 64, % MAP["name"],% MAP.ps . "`n"
+    ;MsgBox, 64, % MAP.name ,% MAP.ps . "`n"
     ;                        . MAP.c . "`n"
     ;                        . MAP.h . "`n"
     ;                        . MAP["^tab"]
@@ -93,9 +112,11 @@ PopupGoPost:
     Gui, Destroy
 
     ;; sync-up command from editor & list control
-    if LastQSQuery <> 
-        Query := LastQSQuery
-    
+    if LastQSQuery <>
+    {
+        Query := trim(SubStr(LastQSQuery, 1, 10), " ")
+    }
+
         LastQSQuery := Query
 
     ;MsgBox, % LastQSQuery " , " Query
@@ -114,7 +135,7 @@ return
 
 AutoComplete:
 	Gui, submit, nohide
-    
+
 	loop, parse, list, | ; parse the list to see if the name is in it
 	{
 		if A_LoopField contains % Query
@@ -125,7 +146,7 @@ AutoComplete:
 		newlist := list
 	GuiControl,, LastQSQuery, |%newlist% ; by starting with | it'll replace the list in total
 	newlist := ; to clear the variable for population later on
-    
+
 return
 ;; Abbreviation Trigger
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -133,13 +154,14 @@ return
 #w::
     Gosub ProgramSelect
     list := getKeyfromObj(MAP)
-    
+
     Gui, Destroy
     Gui, Font, s12, Consolas
     ;Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%,
-    Gui, Add, Edit, x5 y5 w300 h25 vQuery gAutoComplete, %LastQSQuery%
-    Gui, Add, Button, x310 y5 w25 h25 +Default gPopupGoPost,
-    Gui, Add, ListBox, x5 y40 w328 vLastQSQuery r12, % list
+    Gui, Add, Edit, x5 y5 w600 h25 vQuery gAutoComplete, %LastQSQuery%
+    Gui, Add, ListBox, x5 y40 w628 vLastQSQuery r12, % list
+    Gui, Add, Button, x610 y5 w25 h25 +Default gPopupGoPost,
+
     ;Gui, Show, w240 h35, Launcher
     Gui, Show, , Launcher
     Gui, Font

@@ -1,10 +1,10 @@
 CH := {}
-CH["name"] := "Chrome"
+CH.name := "Chrome"
 
  ; program setting
-CH.ps                   := "sendinput, !d `n sendinput, chrome://settings"
-CH.h                    := "sendinput, !d `n sendinput, chrome://history"
-CH.c                    := "Run, d:\"
+CH.ps                   := ["sendinput, !d `n sendinput, chrome://settings","program settings"]
+CH.h                    := ["sendinput, !d `n sendinput, chrome://history"     ,"history view"]
+CH.c                    := ["Run, d:\"                                     ,""]
 
 /*
 { ;;;; definition of move, edit, debug
