@@ -1,5 +1,5 @@
 AS := {}
-AS.name := "AndroidStudio"
+AS["name"] := "AndroidStudio"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
@@ -21,9 +21,9 @@ _ASAction( Menu, Sleep, Key ) {
 ;;;; count functionality ends with ~c (means count)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Example
-;; AS.fsa               := ["sendinput, ^s"                                                              ,"save all"]
-;; AS.fca               := ["sendinput, ^+a `n sleep, 1000 `n sendinput, {text}Close All "              ,"close all"]
-;; AS.fe                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}File Encoding" )           , file encoding"]
+;; AS.fsa               := ["sendinput, ^s"                                 ,"save all"                              ]
+;; AS.fca               := ["sendinput, ^+a `n sendinput, {text}Close All " ,"close all"                             ]
+;; AS.fe                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"file encoding"]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -31,7 +31,7 @@ _ASAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-AS.plist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}manage projects.." ) ,        "project list"]
+AS.plist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}manage projects.." )         ,"project list"]
 AS.pset                 := ["sendinput, ^!s "                                                     ,"program settings"]
 AS.pconf                := ["sendinput, ^!+s"                                                ,"project configuration"]
 AS.pkey                 := [Func( "_ASAction" ).Bind( "^!s", 1200, "{text}Keymap" )       ,"program shortcut setting"]
@@ -42,7 +42,7 @@ AS.px                   := AS.pexit
 
 ;;;;;;;; file
 AS.fo                   := ["sendinput, ^+n"                                                             ,"file open"]
-AS.fr                   := ["sendinput, ^!y"                                                   ," file reload & sync"]
+AS.fr                   := ["sendinput, ^!y"                                                    ,"file reload & sync"]
 AS.fsync                := AS.fr
 AS.fc                   := ["sendinput, ^{F4}"                                                          ,"file close"]
 AS.fsa                  := ["sendinput, ^s"                                                          ,"file all save"]
@@ -73,7 +73,7 @@ AS.cp                   := ["sendinput, ^{space}"                               
 AS.ci                   := ["sendinput, ^!o"                                     ,"coding, class import optimization"]
 AS.cfix                 := ["sendinput, !{enter}"                                           ,"coding, error auto fix"]
 AS.cerr                 := ["sendinput, ^{F1}"                                                   ,"coding, error tip"]
-AS.ct                   := ["sendinput, !{enter}"           ,"code generation, override, implement, constructor, etc"]
+AS.ct                   := ["sendinput, !{enter}"                ,"code generation, override, implement, constructor"]
 
 
 ;;;;;;;; build
@@ -128,41 +128,42 @@ AS.eval                 := ["sendinput, !{F8}"                                  
 ;;;;;;;; debug
 ;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
 ;;;; therefore not mapped
-;; run                                                  ;;{F9}
-;; stop                                                 ;;^{F2}
-;; step over                                            ;;{F8}
-;; step in                                              ;;{F7}
-;; step out                                             ;;+{F8}
-;; go till here                                         ;;!{F9}
-;; toogle break                                         ;;^{F8}
-;; break option                                         ;;^+{F8}
+;; run                  ;;{F9}
+;; stop                 ;;^{F2}
+;; step over            ;;{F8}
+;; step in              ;;{F7}
+;; step out             ;;+{F8}
+;; go till here         ;;!{F9}
+;; toogle break         ;;^{F8}
+;; break option         ;;^+{F8}
 
 
 Hotkey, IfWinActive, ahk_exe studio64.exe
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
-   Hotkey, $!Right   ,AS.MoveNextPostion
-   Hotkey, $!Left    ,AS.MovePrevPosition
-   Hotkey, $!+Up     ,AS.SearchCaller
-   Hotkey, $!+Down   ,AS.JumpToDefinition
-;;;Hotkey, $^tab     ,AS.NextFileorTab
-;;;Hotkey, $^+tab    ,AS.PrevFileorTab
-;;;Hotkey, $^+t      ,AS.ReopenRecentFileorTab
-;;;Hotkey, $^g       ,AS.JumpToLine
-   Hotkey, $^\       ,AS.JumpToMatchingBrace
-;;;Hotkey, $^F3      ,AS.FindWordAtCurrentPosition
-
-;;;;;;;;;;; edit
-   Hotkey, $^y       ,AS.Redo
-;;;Hotkey, $^d       ,AS.DuplicateCurrentLine
-   Hotkey, $^+d      ,AS.DeleteCurrentLine
-;;;Hotkey, $^/       ,AS.CommentWithLineComment
-;;;Hotkey, $^+/      ,AS.CommentWithBlockComment
-;;;Hotkey, $^+u      ,AS.ToggleUpperOrLowerCase
-;;;Hotkey, $^+i      ,AS.IndentBlock
-   Hotkey, $^+!i     ,AS.IndentFile
+   Hotkey, $!Right      ,AS.MoveNextPostion
+   Hotkey, $!Left       ,AS.MovePrevPosition
+   Hotkey, $!+Up        ,AS.SearchCaller
+   Hotkey, $!+Down      ,AS.JumpToDefinition
+;;;Hotkey, $^tab        ,AS.NextFileorTab
+;;;Hotkey, $^+tab       ,AS.PrevFileorTab
+;;;Hotkey, $^+t         ,AS.ReopenRecentFileorTab
+;;;Hotkey, $^g          ,AS.JumpToLine
+   Hotkey, $^\          ,AS.JumpToMatchingBrace
+;;;Hotkey, $^F3         ,AS.FindWordAtCurrentPosition
+                        
+;;;;;;;;;;; edit        
+   Hotkey, $^y          ,AS.Redo
+;;;Hotkey, $^d          ,AS.DuplicateCurrentLine
+   Hotkey, $^+d         ,AS.DeleteCurrentLine
+;;;Hotkey, $^/          ,AS.CommentWithLineComment
+;;;Hotkey, $^+/         ,AS.CommentWithBlockComment
+;;;Hotkey, $^+u         ,AS.ToggleUpperOrLowerCase
+;;;Hotkey, $^+i         ,AS.IndentBlock
+   Hotkey, $^+!i        ,AS.IndentFile
 ;;;;;;;;
 Hotkey, IfWinActive
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Goto, AS.EndOfFile
 
 
