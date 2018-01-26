@@ -89,29 +89,29 @@ NP.eval                 := "SoundPlay *-1"              ;;evaluate expression fo
 
 
 ;;;;;;;; move
-Hotkey, IfWinActive, ahk_class studio64
+Hotkey, IfWinActive, ahk_exe notepad++.exe
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
-;Hotkey, !Right   ,NP.MoveNextPostion
-;Hotkey, !Left    ,NP.MovePrevPosition
-;Hotkey, !+Up     ,NP.SearchCaller
-;Hotkey, !+Down   ,NP.JumpToDefinition
-Hotkey, ^tab      ,NP.NextFileorTab
-Hotkey, ^+tab     ,NP.PrevFileorTab
-;Hotkey, ^+t      ,NP.ReopenRecentFileorTab
-;Hotkey, ^g       ,NP.JumpToLine
-Hotkey, ^\        ,NP.JumpToMatchingBrace
-;Hotkey, ^F3      ,NP.FindWordAtCurrentPosition
+;;;Hotkey, $!Right   ,NP.MoveNextPostion
+;;;Hotkey, $!Left    ,NP.MovePrevPosition
+;;;Hotkey, $!+Up     ,NP.SearchCaller
+;;;Hotkey, $!+Down   ,NP.JumpToDefinition
+;;;Hotkey, $^tab     ,NP.NextFileorTab
+;;;Hotkey, $^+tab    ,NP.PrevFileorTab
+;;;Hotkey, $^+t      ,NP.ReopenRecentFileorTab
+;;;Hotkey, $^g       ,NP.JumpToLine
+   Hotkey, $^\       ,NP.JumpToMatchingBrace
+;;;Hotkey, $^F3      ,NP.FindWordAtCurrentPosition
 
-;;;;;;;; edit
-;Hotkey, ^y       ,NP.Redo
-;Hotkey, ^d       ,NP.DuplicateCurrentLine
-Hotkey, ^+d       ,NP.DeleteCurrentLine
-Hotkey, ^/        ,NP.CommentWithLineComment
-Hotkey, ^+/       ,NP.CommentWithBlockComment
-;Hotkey, ^+u      ,NP.ToggleUpperOrLowerCase
-;Hotkey, ^+i      ,NP.IndentBlock
-;Hotkey, ^+!i     ,NP.IndentFile
+;;;;;;;;;; edit
+;;;Hotkey, $^y       ,NP.Redo
+;;;Hotkey, $^d       ,NP.DuplicateCurrentLine
+   Hotkey, $^+d      ,NP.DeleteCurrentLine
+   Hotkey, $^/       ,NP.CommentWithLineComment
+   Hotkey, $^+/      ,NP.CommentWithBlockComment
+;;;Hotkey, $^+u      ,NP.ToggleUpperOrLowerCase
+;;;Hotkey, $^+i      ,NP.IndentBlock
+;;;Hotkey, $^+!i     ,NP.IndentFile
 ;;;;;;;;
 Hotkey, IfWinActive
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -126,7 +126,7 @@ NP.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
     sendinput, ^+{tab}
     return
 NP.JumpToMatchingBrace:          ;;^\::        ;;jump to matching brace toggle
-    sendinput, ^+m
+    sendinput, ^b
     return
 
 
@@ -135,11 +135,12 @@ NP.DeleteCurrentLine:            ;;^+d::       ;;delete line
     return
 
 NP.CommentWithLineComment:       ;;^/::        ;;comment with line-comment
-    sendinput, ^+k
+    ;;Msgbox, % A_ThisHotkey
+    sendinput, % (_t1 := !_t1) ? ("^k") : ("^+k")
     return
 
 NP.CommentWithBlockComment:      ;;^+/::       ;;comment with block-comment
-    sendinput, ^+q
+    sendinput, % (_t2 := !_t2) ? ("^+q") : ("")
     return
 
     

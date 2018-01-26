@@ -114,7 +114,7 @@ return
 
 AutoComplete:
 	Gui, submit, nohide
-  
+    
 	loop, parse, list, | ; parse the list to see if the name is in it
 	{
 		if A_LoopField contains % Query

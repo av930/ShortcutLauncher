@@ -64,7 +64,7 @@ AS.sf                   := "sendinput, ^+f",            ;;search symbol all spac
 AS.sr                   := "sendinput, ^+r"             ;;replace symbol all space
 AS.sfind                := "sendinput, ^+f"             ;;search/replace project-range
 AS.sreplace             := "sendinput, ^+r"             ;;replace smartly
-AS.ssample              := "sendinput, !{F8}"           ;;search sample code
+AS.ssample              := "sendinput, !{F8}"           ;;search sample code in web
 
 
 ;;;;;;;; coding
@@ -81,8 +81,8 @@ AS.bb                   := Func( "_ASAction" ).Bind( "^+a", 500, "{text}Build Ap
 AS.bp                   := "sendinput, ^{F9}"           ;;build project
 AS.brun                 := Func( "_ASAction" ).Bind( "^+a", 500, "{text}Run Run/Debug") ;;build & run
 AS.br                   := AS.brun
-AS.bre                  := Func( "_ASAction" ).Bind( "^+a", 500, "{text}Rebuild Project") ;;rebuild
-AS.bc                   := "sendinput, ^+`` `n sendinput, c"    ;;clean
+AS.brb                  := Func( "_ASAction" ).Bind( "^+a", 500, "{text}Rebuild Project") ;;rebuild
+AS.bc                   := Func( "_ASAction" ).Bind( "^+a", 500, "Clean Project" ) ;;
 AS.bd                   := "sendinput, +{F9}"           ;;start debug
 
 
@@ -138,29 +138,29 @@ AS.eval                 := "sendinput, !{F8}"            ;;evaluate expression f
 ;; break option                                         ;;^+{F8}
 
 
-Hotkey, IfWinActive, ahk_class Notepad++
+Hotkey, IfWinActive, ahk_exe studio64.exe
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
-Hotkey, !Right   ,AS.MoveNextPostion
-Hotkey, !Left    ,AS.MovePrevPosition
-Hotkey, !+Up     ,AS.SearchCaller
-Hotkey, !+Down   ,AS.JumpToDefinition
-;Hotkey, ^tab    ,AS.NextFileorTab
-;Hotkey, ^+tab   ,AS.PrevFileorTab
-;Hotkey, ^+t     ,AS.ReopenRecentFileorTab
-Hotkey, ^g       ,AS.JumpToLine
-Hotkey, ^\       ,AS.JumpToMatchingBrace
-;Hotkey, ^F3     ,AS.FindWordAtCurrentPosition
-                  
-;;;;;;;; edit     
-Hotkey, ^y       ,AS.Redo
-;Hotkey, ^d      ,AS.DuplicateCurrentLine
-Hotkey, ^+d      ,AS.DeleteCurrentLine
-;Hotkey, ^/      ,AS.CommentWithLineComment
-;Hotkey, ^+/     ,AS.CommentWithBlockComment
-;Hotkey, ^+u     ,AS.ToggleUpperOrLowerCase
-;Hotkey, ^+i     ,AS.IndentBlock
-Hotkey, ^+!i     ,AS.IndentFile
+   Hotkey, $!Right   ,AS.MoveNextPostion
+   Hotkey, $!Left    ,AS.MovePrevPosition
+   Hotkey, $!+Up     ,AS.SearchCaller
+   Hotkey, $!+Down   ,AS.JumpToDefinition
+;;;Hotkey, $^tab     ,AS.NextFileorTab
+;;;Hotkey, $^+tab    ,AS.PrevFileorTab
+;;;Hotkey, $^+t      ,AS.ReopenRecentFileorTab
+;;;Hotkey, $^g       ,AS.JumpToLine
+   Hotkey, $^\       ,AS.JumpToMatchingBrace
+;;;Hotkey, $^F3      ,AS.FindWordAtCurrentPosition
+                     
+;;;;;;;;;;; edit      
+   Hotkey, $^y       ,AS.Redo
+;;;Hotkey, $^d       ,AS.DuplicateCurrentLine
+   Hotkey, $^+d      ,AS.DeleteCurrentLine
+;;;Hotkey, $^/       ,AS.CommentWithLineComment
+;;;Hotkey, $^+/      ,AS.CommentWithBlockComment
+;;;Hotkey, $^+u      ,AS.ToggleUpperOrLowerCase
+;;;Hotkey, $^+i      ,AS.IndentBlock
+   Hotkey, $^+!i     ,AS.IndentFile
 ;;;;;;;;
 Hotkey, IfWinActive
 Goto, AS.EndOfFile
@@ -168,7 +168,7 @@ Goto, AS.EndOfFile
 
 ;;;;;;;; move
 AS.MoveNextPostion:              ;;!Right::    ;;move next position
-    sendinput, ^!{Right}
+    sendinput, ^+{Right}
     return
 
 AS.MovePrevPosition:             ;;!Left::     ;;move previous position
