@@ -72,7 +72,7 @@ ProgramKeyMapper( ProgramKey, Command ) {
 
     If ( ProgramKey[Command] ) {
         If ProgramKey[Command][1] is alnum {
-            ;;Send % ProgramKey[Command]
+            ;;Send % ProgramKey[Command][1]
             Exec( ProgramKey[Command][1] )
         }
         Else { ;;;; function matched

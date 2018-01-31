@@ -62,9 +62,11 @@ AS.scaller              := ["sendinput, !{F7}"                                  
 AS.sh                   := ["sendinput, ^+{F7}"                                                   ,"symbol highlight"]
 AS.sf                   := ["sendinput, ^+f",                                           ,"symbol search in all space"]
 AS.sr                   := ["sendinput, ^+r"                                           ,"symbol replace in all space"]
-AS.sfind                := ["sendinput, ^+f"                                ,"symbol search/replace in project-range"]
+AS.sfind                := ["sendinput, ^!+n"                                               ,"goto to symbol by name"]
 AS.sreplace             := ["sendinput, ^+r"                                             ,"symbol in replace smartly"]
 AS.ssample              := ["sendinput, !{F8}"                                   ,"symbol, search sample code in web"]
+AS.sb                   := ["sendinput, {F11}"                                              ,"symbol,toggle bookmark"]
+AS.sbook                := ["sendinput, +{F11}"                                            ,"symbol,manage bookmarks"]
 
 
 ;;;;;;;; coding
@@ -87,12 +89,14 @@ AS.bd                   := ["sendinput, +{F9}"                                  
 
 
 ;;;;;;;; vcs
-AS.vs                   := [""                                                                      "vcs, git status"]
-AS.vh                   := [""                                                                  ,"vcs, log & history"]
-AS.vc                   := [""                                                             ,"vcs, git commit & patch"]
+AS.vs                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show Local Changes")      ,"vcs, git status"]
+AS.vlog                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}show Git repository Log...") ,"vcs, git log"]
+AS.vhis                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
+AS.vc                   := ["sendinput, ^k"                                                        ,"vcs, git commit"]
 AS.va                   := ["sendinput, ^!a"                                                          ,"vcs, git add"]
 AS.vpush                := ["sendinput, ^+k"                                                ,"vcs, git push & upload"]
-AS.vpull                := [""                                                              ,"vcs, git pull & update"]
+AS.vpull                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Pull...")          ,"vcs, git pull & update"]
+AS.vhis                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
 
 
 ;;;;;;;; windows
@@ -106,7 +110,7 @@ AS.wcall                := ["sendinput, ^!h"                                    
 AS.wmsg                 := ["sendinput, !1"                              ,"window, message view listed compile error"]
 AS.wlog                 := ["sendinput, !6"                                               ,"window, log message view"]
 AS.wdebug               := ["sendinput, !5"                                                   ,"window debugger view"]
-
+AS.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")               ,"manage external plugins"]
 
 ;;;;;;;; tool
 AS.tex                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show in Explorer"),          "tool explorer"]
@@ -169,7 +173,7 @@ Goto, AS.EndOfFile
 
 ;;;;;;;; move
 AS.MoveNextPostion:              ;;!Right::    ;;move next position
-    sendinput, ^+{Right}
+    sendinput, ^!{Right}
     return
 
 AS.MovePrevPosition:             ;;!Left::     ;;move previous position
