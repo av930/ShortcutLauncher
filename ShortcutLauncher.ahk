@@ -70,13 +70,24 @@ ProgramKeyMapper( ProgramKey, Command ) {
     ;WinGetTitle, Str_WIN, A
     ;Msgbox, ,%Str_WIN%, %Str_MAP%
 
+    ;;must carefully modify here
     If ( ProgramKey[Command] ) {
-        If ProgramKey[Command][1] is alnum {
-            ;;Send % ProgramKey[Command][1]
-            Exec( ProgramKey[Command][1] )
-        }
-        Else { ;;;; function matched
+
+        if IsObject( ProgramKey[Command][1] ) { ;;expression bracket attachable
             ProgramKey[Command][1].Call()
+        }Else {
+
+            CMD := LTrim(SubStr(ProgramKey[Command][1], 1, 4), " ")
+
+            If CMD is alnum
+            { ;;traditional bracket not must be next line
+                ;;Send % ProgramKey[Command][1]
+                Exec( ProgramKey[Command][1] )
+            }
+            Else ;;;; is hotkey
+            {
+                Send, % ProgramKey[Command][1]
+            }
         }
         return true ;; no-more run next step
     }
@@ -94,6 +105,8 @@ ProgramSelect:
         MAP := CH
     }else if WinActive("ahk_exe notepad++.exe") {
         MAP := NP
+    }else if WinActive("ahk_exe sourceinsight4.exe") {
+        MAP := SI
     }
 
     ;debug array
@@ -107,18 +120,23 @@ return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Handler ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+AddProfile: ;;mouse control
+If A_GuiEvent = Normal
+ return
+
 PopupGoPost:
     Gui, Submit
     Gui, Destroy
 
     ;; sync-up command from editor & list control
     if LastQSQuery <>
-    {
+    {  ;;; command is within 10 characters
         Query := trim(SubStr(LastQSQuery, 1, 10), " ")
     }
 
-        LastQSQuery := Query
-
+    LastQSQuery := Query
+    ;; Mouse double-click is not working, need some delay
+    sleep 200
     ;MsgBox, % LastQSQuery " , " Query
 
     if (ProgramKeyMapper(MAP, Query) = false)
@@ -133,23 +151,44 @@ PopupGoPost:
         }
 return
 
+
 AutoComplete:
 	Gui, submit, nohide
 
 	loop, parse, list, | ; parse the list to see if the name is in it
 	{
+        startingMatch := InStr(A_LoopField, Query, false, 1, 1)
+        if ( startingMatch == 1 ){
+            prelist .= A_LoopField . "|" ;match starting string
+            continue
+        }
 		if A_LoopField contains % Query
-			newlist .= A_LoopField . "|" ; populate the new list
+			contentlist .= A_LoopField . "|" ; populate the new list
 	}
+
+    newlist := prelist . contentlist
 
 	if newlist =
 		newlist := list
+
 	GuiControl,, LastQSQuery, |%newlist% ; by starting with | it'll replace the list in total
 	newlist := ; to clear the variable for population later on
+    prelist :=
+    contentlist :=
 
 return
+
+
 ;; Abbreviation Trigger
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;static hotkey define
+#IfWinActive, ahk_class AutoHotkeyGUI
+$Up::ControlSend, ListBox1, {Up}, % "Launcher - " . MAP["name"]
+$Down::ControlSend, ListBox1, {Down}, % "Launcher - " . MAP["name"]
+;Down::ControlFocus, ListBox1, % "Launcher - " . MAP["name"]
+return
+#ifWinActive
+
 #q::
 #w::
     Gosub ProgramSelect
@@ -159,10 +198,10 @@ return
     Gui, Font, s12, Consolas
     ;Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%,
     Gui, Add, Edit, x5 y5 w600 h25 vQuery gAutoComplete, %LastQSQuery%
-    Gui, Add, ListBox, x5 y40 w628 vLastQSQuery r12, % list
+    Gui, Add, ListBox, x5 y40 w628 vLastQSQuery r12 gAddProfile,  % list
     Gui, Add, Button, x610 y5 w25 h25 +Default gPopupGoPost,
 
     ;Gui, Show, w240 h35, Launcher
-    Gui, Show, , Launcher
+    Gui, Show, , % "Launcher - " . MAP["name"]
     Gui, Font
 Return

@@ -1,5 +1,5 @@
 AS := {}
-AS["name"] := "AndroidStudio"
+AS["name"] := "AndroidStudio v3.0"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
@@ -21,9 +21,10 @@ _ASAction( Menu, Sleep, Key ) {
 ;;;; count functionality ends with ~c (means count)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Example
-;; AS.fsa               := ["sendinput, ^s"                                 ,"save all"                              ]
-;; AS.fca               := ["sendinput, ^+a `n sendinput, {text}Close All " ,"close all"                             ]
-;; AS.fe                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"file encoding"]
+;; SI.fa                := ["^s"                                                                            ,"hotkey"]
+;; SI.fb                := ["sendinput, ^s"                                                         ,"single command"]
+;; SI.fc                := ["sendinput, ^+a `n sleep 500 `nsendinput, {text}Close All "             ,"multi commands"]
+;; SI.fd                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"function call"]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,90 +33,90 @@ _ASAction( Menu, Sleep, Key ) {
 
 ;;;;;;;; program
 AS.plist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}manage projects.." )         ,"project list"]
-AS.pset                 := ["sendinput, ^!s "                                                     ,"program settings"]
-AS.pconf                := ["sendinput, ^!+s"                                                ,"project configuration"]
+AS.pset                 := ["^!s"                                                                 ,"program settings"]
+AS.pconf                := ["^!+s"                                                           ,"project configuration"]
 AS.pkey                 := [Func( "_ASAction" ).Bind( "^!s", 1200, "{text}Keymap" )       ,"program shortcut setting"]
 AS.pk                   := AS.pkey
-AS.pexit                := ["sendinput, !{F4}"                                                        ,"project exit"]
+AS.pexit                := ["!{F4}"                                                                   ,"project exit"]
 AS.px                   := AS.pexit
 
 
 ;;;;;;;; file
-AS.fo                   := ["sendinput, ^+n"                                                             ,"file open"]
-AS.fr                   := ["sendinput, ^!y"                                                    ,"file reload & sync"]
+AS.fo                   := ["^+n"                                                                        ,"file open"]
+AS.fr                   := ["^!y"                                                               ,"file reload & sync"]
 AS.fsync                := AS.fr
-AS.fc                   := ["sendinput, ^{F4}"                                                          ,"file close"]
-AS.fsa                  := ["sendinput, ^s"                                                          ,"file all save"]
+AS.fc                   := ["^{F4}"                                                                     ,"file close"]
+AS.fsa                  := ["^s"                                                                     ,"file all save"]
 AS.fca                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Close All" )               ,"file all close"]
 AS.fe                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}file encoding" )            ,"file encoding"]
 
 
 ;;;;;;;; symbol search
-AS.sync                 := ["sendinput, ^!y"                                           ,"symbol sync-up or file sync"]
-AS.stype                := ["sendinput, ^+b"                                                      ,"symbol type jump"]
-AS.spre                 := ["sendinput, ^+i"                                      ,"symbol symbol-definition preview"]
-AS.shelp                := ["sendinput, +{F1}"                                    ,"symbol help in external document"]
-AS.sjump                := ["sendinput, ^b"                                                 ,"symbol definition jump"]
+AS.sync                 := ["^!y"                                                      ,"symbol sync-up or file sync"]
+AS.stype                := ["^+b"                                                                 ,"symbol type jump"]
+AS.spre                 := ["^+i"                                                 ,"symbol symbol-definition preview"]
+AS.shelp                := ["+{F1}"                                               ,"symbol help in external document"]
+AS.sjump                := ["^b"                                                            ,"symbol definition jump"]
 AS.sj                   := AS.sjump
-AS.shier                := ["sendinput, ^h"                                                ,"symbol hierarchy viewer"]
-AS.scaller              := ["sendinput, !{F7}"                                                  ,"symbol caller find"]
-AS.sh                   := ["sendinput, ^+{F7}"                                                   ,"symbol highlight"]
-AS.sf                   := ["sendinput, ^+f",                                           ,"symbol search in all space"]
-AS.sr                   := ["sendinput, ^+r"                                           ,"symbol replace in all space"]
-AS.sfind                := ["sendinput, ^!+n"                                               ,"goto to symbol by name"]
-AS.sreplace             := ["sendinput, ^+r"                                             ,"symbol in replace smartly"]
-AS.ssample              := ["sendinput, !{F8}"                                   ,"symbol, search sample code in web"]
-AS.sb                   := ["sendinput, {F11}"                                              ,"symbol,toggle bookmark"]
-AS.sbook                := ["sendinput, +{F11}"                                            ,"symbol,manage bookmarks"]
+AS.shier                := ["^h"                                                           ,"symbol hierarchy viewer"]
+AS.scaller              := ["!{F7}"                                                             ,"symbol caller find"]
+AS.sh                   := ["^+{F7}"                                                              ,"symbol highlight"]
+AS.sf                   := ["^+f",                                                      ,"symbol search in all space"]
+AS.sr                   := ["^+r"                                                      ,"symbol replace in all space"]
+AS.sfind                := ["^!+n"                                                          ,"goto to symbol by name"]
+AS.sreplace             := ["^+r"                                                        ,"symbol in replace smartly"]
+AS.ssample              := ["!{F8}"                                              ,"symbol, search sample code in web"]
+AS.sb                   := ["{F11}"                                                         ,"symbol,toggle bookmark"]
+AS.sbook                := ["+{F11}"                                                       ,"symbol,manage bookmarks"]
 
 
 ;;;;;;;; coding
-AS.cc                   := ["sendinput, ^{space}"                                     ,"coding, symbol auto complete"]
-AS.cp                   := ["sendinput, ^{space}"                                   "coding, parameter auto complete"]
-AS.ci                   := ["sendinput, ^!o"                                     ,"coding, class import optimization"]
-AS.cfix                 := ["sendinput, !{enter}"                                           ,"coding, error auto fix"]
-AS.cerr                 := ["sendinput, ^{F1}"                                                   ,"coding, error tip"]
-AS.ct                   := ["sendinput, !{enter}"                ,"code generation, override, implement, constructor"]
+AS.cc                   := ["^{space}"                                                ,"coding, symbol auto complete"]
+AS.cp                   := ["^{space}"                                              "coding, parameter auto complete"]
+AS.ci                   := ["^!o"                                                ,"coding, class import optimization"]
+AS.cfix                 := ["!{enter}"                                                      ,"coding, error auto fix"]
+AS.cerr                 := ["^{F1}"                                                              ,"coding, error tip"]
+AS.ct                   := ["!{enter}"                           ,"code generation, override, implement, constructor"]
 
 
 ;;;;;;;; build
 AS.bb                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Build Apk(s)")                 ,"build only"]
-AS.bp                   := ["sendinput, ^{F9}"                                                       ,"build project"]
+AS.bp                   := ["^{F9}"                                                                  ,"build project"]
 AS.brun                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
 AS.br                   := AS.brun
 AS.brb                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Rebuild Project")   ,"build agagin, rebuild"]
 AS.bc                   := [Func( "_ASAction" ).Bind( "^+a", 500, "Clean Project" )                   ," build clean"]
-AS.bd                   := ["sendinput, +{F9}"                                               ,"build and start debug"]
+AS.bd                   := ["+{F9}"                                                          ,"build and start debug"]
 
 
 ;;;;;;;; vcs
 AS.vs                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show Local Changes")      ,"vcs, git status"]
 AS.vlog                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}show Git repository Log...") ,"vcs, git log"]
 AS.vhis                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
-AS.vc                   := ["sendinput, ^k"                                                        ,"vcs, git commit"]
-AS.va                   := ["sendinput, ^!a"                                                          ,"vcs, git add"]
-AS.vpush                := ["sendinput, ^+k"                                                ,"vcs, git push & upload"]
+AS.vc                   := ["^k"                                                                   ,"vcs, git commit"]
+AS.va                   := ["^!a"                                                                     ,"vcs, git add"]
+AS.vpush                := ["^+k"                                                           ,"vcs, git push & upload"]
 AS.vpull                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Pull...")          ,"vcs, git pull & update"]
 AS.vhis                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
 
 
 ;;;;;;;; windows
-AS.wfull                := ["sendinput, ^+{F12}"                                        ,"window, toggle full-screen"]
+AS.wfull                := ["^+{F12}"                                                   ,"window, toggle full-screen"]
 AS.w                    := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"window list"]
-AS.wedit                := ["sendinput, {ESC}"                                                      ,"window, editor"]
-AS.wdir                 := ["sendinput, !1"                                                 ,"window, directory view"]
-AS.wsym                 := ["sendinput, !7"                                                    ,"windiw, symbol view"]
-AS.whier                := ["sendinput, ^h"                                               ,"window, hierarchy viewer"]
-AS.wcall                := ["sendinput, ^!h"                                                     ,"window, call flow"]
-AS.wmsg                 := ["sendinput, !1"                              ,"window, message view listed compile error"]
-AS.wlog                 := ["sendinput, !6"                                               ,"window, log message view"]
-AS.wdebug               := ["sendinput, !5"                                                   ,"window debugger view"]
+AS.wedit                := ["{ESC}"                                                                 ,"window, editor"]
+AS.wdir                 := ["!1"                                                            ,"window, directory view"]
+AS.wsym                 := ["!7"                                                               ,"windiw, symbol view"]
+AS.whier                := ["^h"                                                          ,"window, hierarchy viewer"]
+AS.wcall                := ["^!h"                                                                ,"window, call flow"]
+AS.wmsg                 := ["!1"                                         ,"window, message view listed compile error"]
+AS.wlog                 := ["!6"                                                          ,"window, log message view"]
+AS.wdebug               := ["!5"                                                              ,"window debugger view"]
 AS.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")               ,"manage external plugins"]
 
 ;;;;;;;; tool
 AS.tex                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show in Explorer"),          "tool explorer"]
 AS.tt                   := AS.tex
-AS.tcmd                 := ["sendinput, !{F12}"                                        ,"tool command line interface"]
+AS.tcmd                 := ["!{F12}"                                                   ,"tool command line interface"]
 
 
 
@@ -125,9 +126,9 @@ AS.tcmd                 := ["sendinput, !{F12}"                                 
 
 ;;;;;;;; edit & etc,
 ;;;; functionality possible to map abbreviation instead of shortcut
-AS.efo                  := ["sendinput, ^+="                                                          ,"edit, unfold"]
-AS.efc                  := ["sendinput, ^+-"                                                            ,"edit, fold"]
-AS.eval                 := ["sendinput, !{F8}"                                   ,"evaluate expression for debugging"]
+AS.efo                  := ["^+="                                                                     ,"edit, unfold"]
+AS.efc                  := ["^+-"                                                                       ,"edit, fold"]
+AS.eval                 := ["!{F8}"                                              ,"evaluate expression for debugging"]
 
 ;;;;;;;; debug
 ;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
@@ -155,8 +156,8 @@ Hotkey, IfWinActive, ahk_exe studio64.exe
 ;;;Hotkey, $^g          ,AS.JumpToLine
    Hotkey, $^\          ,AS.JumpToMatchingBrace
 ;;;Hotkey, $^F3         ,AS.FindWordAtCurrentPosition
-                        
-;;;;;;;;;;; edit        
+
+;;;;;;;;;;; edit
    Hotkey, $^y          ,AS.Redo
 ;;;Hotkey, $^d          ,AS.DuplicateCurrentLine
    Hotkey, $^+d         ,AS.DeleteCurrentLine

@@ -29,3 +29,20 @@ CH.sec                  := ["sendinput, ^+n"                                    
 
 
 
+Hotkey, IfWinActive, ahk_exe chrome.exe
+;;;;;;;;;; opengrok utilities
+   ;Hotkey, $!LButton    ,CH.SelectWord
+;;;Hotkey, $^+u         ,NP.ToggleUpperOrLowerCase
+
+;;;;;;;;
+Hotkey, IfWinActive
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Goto, CH.EndOfFile
+
+
+CH.SelectWord:          ;;^\::        ;;jump to matching brace toggle
+    sendinput, ^+{right}
+    return
+
+
+CH.EndOfFile:
