@@ -12,11 +12,32 @@ _OSAdmin( RunList* ) {
         Run *RunAs %RunItem%
 }
 
+_OSWARN( Msg ) { 
+    Msgbox,0x13,Warning,%Msg%,1
+}
+
 
 ;;;; copy text to clipboard
 _OSCopyText( CopyText ) { 
     Clipboard := CopyText
     TrayTip, Launcher, %CopyText% copied to clipboard
+}
+
+
+_OSRunTool( PathCmd, Tool ) { 
+    send %PathCmd%
+    
+    fullName := Clipboard
+    SplitPath, fullName, name, dir, ext, name_noext, drive
+    ;MsgBox, % name . "][". dir . "][" . Tool
+    
+    if (Tool == "explorer")           {
+        run, % dir
+    }else if (Tool == "cmd")          {
+        run, cmd.exe  `/K cd `/d %dir%
+    }else if (Tool == "notepad++")     {
+        run, notepad++.exe %fullname%
+    }
 }
 
 

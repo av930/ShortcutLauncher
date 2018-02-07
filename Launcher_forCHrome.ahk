@@ -31,18 +31,22 @@ CH.sec                  := ["sendinput, ^+n"                                    
 
 Hotkey, IfWinActive, ahk_exe chrome.exe
 ;;;;;;;;;; opengrok utilities
-   ;Hotkey, $!LButton    ,CH.SelectWord
+;;;Hotkey, $!LButton    ,CH.SelectWord
 ;;;Hotkey, $^+u         ,NP.ToggleUpperOrLowerCase
-
+Hotkey, $^.    ,CH.ListBullet
+Hotkey, $^`,   ,CH.ListNumber
 ;;;;;;;;
 Hotkey, IfWinActive
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Goto, CH.EndOfFile
 
 
-CH.SelectWord:          ;;^\::        ;;jump to matching brace toggle
-    sendinput, ^+{right}
+CH.ListBullet:          ;;^\::        ;;Confluence edit-mode, bullet-list
+    sendinput, ^+b
     return
 
+CH.ListNumber:          ;;^\::        ;;Confluence edit-mode, number-list
+    sendinput, ^+n
+    return
 
 CH.EndOfFile:

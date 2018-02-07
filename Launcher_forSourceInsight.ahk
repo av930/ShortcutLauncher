@@ -52,32 +52,32 @@ SI.fe                   := ["!+e"                                               
 
 
 ;;;;;;;; symbol search
-SI.sync                 := ["^!y"                                                      ,"symbol sync-up or file sync"]
-SI.stype                := ["^+b"                                                                 ,"symbol type jump"]
-SI.spre                 := ["^+i"                                                 ,"symbol symbol-definition preview"]
-SI.shelp                := ["+{F1}"                                               ,"symbol help in external document"]
-SI.sjump                := ["^b"                                                            ,"symbol definition jump"]
+SI.sync                 := ["!+s"                                                      ,"symbol sync-up or file sync"]
+SI.stype                := ["!0"                                                                  ,"symbol type jump"]
+SI.spre                 := ["^["                                                  ,"symbol symbol-definition preview"]
+SI.shelp                := ["^!w"                                                               ,"symbol help in web"]
+SI.sjump                := ["^="                                                            ,"symbol definition jump"]
 SI.sj                   := SI.sjump
-SI.shier                := ["^h"                                                           ,"symbol hierarchy viewer"]
-SI.scaller              := ["!{F7}"                                                             ,"symbol caller find"]
-SI.sh                   := ["^+{F7}"                                                              ,"symbol highlight"]
-SI.sf                   := ["^+f",                                                      ,"symbol search in all space"]
-SI.sr                   := ["^+r"                                                      ,"symbol replace in all space"]
-SI.sfind                := ["^!+n"                                                          ,"goto to symbol by name"]
-SI.sreplace             := ["^+r"                                                        ,"symbol in replace smartly"]
-SI.ssample              := ["!{F8}"                                              ,"symbol, search sample code in web"]
-SI.sb                   := ["{F11}"                                                         ,"symbol,toggle bookmark"]
-SI.sbook                := ["+{F11}"                                                       ,"symbol,manage bookmarks"]
+SI.shier                := ["!+h"                                                ,"symbol hierarchy viewer, NEED2MAP"]
+SI.scaller              := ["^`"                                                             ,"symbol jump to caller"]
+SI.sh                   := ["+{F8}"                                                               ,"symbol highlight"]
+SI.sf                   := ["^+f",                                               ,"symbol string search in all space"]
+SI.sr                   := ["^+h"                                                      ,"symbol replace in all space"]
+SI.sfind                := ["^/"                                                               ,"symbol search in DB"]
+SI.sreplace             := ["^'"                                                         ,"symbol in replace smartly"]
+SI.ssample              := SI.shelp
+SI.sb                   := ["^m"                                                            ,"symbol,toggle bookmark"]
+SI.sbook                := ["^+m"                                                          ,"symbol,manage bookmarks"]
 
 
 ;;;;;;;; coding
-SI.cc                   := ["^{space}"                                                ,"coding, symbol auto complete"]
-SI.cp                   := ["^{space}"                                              "coding, parameter auto complete"]
-SI.ci                   := ["^!o"                                                ,"coding, class import optimization"]
-SI.cfix                 := ["!{enter}"                                                      ,"coding, error auto fix"]
-SI.cerr                 := ["^{F1}"                                                              ,"coding, error tip"]
-SI.ct                   := ["!{enter}"                           ,"code generation, override, implement, constructor"]
-
+SI.cc                   := ["^e"                                                      ,"coding, symbol auto complete"]
+SI.ct                   := ["^!s"                                                      ,"code generation, by snippet"]
+SI.cp                   := SI.cc
+/*
+SI.ci                   := [Func( "_OSWARN" ).Bind("Not Supported")              ,"coding, class import optimization"]
+SI.cfix                 := [Func( "_OSWARN" ).Bind("Not Supported")                         ,"coding, error auto fix"]
+SI.cerr                 := [Func( "_OSWARN" ).Bind("Not Supported")                              ,"coding, error tip"]
 
 ;;;;;;;; build
 SI.bb                   := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Build Apk(s)")                 ,"build only"]
@@ -98,25 +98,32 @@ SI.va                   := ["sendinput, ^!a"                                    
 SI.vpush                := ["sendinput, ^+k"                                                ,"vcs, git push & upload"]
 SI.vpull                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Pull...")          ,"vcs, git pull & update"]
 SI.vhis                 := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
-
+*/  
 
 ;;;;;;;; windows
-SI.wfull                := ["sendinput, ^+{F12}"                                        ,"window, toggle full-screen"]
-SI.w                    := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"window list"]
-SI.wedit                := ["sendinput, {ESC}"                                                      ,"window, editor"]
-SI.wdir                 := ["sendinput, !1"                                                 ,"window, directory view"]
-SI.wsym                 := ["sendinput, !7"                                                    ,"windiw, symbol view"]
-SI.whier                := ["sendinput, ^h"                                               ,"window, hierarchy viewer"]
-SI.wcall                := ["sendinput, ^!h"                                                     ,"window, call flow"]
+SI.wfull                := ["{F11}"                                                     ,"window, toggle full-screen"]
+SI.w                    := ["sendinput, !v `n sleep, 300 `n sendinput, p"                              ,"window list"]
+SI.wedit                := ["{ESC}"                                                                 ,"window, editor"]
+SI.wdir                 := ["^p"                                                            ,"window, directory view"]
+SI.wlayout              := ["^]"                                                             ,"window, symbol layout"]
+SI.wsym                 := ["!l"                                                    ,"window, find local symbol view"]
+AS.wsymglobal           := ["^i"                                                         ,"window Global Symbol list"]
+AS.wsg                  := AS.wsymglobal
+SI.whier                := [Func( "_OSWARN" ).Bind("Not Supported")                 ,"window, class hierarchy viewer"]
+SI.wcall                := ["!+h"                                                ,"window, call flow, RelationWindow"]
+/*
 SI.wmsg                 := ["sendinput, !1"                              ,"window, message view listed compile error"]
 SI.wlog                 := ["sendinput, !6"                                               ,"window, log message view"]
 SI.wdebug               := ["sendinput, !5"                                                   ,"window debugger view"]
-SI.wplug                := [Func( "_SIAction" ).Bind( "^+a", 500, "Plugins")               ,"manage external plugins"]
+*/
+SI.wplug                := ["!k"                                                           ,"manage external plugins"]
 
 ;;;;;;;; tool
-SI.tex                  := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Show in Explorer"),          "tool explorer"]
-SI.tt                   := SI.tex
-SI.tcmd                 := ["sendinput, !{F12}"                                        ,"tool command line interface"]
+SI.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                 ,"tool full path copy, NEED2MAP"]
+SI.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"tool launch explorer"]
+SI.tt                   := AS.tex
+SI.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                    ,"tool command line interface"]
+SI.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")                 ,"tool edit with notepad++"]
 
 
 
@@ -126,9 +133,10 @@ SI.tcmd                 := ["sendinput, !{F12}"                                 
 
 ;;;;;;;; edit & etc,
 ;;;; functionality possible to map abbreviation instead of shortcut
-SI.efo                  := ["sendinput, ^+="                                                          ,"edit, unfold"]
-SI.efc                  := ["sendinput, ^+-"                                                            ,"edit, fold"]
-SI.eval                 := ["sendinput, !{F8}"                                   ,"evaluate expression for debugging"]
+SI.efo                  := ["sendinput, ^+="                                                ,"edit, unfold, NEED2MAP"]
+SI.efc                  := ["sendinput, ^+-"                                                  ,"edit, fold, NEED2MAP"]
+;SI.eval                 := ["sendinput, !{F8}"                                  ,"evaluate expression for debugging"]
+SI.eformat              := ["^!l"                                                            ,"indent file, NEED2MAP"]
 
 ;;;;;;;; debug
 ;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
@@ -152,20 +160,20 @@ Hotkey, IfWinActive, ahk_exe sourceinsight4.exe
    Hotkey, $!+Down      ,SI.JumpToDefinition
 ;;;Hotkey, $^tab        ,SI.NextFileorTab
 ;;;Hotkey, $^+tab       ,SI.PrevFileorTab
-;;;Hotkey, $^+t         ,SI.ReopenRecentFileorTab
+   Hotkey, $^+t         ,SI.ReopenRecentFileorTab
 ;;;Hotkey, $^g          ,SI.JumpToLine
    Hotkey, $^\          ,SI.JumpToMatchingBrace
-;;;Hotkey, $^F3         ,SI.FindWordAtCurrentPosition
+   Hotkey, $^F3         ,SI.FindWordAtCurrentPosition
 
 ;;;;;;;;;;; edit
    Hotkey, $^y          ,SI.Redo
-;;;Hotkey, $^d          ,SI.DuplicateCurrentLine
+   Hotkey, $^d          ,SI.DuplicateCurrentLine
    Hotkey, $^+d         ,SI.DeleteCurrentLine
 ;;;Hotkey, $^/          ,SI.CommentWithLineComment
 ;;;Hotkey, $^+/         ,SI.CommentWithBlockComment
-;;;Hotkey, $^+u         ,SI.ToggleUpperOrLowerCase
+   Hotkey, $^+u         ,SI.ToggleUpperOrLowerCase
 ;;;Hotkey, $^+i         ,SI.IndentBlock
-   Hotkey, $^+!i        ,SI.IndentFile
+
 ;;;;;;;;
 Hotkey, IfWinActive
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -174,19 +182,19 @@ Goto, SI.EndOfFile
 
 ;;;;;;;; move
 SI.MoveNextPostion:              ;;!Right::    ;;move next position
-    sendinput, !+p
+    sendinput, !.
     return
 
 SI.MovePrevPosition:             ;;!Left::     ;;move previous position
-    sendinput, ^o
+    sendinput, !,
     return
 
 SI.SearchCaller:                 ;;!+Up::      ;;search caller
-    sendinput, !{F7}
+    sendinput, ^`
     return
 
 SI.JumpToDefinition:             ;;!+Down::    ;;jump to definition
-    sendinput, ^b
+    sendinput, ^=
     return
 
 SI.NextFileorTab:                ;;^tab::      ;;next file or tab
@@ -198,7 +206,9 @@ SI.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
     return
 
 SI.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
-    sendinput, ^+t
+    sendinput, !f 
+    sleep, 300 
+    sendinput, f
     return
 
 SI.JumpToLine:                   ;;^g::        ;;goto line
@@ -206,11 +216,11 @@ SI.JumpToLine:                   ;;^g::        ;;goto line
     return
 
 SI.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
-    sendinput, ^+m
+    sendinput, % (_t1 := !_t1) ? ("^+[") : ("^+]")
     return
 
 SI.FindWordAtCurrentPosition:    ;;^F3::       ;;find word at current cursor
-    sendinput, ^{F3}
+    sendinput, !f
     return
 ;;;;;;;; edit
 SI.Redo:                         ;;^y::        ;;redo
@@ -218,11 +228,19 @@ SI.Redo:                         ;;^y::        ;;redo
     return
 
 SI.DuplicateCurrentLine:         ;;^d::        ;;duplicate line
-    sendinput, ^d
+    sendinput, {HOME}
+    sendinput, {SHIFT DOWN}{END}{SHIFT UP}
+    sendinput, ^c
+    sendinput, {END}{Enter}
+    sendinput, ^v
+   
     return
 
 SI.DeleteCurrentLine:            ;;^+d::       ;;delete line
-    sendinput, ^y
+    sendinput, {HOME}
+    sendinput, {SHIFT DOWN}{END}{SHIFT UP}
+    sendinput, {Del}{Del}
+    
     return
 
 SI.CommentWithLineComment:       ;;^/::        ;;comment with line-comment
@@ -234,15 +252,11 @@ SI.CommentWithBlockComment:      ;;^+/::       ;;comment with block-comment
     return
 
 SI.ToggleUpperOrLowerCase:       ;;^+u::       ;;toggle upper or lower case
-    sendinput, ^+u
+    sendinput, % (_t1 := !_t1) ? ("^+u") : ("^u")
     return
 
 SI.IndentBlock:                  ;;^!i::       ;;indent block
     sendinput, ^!i
-    return
-
-SI.IndentFile:                   ;;^+!::       ;;indent file
-    sendinput, ^!l
     return
 
 

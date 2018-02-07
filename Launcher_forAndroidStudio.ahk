@@ -105,8 +105,11 @@ AS.wfull                := ["^+{F12}"                                           
 AS.w                    := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"window list"]
 AS.wedit                := ["{ESC}"                                                                 ,"window, editor"]
 AS.wdir                 := ["!1"                                                            ,"window, directory view"]
-AS.wsym                 := ["!7"                                                               ,"windiw, symbol view"]
-AS.whier                := ["^h"                                                          ,"window, hierarchy viewer"]
+AS.wlayout              := ["!7"                                                             ,"window, symbol layout"]
+AS.wsym                 := ["^{F12}"                                                ,"window, find local symbol view"]
+AS.wsymglobal           := ["{Shift}{Shift}"                         ,"window, find global Symbol, Search Everywhere"]
+AS.wsg                  := AS.wsymglobal
+AS.whier                := ["^h"                                                    ,"window, class hierarchy viewer"]
 AS.wcall                := ["^!h"                                                                ,"window, call flow"]
 AS.wmsg                 := ["!1"                                         ,"window, message view listed compile error"]
 AS.wlog                 := ["!6"                                                          ,"window, log message view"]
@@ -114,9 +117,11 @@ AS.wdebug               := ["!5"                                                
 AS.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")               ,"manage external plugins"]
 
 ;;;;;;;; tool
-AS.tex                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show in Explorer"),          "tool explorer"]
+AS.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                 ,"tool full path copy, NEED2MAP"]
+AS.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"tool launch explorer"]
 AS.tt                   := AS.tex
-AS.tcmd                 := ["!{F12}"                                                   ,"tool command line interface"]
+AS.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                    ,"tool command line interface"]
+AS.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")                 ,"tool edit with notepad++"]
 
 
 
@@ -129,6 +134,7 @@ AS.tcmd                 := ["!{F12}"                                            
 AS.efo                  := ["^+="                                                                     ,"edit, unfold"]
 AS.efc                  := ["^+-"                                                                       ,"edit, fold"]
 AS.eval                 := ["!{F8}"                                              ,"evaluate expression for debugging"]
+AS.eformat              := ["^!l"                                                                      ,"indent file"]
 
 ;;;;;;;; debug
 ;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
@@ -152,7 +158,7 @@ Hotkey, IfWinActive, ahk_exe studio64.exe
    Hotkey, $!+Down      ,AS.JumpToDefinition
 ;;;Hotkey, $^tab        ,AS.NextFileorTab
 ;;;Hotkey, $^+tab       ,AS.PrevFileorTab
-;;;Hotkey, $^+t         ,AS.ReopenRecentFileorTab
+   Hotkey, $^+t         ,AS.ReopenRecentFileorTab
 ;;;Hotkey, $^g          ,AS.JumpToLine
    Hotkey, $^\          ,AS.JumpToMatchingBrace
 ;;;Hotkey, $^F3         ,AS.FindWordAtCurrentPosition
@@ -165,7 +171,6 @@ Hotkey, IfWinActive, ahk_exe studio64.exe
 ;;;Hotkey, $^+/         ,AS.CommentWithBlockComment
 ;;;Hotkey, $^+u         ,AS.ToggleUpperOrLowerCase
 ;;;Hotkey, $^+i         ,AS.IndentBlock
-   Hotkey, $^+!i        ,AS.IndentFile
 ;;;;;;;;
 Hotkey, IfWinActive
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -198,7 +203,7 @@ AS.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
     return
 
 AS.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
-    sendinput, ^+t
+    sendinput, ^e
     return
 
 AS.JumpToLine:                   ;;^g::        ;;goto line
@@ -239,10 +244,6 @@ AS.ToggleUpperOrLowerCase:       ;;^+u::       ;;toggle upper or lower case
 
 AS.IndentBlock:                  ;;^!i::       ;;indent block
     sendinput, ^!i
-    return
-
-AS.IndentFile:                   ;;^+!::       ;;indent file
-    sendinput, ^!l
     return
 
 
