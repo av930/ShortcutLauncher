@@ -61,7 +61,7 @@ AS.sj                   := AS.sjump
 AS.shier                := ["^h"                                                           ,"symbol hierarchy viewer"]
 AS.scaller              := ["!{F7}"                                                             ,"symbol caller find"]
 AS.sh                   := ["^+{F7}"                                                              ,"symbol highlight"]
-AS.sf                   := ["^+f",                                                      ,"symbol search in all space"]
+AS.sf                   := ["^+f"                                                       ,"symbol search in all space"]
 AS.sr                   := ["^+r"                                                      ,"symbol replace in all space"]
 AS.sfind                := ["^!+n"                                                          ,"goto to symbol by name"]
 AS.sreplace             := ["^+r"                                                        ,"symbol in replace smartly"]
@@ -72,7 +72,7 @@ AS.sbook                := ["+{F11}"                                            
 
 ;;;;;;;; coding
 AS.cc                   := ["^{space}"                                                ,"coding, symbol auto complete"]
-AS.cp                   := ["^{space}"                                              "coding, parameter auto complete"]
+AS.cp                   := ["^{space}"                                             ,"coding, parameter auto complete"]
 AS.ci                   := ["^!o"                                                ,"coding, class import optimization"]
 AS.cfix                 := ["!{enter}"                                                      ,"coding, error auto fix"]
 AS.cerr                 := ["^{F1}"                                                              ,"coding, error tip"]
@@ -114,7 +114,8 @@ AS.wcall                := ["^!h"                                               
 AS.wmsg                 := ["!1"                                         ,"window, message view listed compile error"]
 AS.wlog                 := ["!6"                                                          ,"window, log message view"]
 AS.wdebug               := ["!5"                                                              ,"window debugger view"]
-AS.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")               ,"manage external plugins"]
+AS.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")              ,"manage external plug-ins"]
+
 
 ;;;;;;;; tool
 AS.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                 ,"tool full path copy, NEED2MAP"]
@@ -124,17 +125,13 @@ AS.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")             
 AS.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")                 ,"tool edit with notepad++"]
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; shortcut keymap definition
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;;;;;;; edit & etc,
 ;;;; functionality possible to map abbreviation instead of shortcut
 AS.efo                  := ["^+="                                                                     ,"edit, unfold"]
 AS.efc                  := ["^+-"                                                                       ,"edit, fold"]
 AS.eval                 := ["!{F8}"                                              ,"evaluate expression for debugging"]
 AS.eformat              := ["^!l"                                                                      ,"indent file"]
+
 
 ;;;;;;;; debug
 ;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
@@ -149,12 +146,17 @@ AS.eformat              := ["^!l"                                               
 ;; break option         ;;^+{F8}
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; shortcut keymap definition
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 Hotkey, IfWinActive, ahk_exe studio64.exe
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
    Hotkey, $!Right      ,AS.MoveNextPostion
    Hotkey, $!Left       ,AS.MovePrevPosition
-   Hotkey, $!+Up        ,AS.SearchCaller
+   Hotkey, $!+Up        ,AS.PreviewDefinition
    Hotkey, $!+Down      ,AS.JumpToDefinition
 ;;;Hotkey, $^tab        ,AS.NextFileorTab
 ;;;Hotkey, $^+tab       ,AS.PrevFileorTab
@@ -186,8 +188,8 @@ AS.MovePrevPosition:             ;;!Left::     ;;move previous position
     sendinput, ^!{Left}
     return
 
-AS.SearchCaller:                 ;;!+Up::      ;;search caller
-    sendinput, !{F7}
+AS.PreviewDefinition:            ;;!+Up::      ;;preview definition & type
+    sendinput, ^+i
     return
 
 AS.JumpToDefinition:             ;;!+Down::    ;;jump to definition

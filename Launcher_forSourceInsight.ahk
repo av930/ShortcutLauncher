@@ -107,8 +107,8 @@ SI.wedit                := ["{ESC}"                                             
 SI.wdir                 := ["^p"                                                            ,"window, directory view"]
 SI.wlayout              := ["^]"                                                             ,"window, symbol layout"]
 SI.wsym                 := ["!l"                                                    ,"window, find local symbol view"]
-AS.wsymglobal           := ["^i"                                                         ,"window Global Symbol list"]
-AS.wsg                  := AS.wsymglobal
+SI.wsymglobal           := ["^i"                                                    ,"window find global symbol list"]
+SI.wsg                  := SI.wsymglobal
 SI.whier                := [Func( "_OSWARN" ).Bind("Not Supported")                 ,"window, class hierarchy viewer"]
 SI.wcall                := ["!+h"                                                ,"window, call flow, RelationWindow"]
 /*
@@ -121,7 +121,7 @@ SI.wplug                := ["!k"                                                
 ;;;;;;;; tool
 SI.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                 ,"tool full path copy, NEED2MAP"]
 SI.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"tool launch explorer"]
-SI.tt                   := AS.tex
+SI.tt                   := SI.tex
 SI.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                    ,"tool command line interface"]
 SI.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")                 ,"tool edit with notepad++"]
 

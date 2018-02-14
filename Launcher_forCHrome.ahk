@@ -19,13 +19,13 @@ CH["name"] := "Chrome"
 
 ;;;;;;;; program
 CH.pset                 := ["sendinput, !d `n sendinput, chrome://settings"                       ,"program settings"]
-CH.ext                  := ["Run, chrome.exe chrome://extensions",                             "run chrome with tab"]
+CH.ext                  := ["Run, chrome.exe chrome://extensions",                              "run chrome with tab"]
 CH.plug                 := CH.ext
 CH.his                  := ["sendinput, !d `n sendinput, chrome://history"                            ,"history view"]
 CH.play                 := ["sendinput, !d `n sendinput, https://chrome.google.com/webstore/category/extensions?hl=ko" ,"play store"]
-CH.book                 := ["sendinput, ^+o"                                                         ,"bookmark view"]
-CH.task                 := ["sendinput, +{ESC}"                                                ,"chrome task manager"]
-CH.sec                  := ["sendinput, ^+n"                                                           ,"secret mode"]
+CH.book                 := ["^+o"                                                                    ,"bookmark view"]
+CH.task                 := ["+{ESC}"                                                           ,"chrome task manager"]
+CH.sec                  := ["^+n"                                                                      ,"secret mode"]
 
 
 

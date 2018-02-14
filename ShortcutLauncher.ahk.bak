@@ -1,4 +1,4 @@
-SetTitleMatchMode RegEx
+
 ;; ShortcutLauncher ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -17,11 +17,21 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 
 #Include Launcher_forCHrome.ahk
 #Include Launcher_forAndroidStudio.ahk
-#Include Launcher_forIntelliJ.ahk
 #Include Launcher_forSourceInsight.ahk
 #Include Launcher_forNotepadPlus.ahk
 
+
 Return ; END OF AUTO-EXECUTE SECTION
+
+
+;; Label ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+GuiClose:
+GuiEscape:
+    Gui, Destroy
+Return
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -68,11 +78,15 @@ ProgramKeyMapper( ProgramKey, Command ) {
             ProgramKey[Command][1].Call()
         }Else {
 
-            CMD := LTrim(SubStr(ProgramKey[Command][1], 1, 3), " ")
+            CMD := LTrim(SubStr(ProgramKey[Command][1], 1, 4), " ")
 
             If CMD is alnum
             { ;;traditional bracket not must be next line
                 ;;Send % ProgramKey[Command][1]
+                Exec( ProgramKey[Command][1] )
+            }
+            Else If ( ProgramKey == OS )
+            { 
                 Exec( ProgramKey[Command][1] )
             }
             Else ;;;; is hotkey
@@ -92,8 +106,6 @@ ProgramSelect:
     MAP := OS
     if WinActive("ahk_exe studio64.exe")        {
         MAP := AS
-    }else if WinActive("ahk_exe idea64.exe")    {
-        MAP := IN
     }else if WinActive("ahk_exe chrome.exe")    {
         MAP := CH
     }else if WinActive("ahk_exe notepad++.exe") {
@@ -113,7 +125,7 @@ return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Handler ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-MouseControl: ;;mouse control
+AddProfile: ;;mouse control
 If A_GuiEvent = Normal
  return
 
@@ -174,8 +186,16 @@ return
 
 ;; Abbreviation Trigger
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;static hotkey define
+#IfWinActive, ahk_class AutoHotkeyGUI
+$Up::ControlSend, ListBox1, {Up}, % "Launcher - " . MAP["name"]
+$Down::ControlSend, ListBox1, {Down}, % "Launcher - " . MAP["name"]
+;Down::ControlFocus, ListBox1, % "Launcher - " . MAP["name"]
+return
+#ifWinActive
 
 #q::
+#w::
     Gosub ProgramSelect
     list := getKeyfromObj(MAP)
 
@@ -183,25 +203,10 @@ return
     Gui, Font, s12, Consolas
     ;Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%,
     Gui, Add, Edit, x5 y5 w600 h25 vQuery gAutoComplete, %LastQSQuery%
-    Gui, Add, ListBox, x5 y40 w628 vLastQSQuery r20 gMouseControl,  % list
+    Gui, Add, ListBox, x5 y40 w628 vLastQSQuery r12 gAddProfile,  % list
     Gui, Add, Button, x610 y5 w25 h25 +Default gPopupGoPost,
 
     ;Gui, Show, w240 h35, Launcher
     Gui, Show, , % "Launcher - " . MAP["name"]
     Gui, Font
 Return
-
-
-;;;;static hotkey define
-#IfWinActive, Launcher - .*
-$Up::ControlSend, ListBox1, {Up}, % "Launcher - " . MAP["name"]
-$Down::ControlSend, ListBox1, {Down}, % "Launcher - " . MAP["name"]
-;Down::ControlFocus, ListBox1, % "Launcher - " . MAP["name"]
-return
-
-ESC::
-GuiClose:
-GuiEscape:
-    Gui, Destroy
-Return
-#ifWinActive
