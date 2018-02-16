@@ -1,4 +1,5 @@
 SetTitleMatchMode RegEx
+
 ;; ShortcutLauncher ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -90,13 +91,13 @@ ProgramKeyMapper( ProgramKey, Command ) {
 
 ProgramSelect:
     MAP := OS
-    if WinActive("ahk_exe studio64.exe")        {
+    if WinActive("ahk_exe studio64.exe")             {
         MAP := AS
-    }else if WinActive("ahk_exe idea64.exe")    {
+    }else if WinActive("ahk_exe idea64.exe")         {
         MAP := IN
-    }else if WinActive("ahk_exe chrome.exe")    {
+    }else if WinActive("ahk_exe chrome.exe")         {
         MAP := CH
-    }else if WinActive("ahk_exe notepad++.exe") {
+    }else if WinActive("ahk_exe notepad\+\+.exe")      {
         MAP := NP
     }else if WinActive("ahk_exe sourceinsight4.exe") {
         MAP := SI

@@ -1,5 +1,5 @@
 OS := {}
-OS["name"] := "OS"
+OS["name"] := "Windows OS"
 _OSTextEditor := "D:\OneDrive\_MyProgram\_IDEditor\Notepad++\Notepad++.exe "
 
 
@@ -30,7 +30,6 @@ OS.ip                   := [Func( "_OSCopyText" ).Bind( A_IPAddress1 )          
 
 ;;;;;;;; Program Launch
 OS.qdir                 := ["Run, D:\OneDrive\_MyProgram\_FileBrowser\_Q-Dir_portable\Q-Dir.exe"        ,"launch program Q-DIR"]
-OS.cmd                  := [Func( "_OSAdmin" ).Bind( "cmd.exe" )                                     ,"launch program: cmd.exe"]
 OS.term                 := ["!{delete}"                                                                  ,"launch LogMeTT menu"]
                            
 ;;;;;;;; Autohotkey        

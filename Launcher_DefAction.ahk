@@ -9,7 +9,10 @@ _OSRunMore( RunList* ) {
 
 _OSAdmin( RunList* ) { 
     For RunNum, RunItem in RunList
-        Run *RunAs %RunItem%
+        try  
+            Run *RunAs %RunItem%
+        catch e  
+            Exit
 }
 
 _OSWARN( Msg ) { 
@@ -29,12 +32,12 @@ _OSRunTool( PathCmd, Tool ) {
     
     fullName := Clipboard
     SplitPath, fullName, name, dir, ext, name_noext, drive
-    ;MsgBox, % name . "][". dir . "][" . Tool
+    ;;MsgBox, % name  "]["  dir  "]["  Tool
     
     if (Tool == "explorer")           {
         run, % dir
     }else if (Tool == "cmd")          {
-        run, cmd.exe  `/K cd `/d %dir%
+        run, cmd.exe  /K cd /d %dir%
     }else if (Tool == "notepad++")     {
         run, notepad++.exe %fullname%
     }

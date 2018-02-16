@@ -81,7 +81,7 @@ IN.ct                   := ["!{enter}"                           ,"code generati
 
 
 ;;;;;;;; build
-IN.bb                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Build Apk(s)")                 ,"build only"]
+IN.bb                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Build Module")                 ,"build only"]
 IN.bp                   := ["^{F9}"                                                                  ,"build project"]
 IN.brun                 := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
 IN.br                   := IN.brun
