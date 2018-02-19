@@ -1,5 +1,6 @@
 AS := {}
 AS["name"] := "AndroidStudio v3.0"
+nameofprog := studio64.exe
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
@@ -7,10 +8,10 @@ _ASAction( Menu, Sleep, Key ) {
     ;;MsgBox, %Menu%, %Sleep%, %Key%
     SendInput, %Menu%
 
-    WinWaitActive, ahk_class SunAwtDialog ahk_exe studio64.exe
+    WinWaitActive, ahk_class SunAwtDialog ahk_exe %nameofprog%
     Sleep %Sleep%
     SendInput, {delete}%Key%
-    WinWaitClose, ahk_class SunAwtDialog ahk_exe studio64.exe
+    WinWaitClose, ahk_class SunAwtDialog ahk_exe %nameofprog%
 }
 
 
@@ -23,7 +24,7 @@ _ASAction( Menu, Sleep, Key ) {
 ;; Example
 ;; SI.fa                := ["^s"                                                                            ,"hotkey"]
 ;; SI.fb                := ["sendinput, ^s"                                                         ,"single command"]
-;; SI.fc                := ["sendinput, ^+a `n sleep 500 `nsendinput, {text}Close All "             ,"multi commands"]
+;; SI.fc                := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All "           ,"multi commands"]
 ;; SI.fd                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"function call"]
 
 
@@ -44,6 +45,7 @@ AS.px                   := AS.pexit
 ;;;;;;;; file
 AS.fo                   := ["^+n"                                                                        ,"file open"]
 AS.fr                   := ["^!y"                                                               ,"file reload & sync"]
+AS.frecent              := ["^e"                                                         ,"file reopen recently used"]
 AS.fsync                := AS.fr
 AS.fc                   := ["^{F4}"                                                                     ,"file close"]
 AS.fsa                  := ["^s"                                                                     ,"file all save"]
@@ -64,6 +66,7 @@ AS.sh                   := ["^+{F7}"                                            
 AS.sf                   := ["^+f"                                                       ,"symbol search in all space"]
 AS.sr                   := ["^+r"                                                      ,"symbol replace in all space"]
 AS.sfind                := ["^!+n"                                                          ,"goto to symbol by name"]
+AS.sover                := ["^!b"                                                   ,"symbol list of override method"]
 AS.sreplace             := ["^+r"                                                        ,"symbol in replace smartly"]
 AS.ssample              := ["!{F8}"                                              ,"symbol, search sample code in web"]
 AS.sb                   := ["{F11}"                                                         ,"symbol,toggle bookmark"]
@@ -107,7 +110,7 @@ AS.wedit                := ["{ESC}"                                             
 AS.wdir                 := ["!1"                                                            ,"window, directory view"]
 AS.wlayout              := ["!7"                                                             ,"window, symbol layout"]
 AS.wsym                 := ["^{F12}"                                                ,"window, find local symbol view"]
-AS.wsymglobal           := ["{Shift}{Shift}"                         ,"window, find global Symbol, Search Everywhere"]
+AS.wsymglobal           := ["{LShift}{LShift}"                       ,"window, find global Symbol, Search Everywhere"]
 AS.wsg                  := AS.wsymglobal
 AS.whier                := ["^h"                                                    ,"window, class hierarchy viewer"]
 AS.wcall                := ["^!h"                                                                ,"window, call flow"]
@@ -158,8 +161,10 @@ Hotkey, IfWinActive, ahk_exe studio64.exe
    Hotkey, $!Left       ,AS.MovePrevPosition
    Hotkey, $!+Up        ,AS.PreviewDefinition
    Hotkey, $!+Down      ,AS.JumpToDefinition
+   Hotkey, $!+Right     ,AS.JumpToOverrideMethod
 ;;;Hotkey, $^tab        ,AS.NextFileorTab
 ;;;Hotkey, $^+tab       ,AS.PrevFileorTab
+   Hotkey, $^w          ,AS.CloseCurrentFile
    Hotkey, $^+t         ,AS.ReopenRecentFileorTab
 ;;;Hotkey, $^g          ,AS.JumpToLine
    Hotkey, $^\          ,AS.JumpToMatchingBrace
@@ -196,6 +201,10 @@ AS.JumpToDefinition:             ;;!+Down::    ;;jump to definition
     sendinput, ^b
     return
 
+AS.JumpToOverrideMethod:         ;;!+Right::   ;;jump to Override Method
+    sendinput, % AS.sover[1]
+    return
+    
 AS.NextFileorTab:                ;;^tab::      ;;next file or tab
     sendinput, ^{tab}
     return
@@ -203,9 +212,13 @@ AS.NextFileorTab:                ;;^tab::      ;;next file or tab
 AS.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
     sendinput, ^+{tab}
     return
+    
+AS.CloseCurrentFile:             ;;^w:         ;;close current file
+    sendinput, % AS.fc[1]
+    return
 
 AS.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
-    sendinput, ^e
+    sendinput, % AS.frecent[1]
     return
 
 AS.JumpToLine:                   ;;^g::        ;;goto line
@@ -219,6 +232,7 @@ AS.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
 AS.FindWordAtCurrentPosition:    ;;^F3::       ;;find word at current cursor
     sendinput, ^{F3}
     return
+    
 ;;;;;;;; edit
 AS.Redo:                         ;;^y::        ;;redo
     sendinput, ^+z

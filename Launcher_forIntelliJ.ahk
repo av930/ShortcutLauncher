@@ -24,7 +24,7 @@ _INAction( Menu, Sleep, Key ) {
 ;; Example
 ;; SI.fa                := ["^s"                                                                            ,"hotkey"]
 ;; SI.fb                := ["sendinput, ^s"                                                         ,"single command"]
-;; SI.fc                := ["sendinput, ^+a `n sleep 500 `nsendinput, {text}Close All "             ,"multi commands"]
+;; SI.fc                := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All "           ,"multi commands"]
 ;; SI.fd                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"function call"]
 
 
@@ -83,8 +83,8 @@ IN.ct                   := ["!{enter}"                           ,"code generati
 ;;;;;;;; build
 IN.bb                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Build Module")                 ,"build only"]
 IN.bp                   := ["^{F9}"                                                                  ,"build project"]
-IN.brun                 := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
-IN.br                   := IN.brun
+IN.br                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
+IN.brun                 := ["!+{F10}"                                                                          ,"run"]
 IN.brb                  := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Rebuild Project")   ,"build agagin, rebuild"]
 IN.bc                   := [Func( "_INAction" ).Bind( "^+a", 500, "Clean Project" )                   ," build clean"]
 IN.bd                   := ["+{F9}"                                                          ,"build and start debug"]
@@ -125,11 +125,6 @@ IN.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")             
 IN.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")                 ,"tool edit with notepad++"]
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; shortcut keymap definition
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;;;;;;; edit & etc,
 ;;;; functionality possible to map abbreviation instead of shortcut
 IN.efo                  := ["^+="                                                                     ,"edit, unfold"]
@@ -150,7 +145,12 @@ IN.eformat              := ["^!l"                                               
 ;; break option         ;;^+{F8}
 
 
-Hotkey, IfWinActive, ahk_exe nameofprog
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; shortcut keymap definition
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Hotkey, IfWinActive, ahk_exe studio64.exe
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
    Hotkey, $!Right      ,IN.MoveNextPostion
