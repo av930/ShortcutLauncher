@@ -91,23 +91,22 @@ ProgramKeyMapper( ProgramKey, Command ) {
 
 ProgramSelect:
     MAP := OS
-    if WinActive("ahk_exe studio64.exe")             {
-        MAP := AS
-    }else if WinActive("ahk_exe idea64.exe")         {
+    if       WinActive("ahk_class SunAwtFrame") and WinActive("ahk_exe idea64.exe")  {
         MAP := IN
+    }else if WinActive("ahk_class SunAwtFrame") and WinActive("ahk_exe studio64.exe"){
+        MAP := AS
     }else if WinActive("ahk_exe chrome.exe")         {
         MAP := CH
-    }else if WinActive("ahk_exe notepad\+\+.exe")      {
+    }else if WinActive("ahk_exe notepad\+\+.exe")    {
         MAP := NP
     }else if WinActive("ahk_exe sourceinsight4.exe") {
         MAP := SI
     }
 
     ;debug array
-    ;MsgBox, 64, % MAP.name ,% MAP.ps . "`n"
+    ;MsgBox, 64, % MAP.name ,% MAP[sreplace][1] . "`n"
     ;                        . MAP.c . "`n"
-    ;                        . MAP.h . "`n"
-    ;                        . MAP["^tab"]
+    ;                        . MAP["name"]
 return
 
 

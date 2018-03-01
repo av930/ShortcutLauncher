@@ -33,12 +33,12 @@ _INAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-IN.plist                := [Func( "_INAction" ).Bind( "^+a", 500, "{text}manage projects.." )         ,"project list"]
-IN.pset                 := ["^!s"                                                                 ,"program settings"]
-IN.pconf                := ["^!+s"                                                           ,"project configuration"]
-IN.pkey                 := [Func( "_INAction" ).Bind( "^!s", 1200, "{text}Keymap" )       ,"program shortcut setting"]
+IN.plist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}manage projects.." )         ,"project list"]
 IN.pexit                := ["!{F4}"                                                                   ,"project exit"]
-
+IN.pset                 := ["^!s"                                                                 ,"program settings"]
+IN.pkey                 := [Func( "_ASAction" ).Bind( "^!s", 1200, "{text}Keymap" )       ,"program shortcut setting"]
+IN.pconf                := ["^!+s"                                                           ,"project configuration"]
+IN.psync                := ["^!y"                                               ,"project file/database sync-up sync"]
 
 ;;;;;;;; file
 IN.fo                   := ["^+n"                                                                        ,"file open"]
@@ -47,23 +47,23 @@ IN.frecent              := ["^e"                                                
 IN.fsync                := IN.fr
 IN.fc                   := ["^{F4}"                                                                     ,"file close"]
 IN.fsa                  := ["^s"                                                                     ,"file all save"]
-IN.fca                  := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Close All" )               ,"file all close"]
-IN.fe                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}file encoding" )            ,"file encoding"]
-
+IN.fca                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Close All Editor Close Action" )    ,"file all close"]
+IN.fencode              := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}file encoding" )            ,"file encoding"]
+IN.fhistory             := [Func( "_ASAction" ).Bind("^+a", "show history")                ,"file show local history"]
 
 ;;;;;;;; symbol search
-IN.sync                 := ["^!y"                                                      ,"symbol sync-up or file sync"]
 IN.stype                := ["^+b"                                                                 ,"symbol type jump"]
 IN.spre                 := ["^+i"                                                 ,"symbol symbol-definition preview"]
 IN.shelp                := ["+{F1}"                                               ,"symbol help in external document"]
 IN.sjump                := ["^b"                                                            ,"symbol definition jump"]
 IN.sj                   := IN.sjump
 IN.shier                := ["^h"                                                           ,"symbol hierarchy viewer"]
-IN.scaller              := ["!{F7}"                                                             ,"symbol caller find"]
+IN.sref                 := ["!{F7}"                                               ,"symbol usage search by reference"]
 IN.sh                   := ["^+{F7}"                                                              ,"symbol highlight"]
-IN.sf                   := ["^+f"                                                       ,"symbol search in all space"]
-IN.sr                   := ["^+r"                                                      ,"symbol replace in all space"]
-IN.sfind                := ["^!+n"                                                          ,"goto to symbol by name"]
+IN.sfind                := ["^+f"                                                ,"symbol string search in all space"]
+IN.sreplace             := ["^+r"                                               ,"symbol string replace in all space"]
+IN.srename              := ["+{F6}"                                                          ,"symbol rename smartly"]
+IN.slist                := ["^!+n"                                                         ,"list all symbol by name"]
 IN.sover                := ["^!b"                                                   ,"symbol list of override method"]
 IN.sreplace             := ["^+r"                                                        ,"symbol in replace smartly"]
 IN.ssample              := ["!{F8}"                                              ,"symbol, search sample code in web"]
@@ -81,41 +81,41 @@ IN.ct                   := ["!{enter}"                           ,"code generati
 
 
 ;;;;;;;; build
-IN.bb                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Build Module")                 ,"build only"]
+
+IN.bb                   := ["^+{F9}"                 ,                                      "build only current file"]
 IN.bp                   := ["^{F9}"                                                                  ,"build project"]
-IN.brun                 := ["!+{F10}"                                                                          ,"run"]
-IN.br                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
-IN.brb                  := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Rebuild Project")   ,"build agagin, rebuild"]
-IN.bc                   := [Func( "_INAction" ).Bind( "^+a", 500, "Clean Project" )                   ," build clean"]
+IN.brun                 := ["sendinput, ^+{f9} `n sleep, 500 `n sendinput, ^+{f10} "                   ,"build & run"]
+IN.bre                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Rebuild Project")   ,"build agagin, rebuild"]
+IN.bc                   := [Func( "_ASAction" ).Bind( "^+a", 500, "Clean Project" )                   ," build clean"]
 IN.bd                   := ["+{F9}"                                                          ,"build and start debug"]
 
 
 ;;;;;;;; vcs
-IN.vs                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Show Local Changes")      ,"vcs, git status"]
-IN.vlog                 := [Func( "_INAction" ).Bind( "^+a", 500, "{text}show Git repository Log...") ,"vcs, git log"]
-IN.vhis                 := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
+IN.vs                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show Local Changes")      ,"vcs, git status"]
+IN.vlog                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}show Git repository Log...") ,"vcs, git log"]
+IN.vhis                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
 IN.vc                   := ["^k"                                                                   ,"vcs, git commit"]
 IN.va                   := ["^!a"                                                                     ,"vcs, git add"]
 IN.vpush                := ["^+k"                                                           ,"vcs, git push & upload"]
-IN.vpull                := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Pull...")          ,"vcs, git pull & update"]
-IN.vhis                 := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
+IN.vpull                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Pull...")          ,"vcs, git pull & update"]
 
 
 ;;;;;;;; windows
 IN.wfull                := ["^+{F12}"                                                   ,"window, toggle full-screen"]
-IN.w                    := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"window list"]
+IN.w                    := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"window list"]
 IN.wedit                := ["{ESC}"                                                                 ,"window, editor"]
 IN.wdir                 := ["!1"                                                            ,"window, directory view"]
 IN.wlayout              := ["!7"                                                             ,"window, symbol layout"]
-IN.wsym                 := ["^{F12}"                                                ,"window, find local symbol view"]
-IN.wsymglobal           := ["{Shift}{Shift}"                         ,"window, find global Symbol, Search Everywhere"]
+IN.wsymlocal            := ["^{F12}"                                                ,"window, find local symbol view"]
+IN.wsymglobal           := ["{LShift}{LShift}"                       ,"window, find global Symbol, Search Everywhere"]
 IN.wsg                  := IN.wsymglobal
 IN.whier                := ["^h"                                                    ,"window, class hierarchy viewer"]
 IN.wcall                := ["^!h"                                                                ,"window, call flow"]
 IN.wmsg                 := ["!1"                                         ,"window, message view listed compile error"]
 IN.wlog                 := ["!6"                                                          ,"window, log message view"]
 IN.wdebug               := ["!5"                                                              ,"window debugger view"]
-IN.wplug                := [Func( "_INAction" ).Bind( "^+a", 500, "Plugins")               ,"manage external plugins"]
+IN.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")              ,"manage external plug-ins"]
+
 
 ;;;;;;;; tool
 IN.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                 ,"tool full path copy, NEED2MAP"]
@@ -131,6 +131,7 @@ IN.efo                  := ["^+="                                               
 IN.efc                  := ["^+-"                                                                       ,"edit, fold"]
 IN.eval                 := ["!{F8}"                                              ,"evaluate expression for debugging"]
 IN.eformat              := ["^!l"                                                                      ,"indent file"]
+
 
 ;;;;;;;; debug
 ;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
@@ -150,15 +151,19 @@ IN.eformat              := ["^!l"                                               
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-Hotkey, IfWinActive, ahk_exe idea64.exe
+;; apply both of Intellij and AndroidStudio
+;Hotkey, IfWinActive, ahk_exe idea64.exe
+Hotkey, IfWinActive, ahk_class SunAwtFrame
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
    Hotkey, $!Right      ,IN.MoveNextPostion
    Hotkey, $!Left       ,IN.MovePrevPosition
-   Hotkey, $!+Up        ,IN.SearchCaller
+   Hotkey, $!+Up        ,IN.PreviewDefinition
    Hotkey, $!+Down      ,IN.JumpToDefinition
+   Hotkey, $!+Right     ,IN.JumpToOverrideMethod
 ;;;Hotkey, $^tab        ,IN.NextFileorTab
 ;;;Hotkey, $^+tab       ,IN.PrevFileorTab
+   Hotkey, $^w          ,IN.CloseCurrentFile
    Hotkey, $^+t         ,IN.ReopenRecentFileorTab
 ;;;Hotkey, $^g          ,IN.JumpToLine
    Hotkey, $^\          ,IN.JumpToMatchingBrace
@@ -187,14 +192,18 @@ IN.MovePrevPosition:             ;;!Left::     ;;move previous position
     sendinput, ^!{Left}
     return
 
-IN.SearchCaller:                 ;;!+Up::      ;;search caller
-    sendinput, !{F7}
+IN.PreviewDefinition:            ;;!+Up::      ;;preview definition & type
+    sendinput, ^+i
     return
 
 IN.JumpToDefinition:             ;;!+Down::    ;;jump to definition
     sendinput, ^b
     return
 
+IN.JumpToOverrideMethod:         ;;!+Right::   ;;jump to Override Method
+    sendinput, % IN.sover[1]
+    return
+    
 IN.NextFileorTab:                ;;^tab::      ;;next file or tab
     sendinput, ^{tab}
     return
@@ -202,9 +211,13 @@ IN.NextFileorTab:                ;;^tab::      ;;next file or tab
 IN.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
     sendinput, ^+{tab}
     return
+    
+IN.CloseCurrentFile:             ;;^w:         ;;close current file
+    sendinput, % IN.fc[1]
+    return
 
 IN.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
-    sendinput, ^e
+    sendinput, % IN.frecent[1]
     return
 
 IN.JumpToLine:                   ;;^g::        ;;goto line
@@ -218,6 +231,7 @@ IN.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
 IN.FindWordAtCurrentPosition:    ;;^F3::       ;;find word at current cursor
     sendinput, ^{F3}
     return
+    
 ;;;;;;;; edit
 IN.Redo:                         ;;^y::        ;;redo
     sendinput, ^+z
