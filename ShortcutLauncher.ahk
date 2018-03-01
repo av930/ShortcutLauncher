@@ -17,8 +17,8 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 #Include Launcher_DefOS.ahk
 
 #Include Launcher_forCHrome.ahk
-#Include Launcher_forAndroidStudio.ahk
 #Include Launcher_forIntelliJ.ahk
+#Include Launcher_forAndroidStudio.ahk
 #Include Launcher_forSourceInsight.ahk
 #Include Launcher_forNotepadPlus.ahk
 

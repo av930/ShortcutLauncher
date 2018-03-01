@@ -37,14 +37,13 @@ IN.plist                := [Func( "_INAction" ).Bind( "^+a", 500, "{text}manage 
 IN.pset                 := ["^!s"                                                                 ,"program settings"]
 IN.pconf                := ["^!+s"                                                           ,"project configuration"]
 IN.pkey                 := [Func( "_INAction" ).Bind( "^!s", 1200, "{text}Keymap" )       ,"program shortcut setting"]
-IN.pk                   := IN.pkey
 IN.pexit                := ["!{F4}"                                                                   ,"project exit"]
-IN.px                   := IN.pexit
 
 
 ;;;;;;;; file
 IN.fo                   := ["^+n"                                                                        ,"file open"]
 IN.fr                   := ["^!y"                                                               ,"file reload & sync"]
+IN.frecent              := ["^e"                                                         ,"file reopen recently used"]
 IN.fsync                := IN.fr
 IN.fc                   := ["^{F4}"                                                                     ,"file close"]
 IN.fsa                  := ["^s"                                                                     ,"file all save"]
@@ -65,6 +64,7 @@ IN.sh                   := ["^+{F7}"                                            
 IN.sf                   := ["^+f"                                                       ,"symbol search in all space"]
 IN.sr                   := ["^+r"                                                      ,"symbol replace in all space"]
 IN.sfind                := ["^!+n"                                                          ,"goto to symbol by name"]
+IN.sover                := ["^!b"                                                   ,"symbol list of override method"]
 IN.sreplace             := ["^+r"                                                        ,"symbol in replace smartly"]
 IN.ssample              := ["!{F8}"                                              ,"symbol, search sample code in web"]
 IN.sb                   := ["{F11}"                                                         ,"symbol,toggle bookmark"]
@@ -83,8 +83,8 @@ IN.ct                   := ["!{enter}"                           ,"code generati
 ;;;;;;;; build
 IN.bb                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Build Module")                 ,"build only"]
 IN.bp                   := ["^{F9}"                                                                  ,"build project"]
-IN.br                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
 IN.brun                 := ["!+{F10}"                                                                          ,"run"]
+IN.br                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
 IN.brb                  := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Rebuild Project")   ,"build agagin, rebuild"]
 IN.bc                   := [Func( "_INAction" ).Bind( "^+a", 500, "Clean Project" )                   ," build clean"]
 IN.bd                   := ["+{F9}"                                                          ,"build and start debug"]
@@ -150,7 +150,7 @@ IN.eformat              := ["^!l"                                               
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-Hotkey, IfWinActive, ahk_exe studio64.exe
+Hotkey, IfWinActive, ahk_exe idea64.exe
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
    Hotkey, $!Right      ,IN.MoveNextPostion

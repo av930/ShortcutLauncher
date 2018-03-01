@@ -33,14 +33,12 @@ _ASAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-AS.plist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}manage projects.." )         ,"project list"]
+AS.pkey                 := [Func( "_ASAction" ).Bind( "^!s", 1200, "{text}Keymap" )       ,"program shortcut setting"]
 AS.pset                 := ["^!s"                                                                 ,"program settings"]
 AS.pconf                := ["^!+s"                                                           ,"project configuration"]
-AS.pkey                 := [Func( "_ASAction" ).Bind( "^!s", 1200, "{text}Keymap" )       ,"program shortcut setting"]
-AS.pk                   := AS.pkey
+AS.plist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}manage projects.." )         ,"project list"]
 AS.pexit                := ["!{F4}"                                                                   ,"project exit"]
-AS.px                   := AS.pexit
-
+AS.psync                := ["^!y"                                               ,"project file/database sync-up sync"]
 
 ;;;;;;;; file
 AS.fo                   := ["^+n"                                                                        ,"file open"]
@@ -49,23 +47,23 @@ AS.frecent              := ["^e"                                                
 AS.fsync                := AS.fr
 AS.fc                   := ["^{F4}"                                                                     ,"file close"]
 AS.fsa                  := ["^s"                                                                     ,"file all save"]
-AS.fca                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Close All" )               ,"file all close"]
-AS.fe                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}file encoding" )            ,"file encoding"]
-
+AS.fca                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Close All Editor Close Action" )    ,"file all close"]
+AS.fencode              := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}file encoding" )            ,"file encoding"]
+AS.fhistory             := [Func( "_ASAction" ).Bind("^+a", "show history")                ,"file show local history"]
 
 ;;;;;;;; symbol search
-AS.sync                 := ["^!y"                                                      ,"symbol sync-up or file sync"]
 AS.stype                := ["^+b"                                                                 ,"symbol type jump"]
 AS.spre                 := ["^+i"                                                 ,"symbol symbol-definition preview"]
 AS.shelp                := ["+{F1}"                                               ,"symbol help in external document"]
 AS.sjump                := ["^b"                                                            ,"symbol definition jump"]
 AS.sj                   := AS.sjump
 AS.shier                := ["^h"                                                           ,"symbol hierarchy viewer"]
-AS.scaller              := ["!{F7}"                                                             ,"symbol caller find"]
+AS.sref                 := ["!{F7}"                                               ,"symbol usage search by reference"]
 AS.sh                   := ["^+{F7}"                                                              ,"symbol highlight"]
-AS.sf                   := ["^+f"                                                       ,"symbol search in all space"]
-AS.sr                   := ["^+r"                                                      ,"symbol replace in all space"]
-AS.sfind                := ["^!+n"                                                          ,"goto to symbol by name"]
+AS.sfind                := ["^+f"                                                ,"symbol string search in all space"]
+AS.sreplace             := ["^+r"                                               ,"symbol string replace in all space"]
+AS.srename              := ["+{F6}"                                                          ,"symbol rename smartly"]
+AS.slist                := ["^!+n"                                                         ,"list all symbol by name"]
 AS.sover                := ["^!b"                                                   ,"symbol list of override method"]
 AS.sreplace             := ["^+r"                                                        ,"symbol in replace smartly"]
 AS.ssample              := ["!{F8}"                                              ,"symbol, search sample code in web"]
@@ -86,8 +84,7 @@ AS.ct                   := ["!{enter}"                           ,"code generati
 AS.bb                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Build Apk(s)")                 ,"build only"]
 AS.bp                   := ["^{F9}"                                                                  ,"build project"]
 AS.brun                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
-AS.br                   := AS.brun
-AS.brb                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Rebuild Project")   ,"build agagin, rebuild"]
+AS.bre                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Rebuild Project")   ,"build agagin, rebuild"]
 AS.bc                   := [Func( "_ASAction" ).Bind( "^+a", 500, "Clean Project" )                   ," build clean"]
 AS.bd                   := ["+{F9}"                                                          ,"build and start debug"]
 
@@ -100,7 +97,6 @@ AS.vc                   := ["^k"                                                
 AS.va                   := ["^!a"                                                                     ,"vcs, git add"]
 AS.vpush                := ["^+k"                                                           ,"vcs, git push & upload"]
 AS.vpull                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Pull...")          ,"vcs, git pull & update"]
-AS.vhis                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
 
 
 ;;;;;;;; windows
@@ -109,7 +105,7 @@ AS.w                    := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Tool Wi
 AS.wedit                := ["{ESC}"                                                                 ,"window, editor"]
 AS.wdir                 := ["!1"                                                            ,"window, directory view"]
 AS.wlayout              := ["!7"                                                             ,"window, symbol layout"]
-AS.wsym                 := ["^{F12}"                                                ,"window, find local symbol view"]
+AS.wsymlocal            := ["^{F12}"                                                ,"window, find local symbol view"]
 AS.wsymglobal           := ["{LShift}{LShift}"                       ,"window, find global Symbol, Search Everywhere"]
 AS.wsg                  := AS.wsymglobal
 AS.whier                := ["^h"                                                    ,"window, class hierarchy viewer"]

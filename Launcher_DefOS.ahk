@@ -30,8 +30,8 @@ OS.ip                   := [Func( "_OSCopyText" ).Bind( A_IPAddress1 )          
 
 ;;;;;;;; Program Launch
 OS.qdir                 := ["Run, D:\OneDrive\_MyProgram\_FileBrowser\_Q-Dir_portable\Q-Dir.exe"        ,"launch program Q-DIR"]
+OS.wscp                 := ["Run, D:\OneDrive\_MyProgram\_WebComm\_winscp\winscp.exe"                  ,"launch program WinSCP"]
 OS.term                 := ["!{delete}"                                                                  ,"launch LogMeTT menu"]
                            
 ;;;;;;;; Autohotkey        
 OS.hotkey               := [Func( "_OSHotKeys" )                                                     ,"listup assigned hotkeys"]
-
