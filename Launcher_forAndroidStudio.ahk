@@ -1,6 +1,6 @@
 AS := IN.Clone()
 AS["name"] := "AndroidStudio v3.0"
-nameofprog := studio64.exe
+AS["prog"] := studio64.exe
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
@@ -8,10 +8,10 @@ _ASAction( Menu, Sleep, Key ) {
     ;;MsgBox, %Menu%, %Sleep%, %Key%
     SendInput, %Menu%
 
-    WinWaitActive, ahk_class SunAwtDialog ahk_exe %nameofprog%
+    WinWaitActive, % "ahk_class SunAwtDialog ahk_exe " . AS["prog"]
     Sleep %Sleep%
     SendInput, {delete}%Key%
-    WinWaitClose, ahk_class SunAwtDialog ahk_exe %nameofprog%
+    WinWaitClose, % "ahk_class SunAwtDialog ahk_exe " . AS["prog"]
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; basic rule of shortcuts
