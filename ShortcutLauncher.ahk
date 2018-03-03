@@ -104,9 +104,9 @@ ProgramSelect:
     }
 
     ;debug array
-    ;MsgBox, 64, % MAP.name ,% MAP[sreplace][1] . "`n"
-    ;                        . MAP.c . "`n"
-    ;                        . MAP["name"]
+    ;MsgBox, 64, % MAP["name"] ,% MAP[proc] . "`n"
+    ;                        . MAP[pset][1] . "`n"
+    ;                        . MAP[clas]
 return
 
 
@@ -194,8 +194,8 @@ Return
 
 ;;;;static hotkey define
 #IfWinActive, Launcher - .*
-$Up::ControlSend, ListBox1, {Up}, % "Launcher - " . MAP["name"]
-$Down::ControlSend, ListBox1, {Down}, % "Launcher - " . MAP["name"]
+$Up::ControlSend, ListBox1, {Up}, % "Launcher - "
+$Down::ControlSend, ListBox1, {Down}, % "Launcher - "
 ;Down::ControlFocus, ListBox1, % "Launcher - " . MAP["name"]
 return
 

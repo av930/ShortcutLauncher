@@ -1,5 +1,7 @@
 NP := {}
 NP["name"] := "Notepad++ v7.5"
+NP[prog] := notepad++.exe
+NP[clas] := Notepad++
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
@@ -7,11 +9,11 @@ _NPAction( Menu, Sleep, Key ) {
     ;;MsgBox, %Menu%, %Sleep%, %Key%
     SendInput, %Menu%
 
-    WinWaitActive, ahk_class #32770 ahk_exe notepad++.exe
+    WinWaitActive, % "ahk_class #32770 ahk_exe " . IN[prog]
     Sleep %Sleep%
     SendInput, {delete}%Key%
     SendInput, {enter}
-    WinWaitClose, ahk_class #32770 ahk_exe notepad++.exe
+    WinWaitClose,  % "ahk_class #32770 ahk_exe " . IN[prog]
 }
 
 
@@ -24,7 +26,7 @@ _NPAction( Menu, Sleep, Key ) {
 ;; Example
 ;; SI.fa                := ["^s"                                                                            ,"hotkey"]
 ;; SI.fb                := ["sendinput, ^s"                                                         ,"single command"]
-;; SI.fc                := ["sendinput, ^+a `n sleep 500 `nsendinput, {text}Close All "             ,"multi commands"]
+;; SI.fc                := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All "           ,"multi commands"]
 ;; SI.fd                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"function call"]
 
 
@@ -33,46 +35,40 @@ _NPAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-NP.plist                := ["SoundPlay *-1"                                                           ,"project list"]
-NP.pset                 := ["SoundPlay *-1"                                                       ,"program settings"]
-NP.pconf                := ["sendinput, !t `n sendinput, p"                                  ,"project configuration"]
-NP.pkey                 := ["^+!s"                                                        ,"program shortcut setting"]
-NP.pk                   := NP.pkey
-NP.pexit                := ["!{F4}"                                                                   ,"program exit"]
-NP.px                   := NP.pexit
+NP.plist                := ["SoundPlay *-1"                                                         ,"Project.Listup"]
+NP.pexit                := ["!{F4}"                                                                   ,"Program.Exit"]
+NP.pset                 := ["sendinput, !t `n sendinput, p"                                       ,"Program.Settings"]
+NP.pkey                 := ["^+!s"                                                    ,"Program.Key.Shortcut.Setting"]
+NP.pconf                := ["SoundPlay *-1"                                                  ,"Project.Configuration"]
 
 
 ;;;;;;;; file
-NP.fo                   := ["^o"                                                                         ,"file open"]
-NP.fr                   := ["sendinput, !f `n sendinput, l"                                     ,"file reload & sync"]
-NP.fsync                := NP.fr
-NP.fc                   := ["^w"                                                                        ,"file close"]
-NP.fsa                  := ["^+s"                                                                    ,"file all save"]
-NP.fca                  := ["^+w"                                                                   ,"file all close"]
-NP.fe                   := ["!+e"                                       ,"need to set shortcut, mapped convert UTF-8"]
+NP.fo                   := ["^o"                                                                         ,"File.Open"]
+NP.fr                   := ["sendinput, !f `n sendinput, l"                                    ,"File.Reload.or.Sync"]
+NP.fc                   := ["^w"                                                                        ,"File.Close"]
+NP.fca                  := ["^+w"                                                                   ,"File.All.Close"]
+NP.fsa                  := ["^+s"                                                                    ,"File.All.Save"]
+
+NP.fencode              := ["!+e"                                                  ,"File.Open.as.Encoding, NEED2MAP"]
 
 
 ;;;;;;;; symbol search
-NP.sf                   := ["^+f"                                                       ,"symbol search in all space"]
-NP.sr                   := ["^h"                                                       ,"symbol replace in all space"]
-NP.sfind                := NP.sf
-NP.sreplace             := NP.sf
+NP.sf                   := ["^+f"                                                     ,"Symbol.String.Find.inProject"]
+NP.sr                   := ["^h"                                                   ,"Symbol.String.Replace.inProject"]
+NP.cfo                  := ["!+0"                                                                    ,"Coding.Unfold"]
+NP.cfc                  := ["!0"                                                                       ,"Coding.Fold"]
 
 ;;;;;;;; windows, need to install Explorer plugin
-NP.wfull                := ["{F11}"                                                     ,"window, toggle full-screen"]
-NP.w                    := [Func( "_NPAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"window list"]
-NP.wedit                := ["{ESC}{ESC}{ESC}"                                                       ,"window, editor"]
-NP.wdir                 := ["^!+e"                                                          ,"window, directory view"]
-NP.wsym                 := ["!s"                                                               ,"window, symbol view"]
-NP.whier                := ["SoundPlay *-1"                                               ,"window, hierarchy viewer"]
-NP.wlog                 := ["SoundPlay *-1"                                               ,"window, log message view"]
-NP.wdebug               := ["SoundPlay *-1"                                                   ,"window debugger view"]
-
+NP.wfull                := ["{F11}"                                                       ,"Window,FullScreen.Toggle"]
+NP.wlist                := [Func( "_NPAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"Window.List"]
+NP.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window.Backto.Editor"]
+NP.wdir                 := ["^!+e"                                                           ,"Window.Directory.View"]
+NP.wlayout              := ["!s"                                                              ,"Window.Symbol.Layout"]
 
 ;;;; tool, need to install [RunMe plugin
-NP.tex                  := [Func( "_NPAction" ).Bind( "{F5}", 500, "{text}explorer.exe $(CURRENT_DIRECTORY)"), "tool explorer"]
-NP.tt                   := ["^+{F5}"                                 ,"explorer using plugin"                        ]
-NP.cmd                  := ["^!{F5}"                                                   ,"tool command line interface"]
+NP.tex                  := [Func( "_NPAction" ).Bind( "{F5}", 500, "{text}explorer.exe $(CURRENT_DIRECTORY)"), "Tool.Explorer.Launch"]
+NP.tt                   := ["^+{F5}"                                                          ,"Tool.Explorer.Launch"]
+NP.tcmd                 := ["^!{F5}"                                                    ,"Tool.CommandLine.Interface"]
 
 
 
@@ -80,14 +76,8 @@ NP.cmd                  := ["^!{F5}"                                            
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;; edit & etc,
-;;;; functionality possible to map abbreviation instead of shortcut
-NP.efo                  := ["!+0"                                                                     ,"edit, unfold"]
-NP.efc                  := ["!0"                                                                        ,"edit, fold"]
-NP.eval                 := ["SoundPlay *-1"                                      ,"evaluate expression for debugging"]
 
-
-Hotkey, IfWinActive, ahk_exe notepad++.exe
+Hotkey, IfWinActive, % ahk_class . NP[clas]
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
 ;;;Hotkey, $!Right      ,NP.MoveNextPostion
@@ -116,7 +106,7 @@ Hotkey, IfWinActive
 Goto, NP.EndOfFile
 
 
-NP.JumpToMatchingBrace:          ;;^\::        ;;jump to matching brace toggle
+NP.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
     sendinput, ^b
     return
 

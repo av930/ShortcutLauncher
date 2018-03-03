@@ -1,5 +1,7 @@
 CH := {}
 CH["name"] := "Chrome"
+CH[prog] := chrome.exe
+CH[clas] := Chrome_WidgetWin_1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; basic rule of shortcuts
@@ -8,9 +10,10 @@ CH["name"] := "Chrome"
 ;;;; count functionality ends with ~c (means count)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Example
-;; NP.fsa               := ["sendinput, ^s"                                 ,"save all"                              ]
-;; NP.fca               := ["sendinput, ^+a `n sendinput, {text}Close All " ,"close all"                             ]
-;; NP.fe                := [Func( "_NPAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"file encoding"]
+;; SI.fa                := ["^s"                                                                            ,"hotkey"]
+;; SI.fb                := ["sendinput, ^s"                                                         ,"single command"]
+;; SI.fc                := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All "           ,"multi commands"]
+;; SI.fd                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"function call"]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -18,18 +21,18 @@ CH["name"] := "Chrome"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-CH.pset                 := ["sendinput, !d `n sendinput, chrome://settings"                                      ,"program settings"]
-CH.ext                  := ["Run, chrome.exe chrome://extensions",                                             "run chrome with tab"]
+CH.pset                 := ["sendinput, !d `n sendinput, chrome://settings"                       ,"Program.Settings"]
+CH.ext                  := ["Run, chrome.exe chrome://extensions",                              "run chrome with tab"]
 CH.plug                 := CH.ext
-CH.his                  := ["sendinput, !d `n sendinput, chrome://history"                                           ,"history view"]
-CH.play                 := ["sendinput, !d `n sendinput, https://chrome.google.com/webstore/category/extensions?hl=ko" ,"play store"]
-CH.book                 := ["^+o"                                                                                   ,"bookmark view"]
-CH.task                 := ["+{ESC}"                                                                          ,"chrome task manager"]
-CH.sec                  := ["^+n"                                                                                     ,"secret mode"]
+CH.his                  := ["sendinput, !d `n sendinput, chrome://history"                             ,"URL.History"]
+CH.play                 := ["sendinput, !d `n sendinput, https://chrome.google.com/webstore/category/extensions?hl=ko","PlayStore.Go"]
+CH.book                 := ["^+o"                                                                    ,"Bookmark.View"]
+CH.task                 := ["+{ESC}"                                                            ,"Chrome.TaskManager"]
+CH.sec                  := ["^+n"                                                                      ,"Mode.Secret"]
 
 
 
-Hotkey, IfWinActive, ahk_exe chrome.exe
+Hotkey, IfWinActive, % ahk_exe . CH[prog]
 ;;;;;;;;;; opengrok utilities
 ;;;Hotkey, $!LButton    ,CH.SelectWord
 ;;;Hotkey, $^+u         ,NP.ToggleUpperOrLowerCase

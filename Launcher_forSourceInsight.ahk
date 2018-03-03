@@ -1,5 +1,7 @@
 SI := {}
 SI["name"] := "SourceInsight v4.0"
+SI[prog] := sourceinsight4.exe
+SI[clas] := si4_Frame
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
@@ -7,10 +9,9 @@ _SIAction( Menu, Sleep, Key ) {
     ;;MsgBox, %Menu%, %Sleep%, %Key%
     SendInput, %Menu%
 
-    WinWaitActive, ahk_class SunAwtDialog ahk_exe studio64.exe
-    Sleep %Sleep%
+    WinWaitActive, % ahk_class #32770 ahk_exe . SI[prog]
     SendInput, {delete}%Key%
-    WinWaitClose, ahk_class SunAwtDialog ahk_exe studio64.exe
+    WinWaitClose,  % ahk_class #32770 ahk_exe . SI[prog]
 }
 
 
@@ -23,7 +24,7 @@ _SIAction( Menu, Sleep, Key ) {
 ;; Example
 ;; SI.fa                := ["^s"                                                                            ,"hotkey"]
 ;; SI.fb                := ["sendinput, ^s"                                                         ,"single command"]
-;; SI.fc                := ["sendinput, ^+a `n sleep 500 `nsendinput, {text}Close All "             ,"multi commands"]
+;; SI.fc                := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All "           ,"multi commands"]
 ;; SI.fd                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"function call"]
 
 
@@ -32,111 +33,78 @@ _SIAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-SI.plist                := ["sendinput, !p `n sleep, 300 `n sendinput, o"                        ,"open project list"]
-SI.pset                 := ["sendinput, !o `n sleep, 300 `n sendinput, p"                         ,"project settings"]
-SI.pconf                := ["sendinput, !p `n sleep, 300 `n sendinput, i"                    ,"project configuration"]
-SI.pkey                 := ["sendinput, !h `n sleep, 300 `n sendinput, c"                 ,"program shortcut setting"]
-SI.pk                   := SI.pkey
-SI.pexit                := ["!{F4}"                                                                   ,"project exit"]
-SI.px                   := SI.pexit
+SI.plist                := ["sendinput, !p `n sleep, 300 `n sendinput, o"                           ,"Project.Listup"]
+SI.pexit                := ["!{F4}"                                                                   ,"Program.Exit"]
+SI.pset                 := ["sendinput, !o `n sleep, 300 `n sendinput, p"                         ,"Program.Settings"]
+
+SI.pkey                 := ["sendinput, !h `n sleep, 300 `n sendinput, c"             ,"Program.Key.Shortcut.Setting"]
+SI.pconf                := ["sendinput, !p `n sleep, 300 `n sendinput, i"                    ,"Project.Configuration"]
+SI.psync                := ["!+s"                                                            ,"Project.Database.Sync"]
+
 
 
 ;;;;;;;; file
-SI.fo                   := ["^o"                                                                         ,"file open"]
-SI.fr                   := ["^+o"                                                                      ,"file reload"]
-SI.fsync                := ["!+s"                                                              ,"file & project sync"]
-SI.fc                   := ["^w"                                                                        ,"file close"]
-SI.fsa                  := ["^!a"                                                                    ,"file all save"]
-SI.fca                  := ["^+w"                                                                   ,"file all close"]
-SI.fe                   := ["!+e"                                                          ,"file encoding, NEED2MAP"]
-
+SI.fo                   := ["^o"                                                                         ,"File.Open"]
+SI.fr                   := ["^+o"                                                              ,"File.Reload.or.Sync"]
+SI.frecent              := ["sendinput, !f `n sleep, 300 `n sendinput, f"                         ,"File.Open.Recent"]
+SI.fc                   := ["^w"                                                                        ,"File.Close"]
+SI.fca                  := ["^+w"                                                                   ,"File.All.Close"]
+SI.fsa                  := ["^!a"                                                                    ,"File.All.Save"]
+SI.fencode              := ["!+e"                                                      ,"File.Changes.Show, NEED2MAP"]
+SI.fchange              := ["!{NumpadAdd}                                                        ,"File.Changes.Show"]
 
 ;;;;;;;; symbol search
-SI.sync                 := ["!+s"                                                      ,"symbol sync-up or file sync"]
-SI.stype                := ["!0"                                                                  ,"symbol type jump"]
-SI.spre                 := ["^["                                                  ,"symbol symbol-definition preview"]
-SI.shelp                := ["^!w"                                                               ,"symbol help in web"]
-SI.sjump                := ["^="                                                            ,"symbol definition jump"]
-SI.sj                   := SI.sjump
-SI.shier                := ["!+h"                                                ,"symbol hierarchy viewer, NEED2MAP"]
-SI.scaller              := ["^`"                                                             ,"symbol jump to caller"]
-SI.sh                   := ["+{F8}"                                                               ,"symbol highlight"]
-SI.sf                   := ["^+f",                                               ,"symbol string search in all space"]
-SI.sr                   := ["^+h"                                                      ,"symbol replace in all space"]
-SI.sfind                := ["^/"                                                               ,"symbol search in DB"]
-SI.sreplace             := ["^'"                                                         ,"symbol in replace smartly"]
-SI.ssample              := SI.shelp
-SI.sb                   := ["^m"                                                            ,"symbol,toggle bookmark"]
+SI.sfind                := ["^+f",                                                    ,"Symbol.String.Find.inProject"]
+SI.sreplace             := ["^+h"                                                  ,"Symbol.String.Replace.inProject"]
+SI.sref                 := ["^/"                                                                 ,"Symbol.Usage.Find"]
+SI.slistgl              := ["{f7}"                                                           ,"Symbol.List.inProject"]
+SI.slistlo              := ["{f8}"                                                              ,"Symbol.List.inFile"]
+
+SI.ssearch              := ["^i"                                                                 ,"Symbol.Search.All"]
+SI.srename              := ["^'"                                                             ,"Symbol.Rename.Smartly"]
+SI.ssample              := ["^!w"                                                   ,"Symbol.Samplecode.Search.inWEB"]
+
+SI.spre                 := ["^["                                                         ,"Symbol.Definition.Preview"]
+SI.sjump                := ["^="                                                            ,"Symbol.Definition.Jump"]
+SI.stype                := ["!0"                                                                  ,"Symbol.Type.Jump"]
+
+SI.shighlight           := ["+{F8}"                                                                "Symbol.Highlight"]
+
 SI.sbook                := ["^+m"                                                          ,"symbol,manage bookmarks"]
+SI.sb                   := ["^m"                                                            ,"symbol,toggle bookmark"]
+
 
 
 ;;;;;;;; coding
 SI.cc                   := ["^e"                                                      ,"coding, symbol auto complete"]
-SI.ct                   := ["^!s"                                                      ,"code generation, by snippet"]
 SI.cp                   := SI.cc
-/*
-SI.ci                   := [Func( "_OSWARN" ).Bind("Not Supported")              ,"coding, class import optimization"]
-SI.cfix                 := [Func( "_OSWARN" ).Bind("Not Supported")                         ,"coding, error auto fix"]
-SI.cerr                 := [Func( "_OSWARN" ).Bind("Not Supported")                              ,"coding, error tip"]
-
-;;;;;;;; build
-SI.bb                   := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Build Apk(s)")                 ,"build only"]
-SI.bp                   := ["sendinput, ^{F9}"                                                       ,"build project"]
-SI.brun                 := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Run Run/Debug")               ,"build & run"]
-SI.br                   := SI.brun
-SI.brb                  := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Rebuild Project")   ,"build agagin, rebuild"]
-SI.bc                   := [Func( "_SIAction" ).Bind( "^+a", 500, "Clean Project" )                   ," build clean"]
-SI.bd                   := ["sendinput, +{F9}"                                               ,"build and start debug"]
+SI.ct                   := ["^!s"                                                      ,"Coding.Generation.BySnippet"]
+SI.cfo                  := ["^+="                                                                    ,"Coding.UnFold"]
+SI.cfc                  := ["^+-"                                                                      ,"Coding.Fold"]
+SI.cindent              := ["^!i"                                                              ,"Coding.Indent.Block"]
 
 
-;;;;;;;; vcs
-SI.vs                   := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Show Local Changes")      ,"vcs, git status"]
-SI.vlog                 := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}show Git repository Log...") ,"vcs, git log"]
-SI.vhis                 := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
-SI.vc                   := ["sendinput, ^k"                                                        ,"vcs, git commit"]
-SI.va                   := ["sendinput, ^!a"                                                          ,"vcs, git add"]
-SI.vpush                := ["sendinput, ^+k"                                                ,"vcs, git push & upload"]
-SI.vpull                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Pull...")          ,"vcs, git pull & update"]
-SI.vhis                 := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}Show History")           ,"vcs, git history"]
-*/  
 
 ;;;;;;;; windows
-SI.wfull                := ["{F11}"                                                     ,"window, toggle full-screen"]
-SI.w                    := ["sendinput, !v `n sleep, 300 `n sendinput, p"                              ,"window list"]
-SI.wedit                := ["{ESC}"                                                                 ,"window, editor"]
-SI.wdir                 := ["^p"                                                            ,"window, directory view"]
-SI.wlayout              := ["^]"                                                             ,"window, symbol layout"]
-SI.wsym                 := ["!l"                                                    ,"window, find local symbol view"]
-SI.wsymglobal           := ["^i"                                                    ,"window find global symbol list"]
-SI.wsg                  := SI.wsymglobal
-SI.whier                := [Func( "_OSWARN" ).Bind("Not Supported")                 ,"window, class hierarchy viewer"]
-SI.wcall                := ["!+h"                                                ,"window, call flow, RelationWindow"]
-/*
-SI.wmsg                 := ["sendinput, !1"                              ,"window, message view listed compile error"]
-SI.wlog                 := ["sendinput, !6"                                               ,"window, log message view"]
-SI.wdebug               := ["sendinput, !5"                                                   ,"window debugger view"]
-*/
-SI.wplug                := ["!k"                                                           ,"manage external plugins"]
+SI.wfull                := ["{F11}"                                                       ,"Window.FullScreen.Toggle"]
+SI.wlist                := ["sendinput, !v `n sleep, 300 `n sendinput, p"                              ,"Window.List"]
+SI.wedit                := ["{ESC}"                                                           ,"Window.Backto.Editor"]
+SI.wdir                 := ["^p"                                                             ,"Window.Directory.View"]
+SI.wlayout              := ["^]"                                                              ,"Window.Symbol.Layout"]
+SI.whier                := ["!+h"                                                 ,"Window.Call.Hierarchy", NEED2MAP"]
+SI.wcall                := ["^`"                                                                  ,"Window.Call.find"]
 
+
+SI.wplug                := ["!k"                                                             ,"Window.Plugin.Manager"]
+ 
 ;;;;;;;; tool
-SI.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                 ,"tool full path copy, NEED2MAP"]
-SI.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"tool launch explorer"]
+SI.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool.FullPath.Copy", NEED2MAP]
+SI.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool.Explorer.Launch"]
 SI.tt                   := SI.tex
-SI.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                    ,"tool command line interface"]
-SI.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")                 ,"tool edit with notepad++"]
+SI.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool.CommandLine.Interface"]
+SI.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")             ,"Tool.OpenWith.ExternalEditor"]
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; shortcut keymap definition
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;; edit & etc,
-;;;; functionality possible to map abbreviation instead of shortcut
-SI.efo                  := ["sendinput, ^+="                                                ,"edit, unfold, NEED2MAP"]
-SI.efc                  := ["sendinput, ^+-"                                                  ,"edit, fold, NEED2MAP"]
-;SI.eval                 := ["sendinput, !{F8}"                                  ,"evaluate expression for debugging"]
-SI.eformat              := ["^!l"                                                            ,"indent file, NEED2MAP"]
 
 ;;;;;;;; debug
 ;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
@@ -151,15 +119,21 @@ SI.eformat              := ["^!l"                                               
 ;; break option         ;;^+{F8}
 
 
-Hotkey, IfWinActive, ahk_exe sourceinsight4.exe
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; shortcut keymap definition
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Hotkey, IfWinActive, % ahk_exe . SI[prog]
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
    Hotkey, $!Right      ,SI.MoveNextPostion
    Hotkey, $!Left       ,SI.MovePrevPosition
-   Hotkey, $!+Up        ,SI.SearchCaller
+   Hotkey, $!+Up        ,SI.PreviewDefinition
    Hotkey, $!+Down      ,SI.JumpToDefinition
+;;;Hotkey, $!+Right     ,SI.JumpToOverrideMethod       
 ;;;Hotkey, $^tab        ,SI.NextFileorTab
 ;;;Hotkey, $^+tab       ,SI.PrevFileorTab
+;;;Hotkey, $^w          ,SI.CloseCurrentFile            
    Hotkey, $^+t         ,SI.ReopenRecentFileorTab
 ;;;Hotkey, $^g          ,SI.JumpToLine
    Hotkey, $^\          ,SI.JumpToMatchingBrace
@@ -189,14 +163,17 @@ SI.MovePrevPosition:             ;;!Left::     ;;move previous position
     sendinput, !,
     return
 
-SI.SearchCaller:                 ;;!+Up::      ;;search caller
-    sendinput, ^`
+SI.PreviewDefinition:            ;;!+Up::      ;;preview definition & type
+    sendinput, % SI.spre[1]
     return
 
 SI.JumpToDefinition:             ;;!+Down::    ;;jump to definition
     sendinput, ^=
     return
 
+SI.JumpToOverrideMethod:         ;;!+Right::   ;;jump to Override Method
+  
+    return
 SI.NextFileorTab:                ;;^tab::      ;;next file or tab
     sendinput, ^{tab}
     return
@@ -205,10 +182,11 @@ SI.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
     sendinput, ^+{tab}
     return
 
+SI.CloseCurrentFile:             ;;^w:         ;;close current file
+    sendinput, % IN.fc[1]
+    return
 SI.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
-    sendinput, !f 
-    sleep, 300 
-    sendinput, f
+    sendinput, % SI.frecent[1]
     return
 
 SI.JumpToLine:                   ;;^g::        ;;goto line
@@ -256,7 +234,7 @@ SI.ToggleUpperOrLowerCase:       ;;^+u::       ;;toggle upper or lower case
     return
 
 SI.IndentBlock:                  ;;^!i::       ;;indent block
-    sendinput, ^!i
+    sendinput, % SI.cindent[1]
     return
 
 
