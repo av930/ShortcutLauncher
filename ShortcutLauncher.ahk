@@ -180,14 +180,20 @@ return
     list := getKeyfromObj(MAP)
 
     Gui, Destroy
+    Gui, +AlwaysOnTop 
     Gui, Font, s12, Consolas
     ;Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%,
     Gui, Add, Edit, x5 y5 w600 h25 vQuery gAutoComplete, %LastQSQuery%
     Gui, Add, ListBox, x5 y40 w628 vLastQSQuery r20 gMouseControl,  % list
     Gui, Add, Button, x610 y5 w25 h25 +Default gPopupGoPost,
 
-    ;Gui, Show, w240 h35, Launcher
-    Gui, Show, , % "Launcher - " . MAP["name"]
+  
+    ;;Move GUI to Current Monitor
+    WinGetActiveStats, Title, Width, Height, X, Y
+    WPosX := X + Width / 3
+    WPosY := Y + Height / 3
+
+    Gui, Show, x%WPosX% y%WPosY%, % "Launcher - " . MAP["name"]
     Gui, Font
 Return
 

@@ -59,7 +59,7 @@ NP.cfo                  := ["!+0"                                               
 NP.cfc                  := ["!0"                                                                       ,"Coding.Fold"]
 
 ;;;;;;;; windows, need to install Explorer plugin
-NP.wfull                := ["{F11}"                                                       ,"Window,FullScreen.Toggle"]
+NP.wfull                := ["{F11}"                                                       ,"Window.FullScreen.Toggle"]
 NP.wlist                := [Func( "_NPAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"Window.List"]
 NP.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window.Backto.Editor"]
 NP.wdir                 := ["^!+e"                                                           ,"Window.Directory.View"]

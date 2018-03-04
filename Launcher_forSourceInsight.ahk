@@ -51,7 +51,7 @@ SI.fc                   := ["^w"                                                
 SI.fca                  := ["^+w"                                                                   ,"File.All.Close"]
 SI.fsa                  := ["^!a"                                                                    ,"File.All.Save"]
 SI.fencode              := ["!+e"                                                      ,"File.Changes.Show, NEED2MAP"]
-SI.fchange              := ["!{NumpadAdd}                                                        ,"File.Changes.Show"]
+SI.fchange              := ["!{NumpadAdd}"                                                       ,"File.Changes.Show"]
 
 ;;;;;;;; symbol search
 SI.sfind                := ["^+f",                                                    ,"Symbol.String.Find.inProject"]
@@ -91,14 +91,14 @@ SI.wlist                := ["sendinput, !v `n sleep, 300 `n sendinput, p"       
 SI.wedit                := ["{ESC}"                                                           ,"Window.Backto.Editor"]
 SI.wdir                 := ["^p"                                                             ,"Window.Directory.View"]
 SI.wlayout              := ["^]"                                                              ,"Window.Symbol.Layout"]
-SI.whier                := ["!+h"                                                 ,"Window.Call.Hierarchy", NEED2MAP"]
+SI.whier                := ["!+h"                                                  ,"Window.Call.Hierarchy, NEED2MAP"]
 SI.wcall                := ["^`"                                                                  ,"Window.Call.find"]
 
 
 SI.wplug                := ["!k"                                                             ,"Window.Plugin.Manager"]
  
 ;;;;;;;; tool
-SI.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool.FullPath.Copy", NEED2MAP]
+SI.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool.FullPath.Copy, NEED2MAP"]
 SI.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool.Explorer.Launch"]
 SI.tt                   := SI.tex
 SI.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool.CommandLine.Interface"]
