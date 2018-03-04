@@ -35,7 +35,7 @@ _INAction( Menu, Sleep, Key ) {
 
 ;;;;;;;; program
 IN.plist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Manage Projects.." )       ,"Project.Listup"]
-IN.pexit                := ["!{F4}"                                                                   ,"Program.Exit"]
+IN.pexit                := [Func( "_ASAction" ).Bind( "^+a", 500, "Close Project")                   ,"Project.Close"]
 IN.pset                 := ["^!s"                                                                 ,"Program.Settings"]
 IN.pkey                 := [Func( "_ASAction" ).Bind( "^!s", 1200, "{text}Keymap" )   ,"Program.Key.Shortcut.Setting"]
 IN.pconf                := ["^!+s"                                                           ,"Project.Configuration"]
@@ -50,7 +50,7 @@ IN.fc                   := ["^{F4}"                                             
 IN.fca                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Close All Editor Close" )  ,"File.All.Close"]
 IN.fsa                  := ["^s"                                                                     ,"File.All.Save"]
 IN.fencode              := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}file encoding" )    ,"File.Open.as.Encoding"]
-IN.fchange              := [Func( "_ASAction" ).Bind("^+a", "show history")                      ,"File.Changes.Show"]
+IN.fchange              := [Func( "_ASAction" ).Bind( "^+a", 500, "show history")                ,"File.Changes.Show"]
 
 
 ;;;;;;;; symbol search
@@ -150,7 +150,7 @@ IN.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")       
 
 ;; apply both of Intellij and AndroidStudio
 ;Hotkey, IfWinActive, ahk_exe idea64.exe
-Hotkey, IfWinActive, % ahk_class . IN[clas]
+Hotkey, IfWinActive, ahk_class SunAwtFrame
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
    Hotkey, $!Right      ,IN.MoveNextPostion             ;;^!Right
@@ -215,6 +215,7 @@ IN.CloseCurrentFile:             ;;^w:         ;;close current file
     return
 
 IN.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
+    MsgBox, A_Hotkey asdfasdf
     sendinput, % IN.frecent[1]
     return
 

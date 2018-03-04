@@ -31,7 +31,7 @@ AS.bb                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Build A
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Hotkey, IfWinActive, % ahk_exe . AS[prog]
+Hotkey, IfWinActive, ahk_exe studio64.exe
 ;;;Hotkey, $^w          ,AS.CloseCurrentFile            ;;^{F4}
 Hotkey, IfWinActive
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

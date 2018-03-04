@@ -32,7 +32,7 @@ CH.sec                  := ["^+n"                                               
 
 
 
-Hotkey, IfWinActive, % ahk_exe . CH[prog]
+Hotkey, IfWinActive, ahk_class Chrome_WidgetWin_1
 ;;;;;;;;;; opengrok utilities
 ;;;Hotkey, $!LButton    ,CH.SelectWord
 ;;;Hotkey, $^+u         ,NP.ToggleUpperOrLowerCase

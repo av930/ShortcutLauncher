@@ -34,7 +34,7 @@ _SIAction( Menu, Sleep, Key ) {
 
 ;;;;;;;; program
 SI.plist                := ["sendinput, !p `n sleep, 300 `n sendinput, o"                           ,"Project.Listup"]
-SI.pexit                := ["!{F4}"                                                                   ,"Program.Exit"]
+SI.pexit                := ["!+W"                                                                    ,"Project.Close"]
 SI.pset                 := ["sendinput, !o `n sleep, 300 `n sendinput, p"                         ,"Program.Settings"]
 
 SI.pkey                 := ["sendinput, !h `n sleep, 300 `n sendinput, c"             ,"Program.Key.Shortcut.Setting"]
@@ -123,7 +123,7 @@ SI.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")       
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Hotkey, IfWinActive, % ahk_exe . SI[prog]
+Hotkey, IfWinActive, ahk_class si4_Frame
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
    Hotkey, $!Right      ,SI.MoveNextPostion
@@ -183,10 +183,10 @@ SI.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
     return
 
 SI.CloseCurrentFile:             ;;^w:         ;;close current file
-    sendinput, % IN.fc[1]
+    sendinput, % SI.fc[1]
     return
 SI.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
-    sendinput, % SI.frecent[1]
+    Exec( SI.frecent[1] )
     return
 
 SI.JumpToLine:                   ;;^g::        ;;goto line

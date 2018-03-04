@@ -9,11 +9,11 @@ _NPAction( Menu, Sleep, Key ) {
     ;;MsgBox, %Menu%, %Sleep%, %Key%
     SendInput, %Menu%
 
-    WinWaitActive, % "ahk_class #32770 ahk_exe " . IN[prog]
+    WinWaitActive, % "ahk_class #32770 ahk_exe " . NP[prog]
     Sleep %Sleep%
     SendInput, {delete}%Key%
     SendInput, {enter}
-    WinWaitClose,  % "ahk_class #32770 ahk_exe " . IN[prog]
+    WinWaitClose,  % "ahk_class #32770 ahk_exe " . NP[prog]
 }
 
 
@@ -36,7 +36,7 @@ _NPAction( Menu, Sleep, Key ) {
 
 ;;;;;;;; program
 NP.plist                := ["SoundPlay *-1"                                                         ,"Project.Listup"]
-NP.pexit                := ["!{F4}"                                                                   ,"Program.Exit"]
+NP.pexit                := ["SoundPlay *-1"                                                          ,"Program.Close"]
 NP.pset                 := ["sendinput, !t `n sendinput, p"                                       ,"Program.Settings"]
 NP.pkey                 := ["^+!s"                                                    ,"Program.Key.Shortcut.Setting"]
 NP.pconf                := ["SoundPlay *-1"                                                  ,"Project.Configuration"]
@@ -77,7 +77,7 @@ NP.tcmd                 := ["^!{F5}"                                            
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-Hotkey, IfWinActive, % ahk_class . NP[clas]
+Hotkey, IfWinActive, ahk_class Notepad++
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
 ;;;Hotkey, $!Right      ,NP.MoveNextPostion
