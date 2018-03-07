@@ -5,7 +5,7 @@ ST[clas] := PX_WINDOW_CLASS
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_NPAction( Menu, Sleep, Key ) {
+_STAction( Menu, Sleep, Key ) {
     ;;MsgBox, %Menu%, %Sleep%, %Key%
     SendInput, %Menu%
 
@@ -49,26 +49,28 @@ ST.fc                   := ["^w"                                                
 ST.fca                  := ["SoundPlay *-1"                                                         ,"File.All.Close"]
 ST.fsa                  := ["sendinput, !f `n sendinput, l"                                          ,"File.All.Save"]
 
-ST.fencode              := ["!+e"                                                  ,"File.Open.as.Encoding, NEED2MAP"]
+ST.fencode              := ["SoundPlay *-1"                                        ,"File.Open.as.Encoding, NEED2MAP"]
 
 
 ;;;;;;;; symbol search
 ST.sf                   := ["^+f"                                                     ,"Symbol.String.Find.inProject"]
-ST.sr                   := ["^h"                                                   ,"Symbol.String.Replace.inProject"]
-ST.cfo                  := ["!+0"                                                                    ,"Coding.Unfold"]
-ST.cfc                  := ["!0"                                                                       ,"Coding.Fold"]
+ST.sr                   := ["^+f"                                                  ,"Symbol.String.Replace.inProject"]
+ST.cfo                  := ["^+]"                                                                    ,"Coding.Unfold"]
+ST.cfc                  := ["^+["                                                                      ,"Coding.Fold"]
 
-;;;;;;;; windows, need to install Explorer plugin
+;;;;;;;; windows
 ST.wfull                := ["{F11}"                                                       ,"Window.FullScreen.Toggle"]
-ST.wlist                := [Func( "_NPAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"Window.List"]
+ST.wlist                := ["SoundPlay *-1"                                                   ,"Window.List.toSwitch"]
 ST.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window.Backto.Editor"]
-ST.wdir                 := ["^!+e"                                                           ,"Window.Directory.View"]
+ST.wdir                 := ["^k^b"                                                           ,"Window.Directory.View"]
 ST.wlayout              := ["!s"                                                              ,"Window.Symbol.Layout"]
 
-;;;; tool, need to install [RunMe plugin
-ST.tex                  := [Func( "_NPAction" ).Bind( "{F5}", 500, "{text}explorer.exe $(CURRENT_DIRECTORY)"), "Tool.Explorer.Launch"]
-ST.tt                   := ["^+{F5}"                                                          ,"Tool.Explorer.Launch"]
-ST.tcmd                 := ["^!{F5}"                                                    ,"Tool.CommandLine.Interface"]
+;;;; tool
+ST.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool.FullPath.Copy, NEED2MAP"]
+ST.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool.Explorer.Launch"]
+ST.tt                   := ST.tex
+ST.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool.CommandLine.Interface"]
+ST.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")             ,"Tool.OpenWith.ExternalEditor"]
 
 
 
@@ -88,15 +90,15 @@ Hotkey, IfWinActive, ahk_class PX_WINDOW_CLASS
 ;;;Hotkey, $^+tab       ,ST.PrevFileorTab
 ;;;Hotkey, $^+t         ,ST.ReopenRecentFileorTab
 ;;;Hotkey, $^g          ,ST.JumpToLine
-   Hotkey, $^\          ,ST.JumpToMatchingBrace
+;;;Hotkey, $^\          ,ST.JumpToMatchingBrace
 ;;;Hotkey, $^F3         ,ST.FindWordAtCurrentPosition
 
 ;;;;;;;;;; edit
 ;;;Hotkey, $^y          ,ST.Redo
-;;;Hotkey, $^d          ,ST.DuplicateCurrentLine
+   Hotkey, $^d          ,ST.DuplicateCurrentLine
    Hotkey, $^+d         ,ST.DeleteCurrentLine
-   Hotkey, $^/          ,ST.CommentWithLineComment
-   Hotkey, $^+/         ,ST.CommentWithBlockComment
+;;;Hotkey, $^/          ,ST.CommentWithLineComment
+;;;Hotkey, $^+/         ,ST.CommentWithBlockComment
 ;;;Hotkey, $^+u         ,ST.ToggleUpperOrLowerCase
 ;;;Hotkey, $^+i         ,ST.IndentBlock
 ;;;Hotkey, $^+!i        ,ST.IndentFile
@@ -110,17 +112,19 @@ ST.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
     sendinput, ^b
     return
 
+ST.DuplicateCurrentLine:         ;;^d::        ;;duplicate line
+    sendinput, ^+D
+    return
+    
 ST.DeleteCurrentLine:            ;;^+d::       ;;delete line
-    sendinput, ^+l
+    sendinput, ^+K
     return
 
 ST.CommentWithLineComment:       ;;^/::        ;;comment with line-comment
     ;;Msgbox, % A_ThisHotkey
-    sendinput, % (_t1 := !_t1) ? ("^k") : ("^+k")
     return
 
 ST.CommentWithBlockComment:      ;;^+/::       ;;comment with block-comment
-    sendinput, % (_t2 := !_t2) ? ("^+q") : ("")
     return
 
 

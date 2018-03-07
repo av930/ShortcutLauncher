@@ -185,8 +185,12 @@ SI.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
 SI.CloseCurrentFile:             ;;^w:         ;;close current file
     sendinput, % SI.fc[1]
     return
-SI.ReopenRecentFileorTab:        ;;^+t:        ;;reopen recent closed tab or file
-    Exec( SI.frecent[1] )
+    
+SI.ReopenRecentFileorTab:
+    ;;^+t:        ;;reopen recent closed tab or file
+    sendinput, !f 
+    sleep, 300 
+    sendinput, f
     return
 
 SI.JumpToLine:                   ;;^g::        ;;goto line
@@ -200,6 +204,7 @@ SI.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
 SI.FindWordAtCurrentPosition:    ;;^F3::       ;;find word at current cursor
     sendinput, !f
     return
+    
 ;;;;;;;; edit
 SI.Redo:                         ;;^y::        ;;redo
     sendinput, ^+z
@@ -211,14 +216,12 @@ SI.DuplicateCurrentLine:         ;;^d::        ;;duplicate line
     sendinput, ^c
     sendinput, {END}{Enter}
     sendinput, ^v
-   
     return
 
 SI.DeleteCurrentLine:            ;;^+d::       ;;delete line
     sendinput, {HOME}
     sendinput, {SHIFT DOWN}{END}{SHIFT UP}
     sendinput, {Del}{Del}
-    
     return
 
 SI.CommentWithLineComment:       ;;^/::        ;;comment with line-comment

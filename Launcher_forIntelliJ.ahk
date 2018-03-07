@@ -115,9 +115,10 @@ IN.wdir                 := ["!1"                                                
 IN.wlayout              := ["!7"                                                              ,"Window.Symbol.Layout"]
 IN.whier                := ["^h"                                                            ,"Window.Class.Hierarchy"]
 IN.wcall                := ["^!h"                                                                ,"Window.Call.Graph"]
-IN.wmsg                 := ["!1"                                                              ,"Window.Build.Message"]
-IN.wlog                 := ["!6"                                                        ,"Window.Runtime.Log.Message"]
+IN.wmsg                 := ["!0"                                                              ,"Window.Build.Message"]
+IN.wrun                 := ["!4"                                                                   ,"Window.Run.View"]
 IN.wdebug               := ["!5"                                                                 ,"Window.Debug.View"]
+IN.wlog                 := ["!6"                                                        ,"Window.Runtime.Log.Message"]
 IN.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")                 ,"Window.Plugin.Manager"]
 
 

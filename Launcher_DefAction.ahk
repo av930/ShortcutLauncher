@@ -30,6 +30,7 @@ _OSCopyText( CopyText ) {
 _OSRunTool( PathCmd, Tool ) { 
     send %PathCmd%
     
+    Sleep, 300
     fullName := Clipboard
     SplitPath, fullName, name, dir, ext, name_noext, drive
     ;;MsgBox, % name  "]["  dir  "]["  Tool

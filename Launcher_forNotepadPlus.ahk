@@ -36,7 +36,7 @@ _NPAction( Menu, Sleep, Key ) {
 
 ;;;;;;;; program
 NP.plist                := ["SoundPlay *-1"                                                         ,"Project.Listup"]
-NP.pexit                := ["SoundPlay *-1"                                                          ,"Program.Close"]
+NP.pexit                := ["SoundPlay *-1"                                                          ,"Project.Close"]
 NP.pset                 := ["sendinput, !t `n sendinput, p"                                       ,"Program.Settings"]
 NP.pkey                 := ["^+!s"                                                    ,"Program.Key.Shortcut.Setting"]
 NP.pconf                := ["SoundPlay *-1"                                                  ,"Project.Configuration"]
@@ -60,7 +60,7 @@ NP.cfc                  := ["!0"                                                
 
 ;;;;;;;; windows, need to install Explorer plugin
 NP.wfull                := ["{F11}"                                                       ,"Window.FullScreen.Toggle"]
-NP.wlist                := [Func( "_NPAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"Window.List"]
+NP.wlist                := ["SoundPlay *-1"                                                   ,"Window.List.toSwitch"]
 NP.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window.Backto.Editor"]
 NP.wdir                 := ["^!+e"                                                           ,"Window.Directory.View"]
 NP.wlayout              := ["!s"                                                              ,"Window.Symbol.Layout"]
