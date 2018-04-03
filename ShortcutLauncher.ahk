@@ -13,8 +13,9 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 
 #Include obj2str.ahk
 #Include Exec.ahk
+#Include Launcher_forWindows.ahk
 #Include Launcher_DefAction.ahk
-#Include Launcher_DefOS.ahk
+
 
 #Include Launcher_forCHrome.ahk
 #Include Launcher_forIntelliJ.ahk
@@ -205,8 +206,10 @@ Return
 $Up::ControlSend, ListBox1, {Up}, % "Launcher - "
 $Down::ControlSend, ListBox1, {Down}, % "Launcher - "
 ;Down::ControlFocus, ListBox1, % "Launcher - " . MAP["name"]
+#ifWinActive
 return
 
+#IfWinActive, Launcher - .*
 ESC::
 GuiClose:
 GuiEscape:

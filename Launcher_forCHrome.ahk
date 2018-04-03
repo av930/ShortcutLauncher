@@ -22,9 +22,9 @@ CH[clas] := Chrome_WidgetWin_1
 
 ;;;;;;;; program
 CH.pset                 := ["sendinput, !d `n sendinput, {text}chrome://settings"                 ,"Program.Settings"]
-CH.ext                  := ["Run, chrome.exe chrome://extensions",                              "run chrome with tab"]
-CH.plug                 := CH.ext
-CH.his                  := ["sendinput, !d `n sendinput, {text}chrome://history"                             ,"URL.History"]
+CH.pkey                 := ["sendinput, !d `n sendinput, {text}chrome://extensions/shortcuts"     ,"Program.Shotcuts"]
+CH.pext                 := ["Run, chrome.exe chrome://extensions",                         "program.Extension.Plugin"]
+CH.his                  := ["sendinput, !d `n sendinput, {text}chrome://history"                       ,"URL.History"]
 CH.play                 := ["sendinput, !d `n sendinput, {text}https://chrome.google.com/webstore/category/extensions?hl=ko","PlayStore.Go"]
 CH.book                 := ["^+o"                                                                    ,"Bookmark.View"]
 CH.task                 := ["+{ESC}"                                                            ,"Chrome.TaskManager"]

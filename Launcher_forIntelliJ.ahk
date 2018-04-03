@@ -51,6 +51,7 @@ IN.fca                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Close A
 IN.fsa                  := ["^s"                                                                     ,"File.All.Save"]
 IN.fencode              := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}file encoding" )    ,"File.Open.as.Encoding"]
 IN.fchange              := [Func( "_ASAction" ).Bind( "^+a", 500, "show history")                ,"File.Changes.Show"]
+IN.fclone               := ["{F5}"                                                            ,"File.CloneCopy.Class"]
 
 
 ;;;;;;;; symbol search
@@ -89,9 +90,11 @@ IN.cformat              := ["^!l"                                               
 
 
 ;;;;;;;; build
-IN.bb                   := ["^+{F9}"                 ,                                                 "Build.Module"]
+IN.bb                   := ["^+{F9}"                 ,                                                "Build.Current"]
 IN.bp                   := ["^{F9}"                                                                  ,"Build.Project"]
-IN.brun                 := ["sendinput, ^+{f9} `n sleep, 500 `n sendinput, ^+{f10} "                 ,"Build.and.Run"]
+;;;; prerequite: autoscroll to source, autoscroll from source need to checked in prject view
+IN.bnr                  := ["sendinput, !1 `n sleep, 500 `n sendinput, ^+{f9} `n sleep, 1000 `n sendinput, ^+{f10}"      ,"Build.and.Run"]
+IN.brun                 := ["!+{f10}"                                                               ,"Build.Run.only"]
 IN.bre                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}ReBuild Project")    ,"Build.Agagin.reBuild"]
 IN.bc                   := [Func( "_ASAction" ).Bind( "^+a", 500, "Clean Project" )                   ," Build.Clean"]
 IN.bd                   := ["+{F9}"                                                          ,"Build.and.Start.Debug"]
@@ -123,11 +126,11 @@ IN.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")    
 
 
 ;;;;;;;; tool
-IN.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool.FullPath.Copy, NEED2MAP"]
+IN.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                            ,"Tool.FullPath.Copy"]
 IN.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool.Explorer.Launch"]
 IN.tt                   := IN.tex
 IN.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool.CommandLine.Interface"]
-IN.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")             ,"Tool.OpenWith.ExternalEditor"]
+IN.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")                ,"Tool.OpenWith.ExternalEditor"]
 
 
 

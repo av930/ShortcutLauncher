@@ -65,10 +65,17 @@ NP.wedit                := ["{ESC}{ESC}{ESC}"                                   
 NP.wdir                 := ["^!+e"                                                           ,"Window.Directory.View"]
 NP.wlayout              := ["!s"                                                              ,"Window.Symbol.Layout"]
 
+;;;; tool 
+NP.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                            ,"Tool.FullPath.Copy"]
+NP.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool.Explorer.Launch"]
+NP.tt                   := NP.tex
+NP.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool.CommandLine.Interface"]
+NP.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")             ,"Tool.OpenWith.ExternalEditor"]
+
 ;;;; tool, need to install [RunMe plugin
-NP.tex                  := [Func( "_NPAction" ).Bind( "{F5}", 500, "{text}explorer.exe $(CURRENT_DIRECTORY)"), "Tool.Explorer.Launch"]
-NP.tt                   := ["^+{F5}"                                                          ,"Tool.Explorer.Launch"]
-NP.tcmd                 := ["^!{F5}"                                                    ,"Tool.CommandLine.Interface"]
+;;NP.tex                  := [Func( "_NPAction" ).Bind( "{F5}", 500, "{text}explorer.exe $(CURRENT_DIRECTORY)"), "Tool.Explorer.Launch"]
+;;NP.tt                   := ["^+{F5}"                                                          ,"Tool.Explorer.Launch"]
+;;NP.tcmd                 := ["^!{F5}"                                                    ,"Tool.CommandLine.Interface"]
 
 
 

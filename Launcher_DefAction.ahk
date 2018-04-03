@@ -35,12 +35,19 @@ _OSRunTool( PathCmd, Tool ) {
     SplitPath, fullName, name, dir, ext, name_noext, drive
     ;;MsgBox, % name  "]["  dir  "]["  Tool
     
-    if (Tool == "explorer")           {
+    if (Tool == "explorer")         {
         run, % dir
-    }else if (Tool == "cmd")          {
-        run, cmd.exe  /K cd /d %dir%
-    }else if (Tool == "notepad++")     {
-        run, notepad++.exe %fullname%
+    }else if (Tool == "cmd")        {
+        if ( _OSTerminal == "" )
+            run, cmd.exe  /K cd /d %dir%
+        else
+            run, % _OSTerminal .  " /Dir " . dir
+        
+    }else if (Tool == "editor")     {
+        if ( _OSEditor == "" )
+            run, notepad.exe %fullname%
+        else
+            run, %_OSEditor% %fullname%
     }
 }
 

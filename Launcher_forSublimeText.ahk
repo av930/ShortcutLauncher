@@ -70,7 +70,7 @@ ST.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")            
 ST.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool.Explorer.Launch"]
 ST.tt                   := ST.tex
 ST.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool.CommandLine.Interface"]
-ST.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "notepad++")             ,"Tool.OpenWith.ExternalEditor"]
+ST.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")             ,"Tool.OpenWith.ExternalEditor"]
 
 
 
