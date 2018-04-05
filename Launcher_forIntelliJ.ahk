@@ -60,16 +60,17 @@ IN.sreplace             := ["^+r"                                               
 IN.sref                 := ["!{F7}"                                                              ,"Symbol.Usage.Find"]
 IN.slistgl              := ["^!+n"                                                           ,"Symbol.List.inProject"]
 IN.slistlo              := ["^{F12}"                                                            ,"Symbol.List.inFile"]
-IN.ssearch              := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Search Everywhere")     ,"Symbol.Search.All"]
+IN.ss                   := ["sendinput, {shift} `n sendinput, {shift}"                      ,"Symbol.Search.AllPlace"]
 IN.srename              := ["+{F6}"                                                          ,"Symbol.Rename.Smartly"]
 IN.sover                := ["^!b"                                                      ,"Symbol.List.Override.Method"]
 IN.ssample              := ["!{F8}"                                                 ,"Symbol.Samplecode.Search.inWEB"]
 
+;;;;;;;; symbol function
 IN.spre                 := ["^+i"                                                        ,"Symbol.Definition.Preview"]
 IN.sjump                := ["^b"                                                            ,"Symbol.Definition.Jump"]
 IN.stype                := ["^+b"                                                                 ,"Symbol.Type.Jump"]
 IN.shelp                := ["+{F1}"                                                             ,"Symbol.Manual.Open"]
-IN.shighlight           := ["^+{F7}"                                                              ,"Symbol.Highlight"]
+IN.shigh                := ["^+{F7}"                                                              ,"Symbol.Highlight"]
 
 IN.sbook                := ["+{F11}"                                                        ,"Symbol.Bookmark.Manage"]
 IN.sb                   := ["{F11}"                                                         ,"Symbol.Bookmark.Toggle"]
@@ -90,7 +91,8 @@ IN.cformat              := ["^!l"                                               
 
 
 ;;;;;;;; build
-IN.bb                   := ["^+{F9}"                 ,                                                "Build.Current"]
+IN.bl                   := [Func( "_ASAction" ).Bind( "^+a", 500, "gradle")                        ,"Build.List.Menu"]
+IN.bb                   := ["^+{F9}"                                                                 ,"Build.Current"]
 IN.bp                   := ["^{F9}"                                                                  ,"Build.Project"]
 ;;;; prerequite: autoscroll to source, autoscroll from source need to checked in prject view
 IN.bnr                  := ["sendinput, !1 `n sleep, 500 `n sendinput, ^+{f9} `n sleep, 1000 `n sendinput, ^+{f10}"      ,"Build.and.Run"]
@@ -101,7 +103,7 @@ IN.bd                   := ["+{F9}"                                             
 
 
 ;;;;;;;; vcs
-IN.vhis                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show History")                ,"VCS.History"]
+IN.vhis                 := ["!``"                                                       ,"VCS.Menu.History.Blame.ETC"]
 IN.vlog                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}show Git repository Log...")      ,"VCS.Log"]
 IN.vs                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show Local Changes")           ,"VCS.Status"]
 IN.vc                   := ["^k"                                                                        ,"VCS.Commit"]

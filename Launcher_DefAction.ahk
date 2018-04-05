@@ -41,7 +41,7 @@ _OSRunTool( PathCmd, Tool ) {
         if ( _OSTerminal == "" )
             run, cmd.exe  /K cd /d %dir%
         else
-            run, % _OSTerminal .  " /Dir " . dir
+            run, % _OSTerminal .  " -reuse /dir " . dir
         
     }else if (Tool == "editor")     {
         if ( _OSEditor == "" )
