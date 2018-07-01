@@ -24,8 +24,8 @@ CH[clas] := Chrome_WidgetWin_1
 CH.pset                 := ["sendinput, !d `n sendinput, {text}chrome://settings"                 ,"Program.Settings"]
 CH.pkey                 := ["sendinput, !d `n sendinput, {text}chrome://extensions/shortcuts"     ,"Program.Shotcuts"]
 CH.pext                 := ["Run, chrome.exe chrome://extensions",                         "program.Extension.Plugin"]
-CH.his                  := ["sendinput, !d `n sendinput, {text}chrome://history"                       ,"URL.History"]
-CH.play                 := ["sendinput, !d `n sendinput, {text}https://chrome.google.com/webstore/category/extensions?hl=ko","PlayStore.Go"]
+CH.his                  := ["sendinput, !d `n sleep, 500 `n sendinput, {text}chrome://history"         ,"URL.History"]
+CH.play                 := ["sendinput, !d `n sleep, 500 `n sendinput, {text}https://chrome.google.com/webstore/category/extensions?hl=ko","PlayStore.Go"]
 CH.book                 := ["^+o"                                                                    ,"Bookmark.View"]
 CH.task                 := ["+{ESC}"                                                            ,"Chrome.TaskManager"]
 CH.sec                  := ["^+n"                                                                      ,"Mode.Secret"]
@@ -37,7 +37,7 @@ Hotkey, IfWinActive, ahk_class Chrome_WidgetWin_1
 ;;;Hotkey, $!LButton    ,CH.SelectWord
 ;;;Hotkey, $^+u         ,NP.ToggleUpperOrLowerCase
 Hotkey, $^.    ,CH.ListBullet
-Hotkey, $^`,   ,CH.ListNumber
+Hotkey, $^/    ,CH.ListNumber
 ;;;;;;;;
 Hotkey, IfWinActive
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,7 +49,8 @@ CH.ListBullet:          ;;^\::        ;;Confluence edit-mode, bullet-list
     return
 
 CH.ListNumber:          ;;^\::        ;;Confluence edit-mode, number-list
-    sendinput, ^+n
+    ;;sendinput, ^+n                    ;;this conflict in chrome incognition mod
+    sendinput, {HOME}1.{space}
     return
 
 CH.EndOfFile:

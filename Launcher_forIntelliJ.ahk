@@ -135,6 +135,9 @@ IN.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")             
 IN.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")                ,"Tool.OpenWith.ExternalEditor"]
 
 
+;;;;;;;; windows
+;;;; font size up/down should mapped with shortcut : ctrl + mouse up/down
+
 
 ;;;;;;;; debug
 ;;;; debug usually enough convenient or F-Key easily overlapped to other useful functionality
