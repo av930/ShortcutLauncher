@@ -51,14 +51,14 @@ PP.wruler               := ["!+{F9}"                                            
 ;;;;;;;; edit
 PP.newf                 := ["^n",                                                                 ,"File.Add.NewFile"]
 PP.newp                 := ["^m"                                                                  ,"File.Add.NewPage"]
-PP.copyp                := ["^d"                                                                 ,"File.Add.CopyPage"]
+PP.dup                  := ["^d"                                                     ,"File.Add.duplicatePage&Object"]
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Hotkey, IfWinActive, ahk_class PPTFrameClass
+Hotkey, IfWinActive, ahk_class PPTFrameClass || ahk_class rctrl_renwnd*
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;;;; opengrok utilities
 ;;;;;;;; move
@@ -69,7 +69,8 @@ Hotkey, IfWinActive, ahk_class PPTFrameClass
 
 ;;;;;;;;;;; edit
 ;;;Hotkey, $^y          ,PP.Redo
-   Hotkey, $^d          ,PP.DuplicateCurrentLine
+;;;conflict with duplicate objects
+;;;Hotkey, $^d          ,PP.DuplicateCurrentLine
    Hotkey, $^+d         ,PP.DeleteCurrentLine
    Hotkey, $^+u         ,PP.ToggleUpperOrLowerCase
    Hotkey, $^.          ,PP.ListBullet

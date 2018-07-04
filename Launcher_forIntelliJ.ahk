@@ -159,7 +159,7 @@ IN.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")          
 
 ;; apply both of Intellij and AndroidStudio
 ;Hotkey, IfWinActive, ahk_exe idea64.exe
-Hotkey, IfWinActive, ahk_class SunAwtFrame
+Hotkey, IfWinActive, ahk_class SunAwtFrame  
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
    Hotkey, $!Right      ,IN.MoveNextPostion             ;;^!Right

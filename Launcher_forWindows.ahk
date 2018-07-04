@@ -16,10 +16,12 @@ global _OSEditor        := "D:\OneDrive\_MyProgram\_IDEditor\Notepad++\Notepad++
 global _OSTerminal      := "D:\OneDrive\_MyProgram\_Shell\_ConEmu\ConEmu64.exe"
 _OSExplorer             := "D:\OneDrive\_MyProgram\_FileBrowser\_Q-Dir_portable\Q-Dir.exe"
 _OSFTP                  := "D:\OneDrive\_MyProgram\_WebComm\_winscp\winscp.exe"
+_OSIMG                  := "D:\OneDrive\_MyProgram\_MultiMedia\IrfanView\i_view32.exe"
 
 ;;;;;;;; userdefined actions
 OS.ex                   := ["Run," . _OSExplorer                                                         ,"program.FileBrowser"]
 OS.ftp                  := ["Run," . _OSFTP                                                                   ,"program.WinSCP"]
+OS.img                  := ["Run," . _OSIMG                                                              ,"program.imageviewer"]
 OS.term                 := ["!{delete}"                                                                     ,"program.Terminal"]
 
 
@@ -34,7 +36,7 @@ OS.pfa                  := [Func( "_OSRunMore" ).Bind( "C:\Program Files\", A_Pr
 OS.startup              := [Func( "_OSRunMore" ).Bind( "shell:startup" )                                   ,"directory.StartUp"]
 OS.doc                  := ["Run," . A_MyDocuments ,"directory: MyDocument"]
 OS.down                 := [Func( "_OSRunMore" ).Bind( "shell:::{374DE290-123F-4565-9164-39C4925E467B}")  ,"directory.Download"]
-OS.QLaunch              := [Func( "_OSRunMore" ).Bind( "shell:Quick Launch" )                          ,"directory.QuickLaunch"]
+OS.qlaunch              := [Func( "_OSRunMore" ).Bind( "shell:Quick Launch" )                          ,"directory.QuickLaunch"]
 
 ;;;;;;;; goto Windows Tools
 OS.control              := ["Run, Control Panel"                                                         ,"window.ControlPanel"]
@@ -45,6 +47,7 @@ OS.ip                   := [Func( "_OSCopyText" ).Bind( A_IPAddress1 )          
 
 ;;;;;;;; MS office Common Key
 OS.ribbon               := ["^{F1}"                                                                   ,"Menu.Toggle.RibbonMenu"]
+OS.newins               := ["sendinput, !w `n sleep, 300 `n sendinput, n"                                 ,"Window.NewInstance"]
 
 
 
