@@ -19,36 +19,31 @@ _OSFTP                  := "D:\OneDrive\_MyProgram\_WebComm\_winscp\winscp.exe"
 _OSIMG                  := "D:\OneDrive\_MyProgram\_MultiMedia\IrfanView\i_view32.exe"
 
 ;;;;;;;; userdefined actions
-OS.ex                   := ["Run," . _OSExplorer                                                         ,"program.FileBrowser"]
-OS.ftp                  := ["Run," . _OSFTP                                                                   ,"program.WinSCP"]
-OS.img                  := ["Run," . _OSIMG                                                              ,"program.imageviewer"]
-OS.term                 := ["!{delete}"                                                                     ,"program.Terminal"]
+OS.ex                   := ["Run," . _OSExplorer                                                         ,"Program:FileBrowser"]
+OS.ftp                  := ["Run," . _OSFTP                                                                   ,"Program:WinSCP"]
+OS.img                  := ["Run," . _OSIMG                                                              ,"Program:imageviewer"]
+OS.term                 := ["!{delete}"                                                                     ,"Program:Terminal"]
 
 
 ;;;;;;;; Autohotkey        
-OS.hotkey               := [Func( "_OSHotKeys" )                                             ,"autohotkey.list.AssignedHotkeys"]
+OS.hotkey               := [Func( "_OSHotKeys" )                                             ,"Autohotkey:list.AssignedHotkeys"]
 
 ;;;;;;;; Favorite Directories
-OS.c                    := ["Run, c:\"                                                                     ,"directory.C-drive"]
-OS.d                    := ["Run, d:\"                                                                     ,"directory.D-drive"]
-OS.pf                   := ["Run," . A_ProgramFiles                                                  ,"directory.Program Files"]
-OS.pfa                  := [Func( "_OSRunMore" ).Bind( "C:\Program Files\", A_ProgramFiles )         ,"directory.Program Files"] 
-OS.startup              := [Func( "_OSRunMore" ).Bind( "shell:startup" )                                   ,"directory.StartUp"]
-OS.doc                  := ["Run," . A_MyDocuments ,"directory: MyDocument"]
-OS.down                 := [Func( "_OSRunMore" ).Bind( "shell:::{374DE290-123F-4565-9164-39C4925E467B}")  ,"directory.Download"]
-OS.qlaunch              := [Func( "_OSRunMore" ).Bind( "shell:Quick Launch" )                          ,"directory.QuickLaunch"]
+OS.c                    := ["Run, c:\"                                                                     ,"Directory:C-drive"]
+OS.d                    := ["Run, d:\"                                                                     ,"Directory:D-drive"]
+OS.pf                   := ["Run," . A_ProgramFiles                                                  ,"Directory:Program Files"]
+OS.pfa                  := [Func( "_OSRunMore" ).Bind( "C:\Program Files\", A_ProgramFiles )         ,"Directory:Program Files"] 
+OS.startup              := [Func( "_OSRunMore" ).Bind( "shell:startup" )                                   ,"Directory:StartUp"]
+OS.doc                  := ["Run," . A_MyDocuments ,                                                     "Directory:MyDocument"]
+OS.down                 := [Func( "_OSRunMore" ).Bind( "shell:::{374DE290-123F-4565-9164-39C4925E467B}")  ,"Directory:Download"]
+OS.qlaunch              := [Func( "_OSRunMore" ).Bind( "shell:Quick Launch" )                          ,"Directory:QuickLaunch"]
 
 ;;;;;;;; goto Windows Tools
-OS.control              := ["Run, Control Panel"                                                         ,"window.ControlPanel"]
-OS.install              := [Func( "_OSRunMore" ).Bind( "shell:ChangeRemoveProgramsFolder" )     ,"window.ProgramInstall&Remove"]
+OS.control              := ["Run, Control Panel"                                                         ,"Window:ControlPanel"]
+OS.install              := [Func( "_OSRunMore" ).Bind( "shell:ChangeRemoveProgramsFolder" )     ,"Window:ProgramInstall&Remove"]
 
 ;;;;;;;; do Small function
-OS.ip                   := [Func( "_OSCopyText" ).Bind( A_IPAddress1 )                               ,"copy current IP address"]
-
-;;;;;;;; MS office Common Key
-OS.ribbon               := ["^{F1}"                                                                   ,"Menu.Toggle.RibbonMenu"]
-OS.newins               := ["sendinput, !w `n sleep, 300 `n sendinput, n"                                 ,"Window.NewInstance"]
-
+OS.ip                   := [Func( "_OSCopyText" ).Bind( A_IPAddress1 )                           ,"Action:CopyCurrentIPaddress"]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

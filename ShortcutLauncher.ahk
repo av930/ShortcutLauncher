@@ -21,6 +21,7 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 #Include Launcher_forCHrome.ahk
 #Include Launcher_forIntelliJ.ahk
 #Include Launcher_forAndroidStudio.ahk
+#Include Launcher_forEclipse.ahk
 #Include Launcher_forSourceInsight.ahk
 #Include Launcher_forNotepadPlus.ahk
 #Include Launcher_forSublimeText.ahk
@@ -102,8 +103,10 @@ ProgramSelect:
         MAP := IN
     }else if WinActive("ahk_class SunAwtFrame") and WinActive("ahk_exe studio64.exe"){
         MAP := AS
+    }else if WinActive("ahk_exe eclipse.exe")        {
+        MAP := EC
     }else if WinActive("ahk_exe notepad\+\+.exe")    {
-        MAP := NP
+        MAP := NP        
     }else if WinActive("ahk_exe sourceinsight4.exe") {
         MAP := SI
     }else if WinActive("ahk_exe sublime_text.exe")   {

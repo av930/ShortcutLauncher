@@ -35,48 +35,40 @@ _NPAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-NP.plist                := ["SoundPlay *-1"                                                         ,"Project.Listup"]
-NP.pexit                := ["SoundPlay *-1"                                                          ,"Project.Close"]
-NP.pset                 := ["sendinput, !t `n sendinput, p"                                       ,"Program.Settings"]
-NP.pkey                 := ["^+!s"                                                    ,"Program.Key.Shortcut.Setting"]
-NP.pconf                := ["SoundPlay *-1"                                                  ,"Project.Configuration"]
+NP.pset                 := ["sendinput, !t `n sendinput, p"                                       ,"Program:Settings"]
+NP.pkey                 := ["^+!s"                                                    ,"Program:Key.Shortcut.Setting"]
 
 
 ;;;;;;;; file
-NP.fo                   := ["^o"                                                                         ,"File.Open"]
-NP.fr                   := ["sendinput, !f `n sendinput, l"                                    ,"File.Reload.or.Sync"]
-NP.fc                   := ["^w"                                                                        ,"File.Close"]
-NP.fca                  := ["^+w"                                                                   ,"File.All.Close"]
-NP.fsa                  := ["^+s"                                                                    ,"File.All.Save"]
+NP.fo                   := ["^o"                                                                         ,"File:Open"]
+NP.fr                   := ["sendinput, !f `n sendinput, l"                                    ,"File:Reload.or.Sync"]
+NP.fc                   := ["^w"                                                                        ,"File:Close"]
+NP.fca                  := ["^+w"                                                                   ,"File:All.Close"]
+NP.fsa                  := ["^+s"                                                                    ,"File:All.Save"]
 
-NP.fencode              := ["!+e"                                                  ,"File.Open.as.Encoding, NEED2MAP"]
+NP.fencode              := ["!+e"                                                  ,"File:Open.as.Encoding, NEED2MAP"]
 
 
 ;;;;;;;; symbol search
-NP.sf                   := ["^+f"                                                     ,"Symbol.String.Find.inProject"]
-NP.sr                   := ["^h"                                                   ,"Symbol.String.Replace.inProject"]
-NP.cfo                  := ["!+0"                                                                    ,"Coding.Unfold"]
-NP.cfc                  := ["!0"                                                                       ,"Coding.Fold"]
+NP.sf                   := ["^+f"                                                     ,"Symbol:String.Find.inProject"]
+NP.sr                   := ["^h"                                                   ,"Symbol:String.Replace.inProject"]
+NP.cfo                  := ["!+0"                                                                    ,"Coding:Unfold"]
+NP.cfc                  := ["!0"                                                                       ,"Coding:Fold"]
 
 ;;;;;;;; windows, need to install Explorer plugin
-NP.wfull                := ["{F11}"                                                       ,"Window.FullScreen.Toggle"]
-NP.wlist                := ["SoundPlay *-1"                                                   ,"Window.List.toSwitch"]
-NP.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window.Backto.Editor"]
-NP.wdir                 := ["^!+e"                                                           ,"Window.Directory.View"]
-NP.wlayout              := ["!s"                                                              ,"Window.Symbol.Layout"]
+NP.wfull                := ["{F11}"                                                       ,"Window:FullScreen.Toggle"]
+NP.wlist                := ["SoundPlay *-1"                                                   ,"Window:List.toSwitch"]
+NP.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window:Backto.Editor"]
+NP.wdir                 := ["^!+e"                                                           ,"Window:Directory.View"]
+NP.wlayout              := ["!s"                                                              ,"Window:Symbol.Layout"]
 
 ;;;; tool 
-NP.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                            ,"Tool.FullPath.Copy"]
-NP.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool.Explorer.Launch"]
+;; need to install startexplorer
+NP.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                            ,"Tool:FullPath.Copy"]
+NP.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool:Explorer.Launch"]
 NP.tt                   := NP.tex
-NP.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool.CommandLine.Interface"]
-NP.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")             ,"Tool.OpenWith.ExternalEditor"]
-
-;;;; tool, need to install [RunMe plugin
-;;NP.tex                  := [Func( "_NPAction" ).Bind( "{F5}", 500, "{text}explorer.exe $(CURRENT_DIRECTORY)"), "Tool.Explorer.Launch"]
-;;NP.tt                   := ["^+{F5}"                                                          ,"Tool.Explorer.Launch"]
-;;NP.tcmd                 := ["^!{F5}"                                                    ,"Tool.CommandLine.Interface"]
-
+NP.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool:CommandLine.Interface"]
+NP.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")                ,"Tool:OpenWith.ExternalEditor"]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

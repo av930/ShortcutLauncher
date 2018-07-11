@@ -34,31 +34,40 @@ _PPAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-PP.pset                 := ["sendinput, !f `n sleep, 300 `n sendinput, t"                         ,"Program.Settings"]
+PP.pset                 := ["sendinput, !f `n sleep, 300 `n sendinput, t"                         ,"Program:Settings"]
 ;;;;;;;; file
-PP.fo                   := ["sendinput, !f `n sleep, 300 `n sendinput, o"                                ,"File.Open"]
-PP.frecent              := ["sendinput, !f `n sleep, 300 `n sendinput, or"                        ,"File.Open.Recent"]
-PP.fc                   := ["sendinput, !f `n sleep, 300 `n sendinput, c"                               ,"File.Close"]
+PP.fo                   := ["sendinput, !f `n sleep, 300 `n sendinput, o"                                ,"File:Open"]
+PP.frecent              := ["sendinput, !f `n sleep, 300 `n sendinput, or"                        ,"File:Open.Recent"]
+PP.fc                   := ["sendinput, !f `n sleep, 300 `n sendinput, c"                               ,"File:Close"]
 ;;;;;;;; symbol search
-PP.sfind                := ["^f",                                                     ,"Symbol.String.Find.inProject"]
-PP.sreplace             := ["^h"                                                   ,"Symbol.String.Replace.inProject"]
+PP.sfind                := ["^f",                                                     ,"Symbol:String.Find.inProject"]
+PP.sreplace             := ["^h"                                                   ,"Symbol:String.Replace.inProject"]
 ;;;;;;;; windows & view
-PP.wfull                := ["+{F5}"                                                      ,"Window.FullScreen.Current"]
-PP.wmatrixline          := ["+{F9}"                                                        ,"Window.view.line.matrix"]
-PP.wguidline            := ["!{F9}"                                                         ,"Window.view.line.guide"]
-PP.wruler               := ["!+{F9}"                                                        ,"Window.view.line.ruler"]
+PP.wfull                := ["+{F5}"                                                      ,"Window:FullScreen.Current"]
+PP.wmatrixline          := ["+{F9}"                                                        ,"Window:view.line.matrix"]
+PP.wguidline            := ["!{F9}"                                                         ,"Window:view.line.guide"]
+PP.wruler               := ["!+{F9}"                                                        ,"Window:view.line.ruler"]
+;;;;;;;; MS office Common Key
+PP.ribbon               := ["^{F1}"                                                  ,"Window:Menu.Toggle.RibbonMenu"]
+PP.dupw                 := ["sendinput, !w `n sleep, 300 `n sendinput, n"                  ,"Window:Window.Duplicate"]
  
 ;;;;;;;; edit
-PP.newf                 := ["^n",                                                                 ,"File.Add.NewFile"]
-PP.newp                 := ["^m"                                                                  ,"File.Add.NewPage"]
-PP.dup                  := ["^d"                                                     ,"File.Add.duplicatePage&Object"]
+PP.newf                 := ["^n",                                                                 ,"File:Add.NewFile"]
+PP.newp                 := ["^m"                                                                  ,"File:Add.NewPage"]
+PP.dup                  := ["^d"                                                        ,"File:Duplicate.Page&Object"]
+ 
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Hotkey, IfWinActive, ahk_class PPTFrameClass || ahk_class rctrl_renwnd*
+GroupAdd, OfficeGroup, ahk_class PPTFrameClass
+GroupAdd, OfficeGroup, ahk_class rctrl_renwnd*
+
+Hotkey, IfWinActive, ahk_group Officegroup
+;;Hotkey, IfWinActive, ahk_class PPTFrameClass || ahk_class rctrl_renwnd*
+;;Hotkey, IfWinActive, ahk_class PPTFrameClass
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;;;; opengrok utilities
 ;;;;;;;; move

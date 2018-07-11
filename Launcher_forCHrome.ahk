@@ -21,14 +21,16 @@ CH[clas] := Chrome_WidgetWin_1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-CH.pset                 := ["sendinput, !d `n sendinput, {text}chrome://settings"                 ,"Program.Settings"]
-CH.pkey                 := ["sendinput, !d `n sendinput, {text}chrome://extensions/shortcuts"     ,"Program.Shotcuts"]
-CH.pext                 := ["Run, chrome.exe chrome://extensions",                         "program.Extension.Plugin"]
-CH.his                  := ["sendinput, !d `n sleep, 500 `n sendinput, {text}chrome://history"         ,"URL.History"]
-CH.play                 := ["sendinput, !d `n sleep, 500 `n sendinput, {text}https://chrome.google.com/webstore/category/extensions?hl=ko","PlayStore.Go"]
-CH.book                 := ["^+o"                                                                    ,"Bookmark.View"]
-CH.task                 := ["+{ESC}"                                                            ,"Chrome.TaskManager"]
-CH.sec                  := ["^+n"                                                                      ,"Mode.Secret"]
+CH.pset                 := ["sendinput, !d `n sendinput, {text}chrome://settings"                 ,"Program:Settings"]
+CH.pkey                 := ["sendinput, !d `n sendinput, {text}chrome://extensions/shortcuts"     ,"Program:Shotcuts"]
+CH.pext                 := ["Run, chrome.exe chrome://extensions",                         "Program:Extension.Plugin"]
+CH.task                 := ["+{ESC}"                                                    ,"Program:Chrome.TaskManager"]
+CH.sec                  := ["^+n"                                                              ,"Program:Mode.Secret"]
+
+;;;;;;;; site
+CH.his                  := ["sendinput, !d `n sleep, 500 `n sendinput, {text}chrome://history"    ,"Site:URL.History"]
+CH.play                 := ["sendinput, !d `n sleep, 500 `n sendinput, {text}https://chrome.google.com/webstore/category/extensions?hl=ko","Site:PlayStore.Go"]
+CH.book                 := ["^+o"                                                               ,"Site:Bookmark.View"]
 
 
 

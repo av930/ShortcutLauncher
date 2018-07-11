@@ -35,42 +35,42 @@ _STAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-ST.plist                := ["sendinput, !p `n sendinput, o `n sendinput, {Enter}"                   ,"Project.Listup"]
-ST.pexit                := ["sendinput, !p `n sendinput, c"                                          ,"Project.Close"]
-ST.pset                 := ["sendinput, !n `n sendinput, s `n sendinput, {Enter}"                 ,"Program.Settings"]
-ST.pkey                 := ["sendinput, !n `n sendinput, k"                           ,"Program.Key.Shortcut.Setting"]
-ST.pconf                := ["SoundPlay *-1"                                                  ,"Project.Configuration"]
+ST.plist                := ["sendinput, !p `n sendinput, o `n sendinput, {Enter}"                   ,"Project:Listup"]
+ST.pexit                := ["sendinput, !p `n sendinput, c"                                          ,"Project:Close"]
+ST.pset                 := ["sendinput, !n `n sendinput, s `n sendinput, {Enter}"                 ,"Program:Settings"]
+ST.pkey                 := ["sendinput, !n `n sendinput, k"                           ,"Program:Key.Shortcut.Setting"]
+ST.pconf                := ["SoundPlay *-1"                                                  ,"Project:Configuration"]
 
 
 ;;;;;;;; file
-ST.fo                   := ["^o"                                                                         ,"File.Open"]
-ST.fr                   := ["SoundPlay *-1"                                                    ,"File.Reload.or.Sync"]
-ST.fc                   := ["^w"                                                                        ,"File.Close"]
-ST.fca                  := ["SoundPlay *-1"                                                         ,"File.All.Close"]
-ST.fsa                  := ["sendinput, !f `n sendinput, l"                                          ,"File.All.Save"]
+ST.fo                   := ["^o"                                                                         ,"File:Open"]
+ST.fr                   := ["SoundPlay *-1"                                                    ,"File:Reload.or.Sync"]
+ST.fc                   := ["^w"                                                                        ,"File:Close"]
+ST.fca                  := ["SoundPlay *-1"                                                         ,"File:All.Close"]
+ST.fsa                  := ["sendinput, !f `n sendinput, l"                                          ,"File:All.Save"]
 
-ST.fencode              := ["SoundPlay *-1"                                        ,"File.Open.as.Encoding, NEED2MAP"]
+ST.fencode              := ["SoundPlay *-1"                                        ,"File:Open.as.Encoding, NEED2MAP"]
 
 
 ;;;;;;;; symbol search
-ST.sf                   := ["^+f"                                                     ,"Symbol.String.Find.inProject"]
-ST.sr                   := ["^+f"                                                  ,"Symbol.String.Replace.inProject"]
-ST.cfo                  := ["^+]"                                                                    ,"Coding.Unfold"]
-ST.cfc                  := ["^+["                                                                      ,"Coding.Fold"]
+ST.sf                   := ["^+f"                                                     ,"Symbol:String.Find.inProject"]
+ST.sr                   := ["^+f"                                                  ,"Symbol:String.Replace.inProject"]
+ST.cfo                  := ["^+]"                                                                    ,"Coding:Unfold"]
+ST.cfc                  := ["^+["                                                                      ,"Coding:Fold"]
 
 ;;;;;;;; windows
-ST.wfull                := ["{F11}"                                                       ,"Window.FullScreen.Toggle"]
-ST.wlist                := ["SoundPlay *-1"                                                   ,"Window.List.toSwitch"]
-ST.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window.Backto.Editor"]
-ST.wdir                 := ["^k^b"                                                           ,"Window.Directory.View"]
-ST.wlayout              := ["!s"                                                              ,"Window.Symbol.Layout"]
+ST.wfull                := ["{F11}"                                                       ,"Window:FullScreen.Toggle"]
+ST.wlist                := ["SoundPlay *-1"                                                   ,"Window:List.toSwitch"]
+ST.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window:Backto.Editor"]
+ST.wdir                 := ["^k^b"                                                           ,"Window:Directory.View"]
+ST.wlayout              := ["!s"                                                              ,"Window:Symbol.Layout"]
 
 ;;;; tool
-ST.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool.FullPath.Copy, NEED2MAP"]
-ST.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool.Explorer.Launch"]
+ST.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool:FullPath.Copy, NEED2MAP"]
+ST.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool:Explorer.Launch"]
 ST.tt                   := ST.tex
-ST.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool.CommandLine.Interface"]
-ST.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")             ,"Tool.OpenWith.ExternalEditor"]
+ST.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool:CommandLine.Interface"]
+ST.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")             ,"Tool:OpenWith.ExternalEditor"]
 
 
 
