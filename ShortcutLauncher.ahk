@@ -14,21 +14,21 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 #Include obj2str.ahk
 #Include Exec.ahk
 #Include Launcher_DefAction.ahk
-#Include Launcher_forWindows.ahk
+#Include Launcher_forWindows.def
 
 
 ;;Program Editor or IDE 
-#Include Launcher_forCHrome.ahk
-#Include Launcher_forIntelliJ.ahk
-#Include Launcher_forAndroidStudio.ahk
-#Include Launcher_forEclipse.ahk
-#Include Launcher_forSourceInsight.ahk
-#Include Launcher_forNotepadPlus.ahk
-#Include Launcher_forSublimeText.ahk
+#Include Launcher_forCHrome.def
+#Include Launcher_forIntelliJ.def
+#Include Launcher_forAndroidStudio.def
+#Include Launcher_forEclipse.def
+#Include Launcher_forSourceInsight.def
+#Include Launcher_forNotepadPlus.def
+#Include Launcher_forSublimeText.def
 
 
 ;;MSOffice & Document Common 
-#Include Launcher_forMSPowerPoint.ahk
+#Include Launcher_forMSPowerPoint.def
 
 Return ; END OF AUTO-EXECUTE SECTION
 
