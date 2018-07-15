@@ -29,7 +29,6 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 
 ;;MSOffice & Document Common 
 #Include Launcher_forMSPowerPoint.def
-
 Return ; END OF AUTO-EXECUTE SECTION
 
 
