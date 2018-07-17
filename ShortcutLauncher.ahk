@@ -14,22 +14,24 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 #Include obj2str.ahk
 #Include Exec.ahk
 #Include Launcher_DefAction.ahk
-#Include Launcher_forWindows.def
 
 
+;;default for OS
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forWindows.ahk
 ;;Program Editor or IDE 
-#Include Launcher_forCHrome.def
-#Include Launcher_forIntelliJ.def
-#Include Launcher_forAndroidStudio.def
-#Include Launcher_forEclipse.def
-#Include Launcher_forSourceInsight.def
-#Include Launcher_forNotepadPlus.def
-#Include Launcher_forSublimeText.def
-
-
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forCHrome.ahk
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forIntelliJ.ahk
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forAndroidStudio.ahk
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forEclipse.ahk
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forSourceInsight.ahk
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forNotepadPlus.ahk
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forSublimeText.ahk
 ;;MSOffice & Document Common 
-#Include Launcher_forMSPowerPoint.def
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forMSPowerPoint.ahk
+
+
 Return ; END OF AUTO-EXECUTE SECTION
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -97,22 +99,22 @@ ProgramKeyMapper( ProgramKey, Command ) {
 
 
 ProgramSelect:
-    MAP := OS
+    global MAP := OS
     if       WinActive("ahk_class SunAwtFrame") and WinActive("ahk_exe idea64.exe")  {
         MAP := IN
     }else if WinActive("ahk_class SunAwtFrame") and WinActive("ahk_exe studio64.exe"){
         MAP := AS
-    }else if WinActive("ahk_exe eclipse.exe")        {
+    }else if WinActive("ahk_class SWT_Window0")        {
         MAP := EC
-    }else if WinActive("ahk_exe notepad\+\+.exe")    {
-        MAP := NP        
-    }else if WinActive("ahk_exe sourceinsight4.exe") {
+    }else if WinActive("ahk_class Notepad\+\+")        {
+        MAP := NP
+    }else if WinActive("ahk_class si4_Frame")          {
         MAP := SI
-    }else if WinActive("ahk_exe sublime_text.exe")   {
+    }else if WinActive("ahk_class PX_WINDOW_CLASS")    {
         MAP := ST
-    }else if WinActive("ahk_exe chrome.exe")         {
+    }else if WinActive("ahk_class Chrome_WidgetWin_1") {
         MAP := CH
-    }else if WinActive("ahk_class PPTFrameClass")    {
+    }else if WinActive("ahk_class PPTFrameClass")      {
         MAP := PP
     }else
         MAP := OS
@@ -199,7 +201,7 @@ return
     ;Gui, Add, Edit, x5 y5 w200 h25 vQuery, %LastQSQuery%,
     Gui, Add, Edit, x5 y5 w600 h25 vQuery gAutoComplete, %LastQSQuery%
     Gui, Add, ListBox, x5 y40 w628 vLastQSQuery r20 gMouseControl,  % list
-    Gui, Add, Button, x610 y5 w25 h25 +Default gPopupGoPost,
+    Gui, Add, Button, x610 y5 w25 h25 +Default gPopupGoPost, G
 
   
     ;;Move GUI to Current Monitor

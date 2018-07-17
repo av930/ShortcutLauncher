@@ -52,6 +52,15 @@ _OSRunTool( PathCmd, Tool ) {
 }
 
 
+_OSEditScript( FileName ) { 
+    FullPathName = % A_ScriptDir . "\ProgramScripts\Launcher_for" . filename . .ahk        
+    if ( _OSEditor == "" )
+        run, notepad.exe %FullPathName%
+    else
+        run, %_OSEditor% %FullPathName%    
+}
+
+
 ;;;; empty trash can
 _OSEmptyRecycleBin() {
     NumPut( VarSetCapacity( SHQUERYRBINFO,20,0 ), SHQUERYRBINFO )
