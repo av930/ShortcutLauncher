@@ -43,36 +43,13 @@ OS.qlaunch              := [Func( "_OSRunMore" ).Bind( "shell:Quick Launch" )   
 OS.control              := ["Run, Control Panel"                                                         ,"Window:ControlPanel"]
 OS.install              := [Func( "_OSRunMore" ).Bind( "shell:ChangeRemoveProgramsFolder" )     ,"Window:ProgramInstall&Remove"]
 
-;;;;;;;; do Small function
-OS.ip                   := [Func( "_OSCopyText" ).Bind( A_IPAddress1 )                           ,"Action:CopyCurrentIPaddress"]
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
-;;;;;;;; move
-;;;Hotkey, $^tab        ,OS.NextFileorTab               ;;^tab
-;;;Hotkey, $^+tab       ,OS.PrevFileorTab               ;;^+tab
-;;;Hotkey, $^w          ,OS.CloseCurrentFile            ;;^{F4}
-;;;Hotkey, $^g          ,OS.JumpToLine                  ;;^g
 
-;;;;;;;; edit
-;;;Hotkey, $^y          ,OS.Redo                        ;;^+z
-;;;Hotkey, $^d          ,OS.DuplicateCurrentLine        ;;^d
-;;;Hotkey, $^+d         ,OS.DeleteCurrentLine           ;;^y
-;;;Hotkey, $!+i         ,OS.InOutdentBlock              ;;!+-><-
-
-;;;Hotkey, $^+c         ,OS.CopyFormatOfObject          ;;^+c
-;;;Hotkey, $^+v         ,OS.PasteFormatOfObject         ;;^+v
-;;;Hotkey, $^+>         ,OS.ScaleUpDownFontSize         ;;^+><
-;;;Hotkey, $^+u         ,OS.ToggleUpperOrLowerCase      ;;^+u
-;;;Hotkey, $^g          ,OS.ToggleGroup                 ;;^g
-;;;Hotkey, $^b          ,OS.ToggleBold                  ;;^b
-;;;Hotkey, $^u          ,OS.ToggleUnderline             ;;^u
-;;;Hotkey, $^i          ,OS.ToggleItalic                ;;^i
-;;;Hotkey, $^=          ,OS.ToggleUnderUpperCharacter   ;;^=
 ;;;Hotkey, $^l          ,OS.AlignLeft                   ;;^l
 ;;;Hotkey, $^r          ,OS.AlignRight                  ;;^r
 ;;;Hotkey, $^e          ,OS.AligncEnter                 ;;^e
@@ -85,19 +62,6 @@ OS.ip                   := [Func( "_OSCopyText" ).Bind( A_IPAddress1 )          
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Goto, OS.EndOfFile
 
-    
-
-OS.DuplicateCurrentLine:         ;;^d::        ;;duplicate line
-    sendinput, ^d
-    return
-
-OS.DeleteCurrentLine:            ;;^+d::       ;;delete line
-    sendinput, ^y
-    return
-
-OS.ToggleUpperOrLowerCase:       ;;^+u::       ;;toggle upper or lower case
-    sendinput, +{F3}
-    return
 
 OS.IndentBlock:                  ;;^!i::       ;;indent block
     sendinput, % OS.cindent[1]
