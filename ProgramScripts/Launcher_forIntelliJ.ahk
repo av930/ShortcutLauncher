@@ -60,8 +60,8 @@ IN.fclone               := ["{F5}"                                              
 IN.sfind                := ["^+f"                                                     ,"Symbol: String.Find.inProject"]
 IN.sreplace             := ["^+r"                                                  ,"Symbol: String.Replace.inProject"]
 IN.sref                 := ["!{F7}"                                                              ,"Symbol: Usage.Find"]
-IN.slistgl              := ["^!+n"                                                           ,"Symbol: List.inProject"]
-IN.slistlo              := ["^{F12}"                                                            ,"Symbol: List.inFile"]
+IN.sglobal              := ["^!+n"                                                           ,"Symbol: List.inProject"]
+IN.slocal               := ["^{F12}"                                                            ,"Symbol: List.inFile"]
 IN.ss                   := ["sendinput, {shift} `n sendinput, {shift}"                      ,"Symbol: Search.AllPlace"]
 IN.srename              := ["+{F6}"                                                          ,"Symbol: Rename.Smartly"]
 IN.simpl                := ["^!b"                                                ,"Symbol: List.implementation.Method"]
@@ -104,7 +104,7 @@ IN.bd                   := ["+{F9}"                                             
 
 
 ;;;;;;;; vcs
-IN.vhis                 := ["!``"                                                       ,"VCS: Menu.History.Blame.ETC"]
+IN.vhis                 := ["sendinput, !`` `n sleep, 200 `n sendinput, {ESC}{Down}{Down}{Down}"        ,"VCS: Menu.History.Blame.ETC"]
 IN.vlog                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}show Git repository Log...")      ,"VCS: Log"]
 IN.vs                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show Local Changes")           ,"VCS: Status"]
 IN.vc                   := ["^k"                                                                        ,"VCS: Commit"]
@@ -117,7 +117,7 @@ IN.vpull                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Pull...
 IN.wlist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"Window: List"]
 IN.wedit                := ["{ESC}"                                                           ,"Window: Backto.Editor"]
 IN.wdir                 := ["!1"                                                             ,"Window: Directory.View"]
-IN.wlayout              := ["^{12}"                                                           ,"Window: Symbol.Layout"]
+IN.wlayout              := ["!7"                                                              ,"Window: Symbol.Layout"]
 IN.whier                := ["^h"                                                            ,"Window: Class.Hierarchy"]
 IN.wcall                := ["^!h"                                                                ,"Window: Call.Graph"]
 IN.wmsg                 := ["sendinput, ^+a `n sleep, 500 `n sendinput, Tool Windows `n sleep, 300 `n sendinput, {enter} `n sleep, 200 `n sendinput, {text}build"  ,"Window: Build.Log.Message"]
