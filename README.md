@@ -13,6 +13,7 @@ Supported Program List
 * SourceInsight
 * Notepad
 * SublimeText
+* Eclipse
 
 # Browser & OS
 * Chrome
