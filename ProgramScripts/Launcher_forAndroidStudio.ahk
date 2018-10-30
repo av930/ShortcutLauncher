@@ -10,10 +10,10 @@ _ASAction( Menu, Sleep, Key ) {
     ;;MsgBox, %Menu%, %Sleep%, %Key%
     SendInput, %Menu%
 
-    WinWaitActive, % "ahk_class SunAwtDialog ahk_exe " . AS["prog"]
+    WinWaitActive, % "ahk_class SunAwtFrame ahk_exe " . AS["prog"]
     Sleep %Sleep%
     SendInput, {delete}%Key%
-    WinWaitClose,  % "ahk_class SunAwtDialog ahk_exe " . AS["prog"]
+    WinWaitClose,  % "ahk_class SunAwtFrame ahk_exe " . AS["prog"]
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; basic rule of shortcuts

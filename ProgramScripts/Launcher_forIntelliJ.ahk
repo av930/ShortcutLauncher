@@ -10,10 +10,12 @@ _INAction( Menu, Sleep, Key ) {
     ;;MsgBox, %Menu%, %Sleep%, %Key%
     SendInput, %Menu%
 
-    WinWaitActive, % "ahk_class SunAwtDialog ahk_exe " . IN[prog]
+    WinWaitActive, % "ahk_class SunAwtFrame ahk_exe " . IN[prog]
     Sleep %Sleep%
     SendInput, {delete}%Key%
-    WinWaitClose,  % "ahk_class SunAwtDialog ahk_exe " . IN[prog]
+    Sleep, 100
+    SendInput, {enter}
+    WinWaitClose,  % "ahk_class SunAwtFrame ahk_exe " . IN[prog]
 }
 
 
@@ -35,10 +37,10 @@ _INAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-IN.plist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Manage Projects.." )       ,"Project: Listup"]
-IN.pexit                := [Func( "_ASAction" ).Bind( "^+a", 500, "Close Project")                   ,"Project: Close"]
+IN.plist                := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Manage Projects.." )       ,"Project: Listup"]
+IN.pexit                := [Func( "_INAction" ).Bind( "^+a", 500, "Close Project")                   ,"Project: Close"]
 IN.pset                 := ["^!s"                                                                 ,"Program: Settings"]
-IN.pkey                 := [Func( "_ASAction" ).Bind( "^!s", 1200, "{text}Keymap" )   ,"Program: Key.Shortcut.Setting"]
+IN.pkey                 := [Func( "_INAction" ).Bind( "^!s", 1200, "{text}Keymap" )   ,"Program: Key.Shortcut.Setting"]
 IN.pconf                := ["^!+s"                                                           ,"Project: Configuration"]
 IN.psync                := ["^!y"                                                            ,"Project: Database.Sync"]
 IN.pc                   := ["^+a"                                                           ,"Program: Search.Command"]
@@ -49,10 +51,10 @@ IN.fo                   := ["^+n"                                               
 IN.fr                   := ["^!y"                                                              ,"File: Reload.or.Sync"]
 IN.frecent              := ["^e"                                                                  ,"File: Open.Recent"]
 IN.fc                   := ["^{F4}"                                                                     ,"File: Close"]
-IN.fca                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Close All Editor Close" )  ,"File: All.Close"]
+IN.fca                  := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Close All Editor Close" )  ,"File: All.Close"]
 IN.fsa                  := ["^s"                                                                     ,"File: All.Save"]
-IN.fencode              := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}file encoding" )    ,"File: Open.as.Encoding"]
-IN.fchange              := [Func( "_ASAction" ).Bind( "^+a", 500, "show history")                ,"File: Changes.Show"]
+IN.fencode              := [Func( "_INAction" ).Bind( "^+a", 500, "{text}file encoding" )    ,"File: Open.as.Encoding"]
+IN.fchange              := [Func( "_INAction" ).Bind( "^+a", 500, "show history")                ,"File: Changes.Show"]
 IN.fclone               := ["{F5}"                                                            ,"File: CloneCopy.Class"]
 
 
@@ -78,43 +80,43 @@ IN.sbook                := ["+{F11}"                                            
 IN.sb                   := ["{F11}"                                                         ,"Symbol: Bookmark.Toggle"]
 
 
-;;;;;;;; coding
-IN.cc                   := ["^{space}"                                                  ,"Coding: Symbol.AutoComplete"]
-IN.cp                   := ["^{space}"                                               ,"Coding: Parameter.AutoComplete"]
-IN.ci                   := ["^!o"                                                       ,"Coding: Import.AutoComplete"]
-IN.ct                   := ["!{enter}"                              ,"Coding: Override.Implement.Constructor.Generate"]
-IN.cfix                 := ["!{enter}"                                                        ,"Coding: Error.AutoFix"]
-IN.cerr                 := ["^{F1}"                                                               ,"Coding: Error.Tip"]
-IN.cf                   := ["^+="                                                             ,"Coding: UnFold,Expand"]
-IN.cfc                  := ["^+-"                                                                ,"Coding: Fold,Close"]
-IN.ceval                := ["!{F8}"                                                     ,"Coding: Expression.Evaluate"]
-IN.cindent              := ["^!i"                                                              ,"Coding: Indent.Block"]
-IN.cformat              := ["^!l"                                                               ,"Coding: Indent.File"]
+;;;;;;;; code
+IN.cc                   := ["^{space}"                                                    ,"Code: Symbol.AutoComplete"]
+IN.cp                   := ["^{space}"                                                 ,"Code: Parameter.AutoComplete"]
+IN.ci                   := ["^!o"                                                         ,"Code: Import.AutoComplete"]
+IN.ct                   := ["!{insert}"                               ,"Code: Override.Implement.Constructor.Generate"]
+IN.cfix                 := ["!{enter}"                                                          ,"Code: Error.AutoFix"]
+IN.cerr                 := ["^{F1}"                                                                 ,"Code: Error.Tip"]
+IN.cf                   := ["^+="                                                               ,"Code: UnFold,Expand"]
+IN.cfc                  := ["^+-"                                                                  ,"Code: Fold,Close"]
+IN.ceval                := ["!{F8}"                                                       ,"Code: Expression.Evaluate"]
+IN.cindent              := ["^!i"                                                                ,"Code: Indent.Block"]
+IN.cformat              := ["^!l"                                                                 ,"Code: Indent.File"]
 
 
 ;;;;;;;; build
-IN.bl                   := [Func( "_ASAction" ).Bind( "^+a", 500, "gradle")                        ,"Build: List.Menu"]
+IN.bl                   := [Func( "_INAction" ).Bind( "^+a", 500, "gradle")                 ,"Build: List.Menu.Gradle"]
 IN.bb                   := ["^{F9}"                                                                  ,"Build: Project"]
 IN.bt                   := ["^+{F9}"                                                          ,"Build: Current.Target"]
 ;;;; prerequite: autoscroll to source, autoscroll from source need to checked in prject view
 IN.brun                 := ["!+{f10}"                                                               ,"Build: Run.only"]
-IN.bre                  := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}ReBuild Project")    ,"Build: Agagin.reBuild"]
-IN.bc                   := [Func( "_ASAction" ).Bind( "^+a", 500, "Clean Project" )                   ," Build: Clean"]
+IN.bre                  := [Func( "_INAction" ).Bind( "^+a", 500, "{text}ReBuild Project")    ,"Build: Agagin.reBuild"]
+IN.bc                   := [Func( "_INAction" ).Bind( "^+a", 500, "Clean Project" )                   ," Build: Clean"]
 IN.bd                   := ["+{F9}"                                                          ,"Build: and.Start.Debug"]
 
 
 ;;;;;;;; vcs
 IN.vhis                 := ["sendinput, !`` `n sleep, 200 `n sendinput, {ESC}{Down}{Down}{Down}"        ,"VCS: Menu.History.Blame.ETC"]
-IN.vlog                 := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}show Git repository Log...")      ,"VCS: Log"]
-IN.vs                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Show Local Changes")           ,"VCS: Status"]
+IN.vlog                 := [Func( "_INAction" ).Bind( "^+a", 500, "{text}show Git repository Log...")      ,"VCS: Log"]
+IN.vs                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Show Local Changes")           ,"VCS: Status"]
 IN.vc                   := ["^k"                                                                        ,"VCS: Commit"]
 IN.va                   := ["^!a"                                                                          ,"VCS: Add"]
 IN.vpush                := ["^+k"                                                                         ,"VCS: Push"]
-IN.vpull                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Pull...")                        ,"VCS: Pull"]
+IN.vpull                := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Pull...")                        ,"VCS: Pull"]
 
 
 ;;;;;;;; windows
-IN.wlist                := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"Window: List"]
+IN.wlist                := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Tool Windows")                ,"Window: List"]
 IN.wedit                := ["{ESC}"                                                           ,"Window: Backto.Editor"]
 IN.wdir                 := ["!1"                                                             ,"Window: Directory.View"]
 IN.wlayout              := ["!7"                                                              ,"Window: Symbol.Layout"]
@@ -123,7 +125,7 @@ IN.wcall                := ["^!h"                                               
 IN.wmsg                 := ["sendinput, ^+a `n sleep, 500 `n sendinput, Tool Windows `n sleep, 300 `n sendinput, {enter} `n sleep, 200 `n sendinput, {text}build"  ,"Window: Build.Log.Message"]
 IN.wdebug               := ["!5"                                                                 ,"Window: Debug.View"]
 IN.wlog                 := ["!6"                                                        ,"Window: Runtime.Log.Message"]
-IN.wplug                := [Func( "_ASAction" ).Bind( "^+a", 500, "Plugins")                 ,"Window: Plugin.Manager"]
+IN.wplug                := [Func( "_INAction" ).Bind( "^+a", 500, "Plugins")                 ,"Window: Plugin.Manager"]
 IN.wfull                := ["^+{F12}"                                                     ,"Window: FullScreen.Toggle"]
 
 
@@ -169,16 +171,19 @@ Hotkey, IfWinActive, ahk_class SunAwtFrame
    Hotkey, $!+Right     ,IN.JumpToOverrideMethod        ;;^!b
 ;;;Hotkey, $^tab        ,IN.NextFileorTab               ;;^tab
 ;;;Hotkey, $^+tab       ,IN.PrevFileorTab               ;;^+tab
+   Hotkey, $^+o         ,IN.OpenAllSymbol               ;;^+!n
    Hotkey, $^w          ,IN.CloseCurrentFile            ;;^{F4}
    Hotkey, $^+t         ,IN.ReopenRecentFileorTab       ;;^e
 ;;;Hotkey, $^g          ,IN.JumpToLine                  ;;^g
    Hotkey, $^\          ,IN.JumpToMatchingBrace         ;;^+m
-;;;Hotkey, $^F3         ,IN.FindWordAtCurrentPosition   ;;^F3
+   Hotkey, $+Space      ,IN.JumpOutOfMatchingBrace      ;;
+   Hotkey, $!Down       ,IN.FindWordAtCurrentPosDown    ;;F3
+   Hotkey, $!Up         ,IN.FindWordAtCurrentPosUp      ;;^F3
 
 
    Hotkey, $^y          ,IN.Redo                        ;;^+z
-;;;Hotkey, $^d          ,IN.DuplicateCurrentLine        ;;^d
-   Hotkey, $^+d         ,IN.DeleteCurrentLine           ;;^y
+   Hotkey, $^d          ,IN.DeleteCurrentLine           ;;^y
+   Hotkey, $^+d         ,IN.DuplicateCurrentLine        ;;^d
 ;;;Hotkey, $^/          ,IN.CommentWithLineComment      ;;^/
 ;;;Hotkey, $^+/         ,IN.CommentWithBlockComment     ;;^+/
 ;;;Hotkey, $^+u         ,IN.ToggleUpperOrLowerCase      ;;^+u
@@ -218,7 +223,12 @@ IN.NextFileorTab:                ;;^tab::      ;;next file or tab
 IN.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
     sendinput, ^+{tab}
     return
-    
+   
+IN.OpenAllSymbol:                ;;^+!o:         ;;close current file
+    sendinput, {shift}
+    sendinput, {shift}
+    return
+   
 IN.CloseCurrentFile:             ;;^w:         ;;close current file
     sendinput, % IN.fc[1]
     return
@@ -236,9 +246,40 @@ IN.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
     sendinput, ^+m
     return
 
-IN.FindWordAtCurrentPosition:    ;;^F3::       ;;find word at current cursor
-    sendinput, ^{F3}
+IN.JumpOutOfMatchingBrace:       ;;+ ::        ;;goto matching brace toggle
+    sendinput, {Right}
     return
+    
+IN.FindWordAtCurrentPosDown:    ;;^F3::       ;;find word at current cursor
+    sendinput, % (_t1) ? ("^{F3}") : ("{F3}")
+    Loop
+    {
+        sleep, 100
+        if !GetKeyState("Down")
+        {
+            _t1 := 0
+            break
+        }
+            
+    }
+    return
+
+IN.FindWordAtCurrentPosUp:       ;;^F3::       ;;find word at current cursor
+;;    sendinput, +{F3}
+;;    _t1 := 1
+    sendinput, % (_t1) ? ("+{F3}") : ("^{F3}+{F3}")
+    Loop
+    {
+        sleep, 100
+        if !GetKeyState("Up")
+        {
+            _t1 := 1
+            break
+        }
+    }
+
+    return
+
     
 ;;;;;;;; edit
 IN.Redo:                         ;;^y::        ;;redo

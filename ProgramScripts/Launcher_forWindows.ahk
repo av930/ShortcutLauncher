@@ -81,7 +81,7 @@ OS.ToggleGroup:                  ;;^g::       ;;toggle group
 
 OS.EditScript:     
     Gosub ProgramSelect
-    ;;msgbox, % MAP[file]
+    ;msgbox, % MAP[file]
     _OSEditScript( MAP[file] )
     return
 
