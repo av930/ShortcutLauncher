@@ -95,7 +95,7 @@ IN.cformat              := ["^!l"                                               
 
 
 ;;;;;;;; build
-IN.bl                   := [Func( "_INAction" ).Bind( "^+a", 500, "gradle")                 ,"Build: List.Menu.Gradle"]
+IN.blist                := [Func( "_INAction" ).Bind( "^+a", 500, "gradle")                 ,"Build: List.Menu.Gradle"]
 IN.bb                   := ["^{F9}"                                                                  ,"Build: Project"]
 IN.bt                   := ["^+{F9}"                                                          ,"Build: Current.Target"]
 ;;;; prerequite: autoscroll to source, autoscroll from source need to checked in prject view
@@ -205,6 +205,8 @@ IN.MovePrevPosition:             ;;!Left::     ;;move previous position
     return
 
 IN.PreviewDefinition:            ;;!+Up::      ;;preview definition & type
+    sendinput, ^{F3}
+    sendinput, +{F3}
     sendinput, % IN.spre[1]
     return
 
@@ -213,7 +215,7 @@ IN.JumpToDefinition:             ;;!+Down::    ;;jump to definition
     return
 
 IN.JumpToOverrideMethod:         ;;!+Right::   ;;jump to Override Method
-    sendinput, % IN.sover[1]
+    sendinput, % IN.simpl[1]
     return
     
 IN.NextFileorTab:                ;;^tab::      ;;next file or tab
@@ -251,6 +253,8 @@ IN.JumpOutOfMatchingBrace:       ;;+ ::        ;;goto matching brace toggle
     return
     
 IN.FindWordAtCurrentPosDown:    ;;^F3::       ;;find word at current cursor
+    sendinput, {F3}
+/*
     sendinput, % (_t1) ? ("^{F3}") : ("{F3}")
     Loop
     {
@@ -262,11 +266,13 @@ IN.FindWordAtCurrentPosDown:    ;;^F3::       ;;find word at current cursor
         }
             
     }
+*/    
     return
 
 IN.FindWordAtCurrentPosUp:       ;;^F3::       ;;find word at current cursor
-;;    sendinput, +{F3}
+    sendinput, +{F3}
 ;;    _t1 := 1
+/*
     sendinput, % (_t1) ? ("+{F3}") : ("^{F3}+{F3}")
     Loop
     {
@@ -277,7 +283,7 @@ IN.FindWordAtCurrentPosUp:       ;;^F3::       ;;find word at current cursor
             break
         }
     }
-
+*/
     return
 
     

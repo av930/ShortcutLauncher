@@ -168,22 +168,26 @@ AutoComplete:
 	{
         startingMatch := InStr(A_LoopField, Query, false, 1, 1)
         if ( startingMatch == 1 ){
-            prelist .= A_LoopField . "|" ;match starting string
+            list_alias .= A_LoopField . "|" ;match starting string
             continue
         }
 		if A_LoopField contains % Query
-			contentlist .= A_LoopField . "|" ; populate the new list
+			list_content .= A_LoopField . "|" ; populate the new list
 	}
 
-    newlist := prelist . contentlist
+    list_multi := list_alias . list_content
 
-	if newlist =
-		newlist := list
+	if list_multi =
+		list_multi := list
+        
+    ;;|| indicate focused item
+    list_input := StrReplace(list_multi, "|", "||",,1)
+	GuiControl,, LastQSQuery, |%list_input% ; by starting with | it'll replace the list in total
 
-	GuiControl,, LastQSQuery, |%newlist% ; by starting with | it'll replace the list in total
-	newlist := ; to clear the variable for population later on
-    prelist :=
-    contentlist :=
+	list_multi := ; to clear the variable for population later on
+    list_alias :=
+    list_content :=
+    list_input :=
 
 return
 
@@ -214,7 +218,6 @@ return
         WPosX := 600
         WPosY := 400
     }
-
     Gui, Show, x%WPosX% y%WPosY%, % "Launcher - " . MAP["name"]
     Gui, Font
 Return
