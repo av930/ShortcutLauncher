@@ -27,7 +27,7 @@ _OSCopyText( CopyText ) {
 }
 
 
-_OSRunTool( PathCmd, Tool ) { 
+_OSRunTool( PathCmd, Tool ) {
     send %PathCmd%
     
     Sleep, 300
@@ -43,6 +43,8 @@ _OSRunTool( PathCmd, Tool ) {
         else
             run, % _OSTerminal .  " -reuse /dir " . dir
         
+    }else if (Tool == "shell")     {
+        run, _SHELL.cmd   %dir%
     }else if (Tool == "editor")     {
         if ( _OSEditor == "" )
             run, notepad.exe %fullname%

@@ -61,7 +61,7 @@ getKeyfromObj(obj) {
         }
     }
     return Linear ? trim(r, ", ")
-                 : trim(r, ", ")
+                  : trim(r, ", ")
 }
 
 

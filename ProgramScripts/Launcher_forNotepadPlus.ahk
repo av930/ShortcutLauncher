@@ -65,9 +65,8 @@ NP.wlayout              := ["!s"                                                
 
 ;;;; tool 
 ;; need to install startexplorer
-NP.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                            ,"Tool:FullPath.Copy"]
-NP.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool:Explorer.Launch"]
-NP.tt                   := NP.tex
+NP.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool:FullPath.Copy, NEED2MAP"]
+NP.tee                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool:Explorer.Launch"]
 NP.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool:CommandLine.Interface"]
 NP.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")                ,"Tool:OpenWith.ExternalEditor"]
 

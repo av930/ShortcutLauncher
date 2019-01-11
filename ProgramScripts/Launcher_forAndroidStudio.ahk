@@ -27,7 +27,7 @@ _ASAction( Menu, Sleep, Key ) {
 ;; SI.fc                := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All "           ,"multi commands"]
 ;; SI.fd                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"function call"]
 
-AS.bb                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Build Apk(s)")          ,"Build:Current.APK"]
+AS.bb                   := [Func( "_ASAction" ).Bind( "^+a", 500, "{text}Build Apk(s)")          ,"Build: Current.APK"]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shortcut keymap definition
