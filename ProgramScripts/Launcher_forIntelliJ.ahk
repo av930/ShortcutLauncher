@@ -8,7 +8,7 @@ IN[file] := "IntelliJ"
 ;;;; unique action list
 _INAction( Menu, Sleep, Key ) {
     ;MsgBox, %Menu%, %Sleep%, %Key%
-	static InitialDelay = 500
+	static InitialDelay = 2000
     SendInput, %Menu%
 
     WinWaitActive, % "ahk_class SunAwtFrame ahk_exe " . IN[prog]
@@ -23,6 +23,15 @@ _INAction( Menu, Sleep, Key ) {
 }
 
 
+_INSync() {
+	;;reload current file
+	SendInput, ^!y
+	;;sync gradle build output
+	_INAction("^+a", 500, "{text}Sync Project with Gradle Files")
+	
+}
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; basic rule of shortcuts
 ;;;; length of abbreviation should be under 2~5 char.
@@ -30,6 +39,7 @@ _INAction( Menu, Sleep, Key ) {
 ;;;; count functionality ends with ~c (means count)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Example
+;; Command              := [shortcut key,                                                                       ,TAGs]
 ;; SI.fa                := ["^s"                                                                            ,"hotkey"]
 ;; SI.fb                := ["sendinput, ^s"                                                         ,"single command"]
 ;; SI.fc                := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All "           ,"multi commands"]
@@ -41,31 +51,33 @@ _INAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-IN.project              := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Manage Projects.." ), "Project: List.Project"]
-IN.pexit                := [Func( "_INAction" ).Bind( "^+a", 500, "Close Project")                   ,"Project: Close"]
 IN.pset                 := ["^!s"                                                                 ,"Program: Settings"]
 IN.pkey                 := [Func( "_INAction" ).Bind( "^!s", 1200, "{text}Keymap" )   ,"Program: Key.Shortcut.Setting"]
-IN.pconf                := ["^!+s"                                                           ,"Project: Configuration"]
-IN.psync                := ["^!y"                                                            ,"Project: Database.Sync"]
 IN.pc                   := ["^+a"                                                           ,"Program: Search.Command"]
+IN.project              := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Manage Projects.." ), "Project: List.Project"]
+IN.pnew                 := [Func( "_INAction" ).Bind( "!f", 200, "N" ),                         "Project: New.Project"]
+IN.pexit                := [Func( "_INAction" ).Bind( "^+a", 500, "Close Project")                   ,"Project: Close"]
+IN.pconf                := ["^!+s"                                                     ,"Project: Build Configuration"]
+;;;IN.psync                := ["^!y"                                                            ,"Project: Database.Sync"]
+IN.psync                := [Func( "_INSync" ).Bind()                                         ,"Project: Database.Sync"]
 
 
 ;;;;;;;; file
 IN.fo                   := ["^+n"                                                                   ,"File: List.Open"]
-IN.fr                   := ["^!y"                                                              ,"File: Reload.or.Sync"]
+;;;IN.fr                   := ["^!y"                                                              ,"File: Reload.or.Sync"]
 IN.frecent              := ["^e"                                                                  ,"File: Open.Recent"]
 IN.fc                   := ["^{F4}"                                                                     ,"File: Close"]
 IN.fca                  := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Close All Editor Close" )  ,"File: All.Close"]
 IN.fsa                  := ["^s"                                                                     ,"File: All.Save"]
 IN.fencode              := [Func( "_INAction" ).Bind( "^+a", 500, "{text}file encoding" )    ,"File: Open.as.Encoding"]
 IN.fchange              := [Func( "_INAction" ).Bind( "^+a", 500, "show history")                ,"File: Changes.Show"]
-IN.fclone               := ["{F5}"                                                            ,"File: CloneCopy.Class"]
+IN.fclone               := ["{F5}"                                                  ,"File: CloneCopy.Duplicate.Class"]
 
 
 ;;;;;;;; symbol search
 IN.sfind                := ["^+f"                                                     ,"Symbol: String.Find.inProject"]
 IN.sreplace             := ["^+r"                                                  ,"Symbol: String.Replace.inProject"]
-IN.sref                 := ["!{F7}"                                                              ,"Symbol: Usage.Find"]
+IN.sref                 := ["!{F7}"                                                         ,"Symbol: Usage.Reference"]
 IN.sglobal              := ["^!+n"                                                           ,"Symbol: List.inProject"]
 IN.slocal               := ["^{F12}"                                                            ,"Symbol: List.inFile"]
 IN.ss                   := ["sendinput, {shift} `n sendinput, {shift}"                      ,"Symbol: Search.AllPlace"]
@@ -77,9 +89,10 @@ IN.ssample              := ["!{F8}"                                             
 IN.spre                 := ["^+i"                                                  ,"Symbol: Definition.Quick.Preview"]
 IN.sjump                := ["^b"                                                            ,"Symbol: Definition.Jump"]
 IN.stype                := ["^+b"                                                                 ,"Symbol: Type.Jump"]
-IN.shelp                := ["^q"                                                                ,"Symbol: Manual.Open"]
-IN.shelpweb             := ["+{F1}"                                                       ,"Symbol: Manual.Open.inWEB"]
-IN.shigh                := ["^+{F7}"                                                              ,"Symbol: Highlight"]
+IN.shelp                := ["^q"                                                             ,"Symbol: ManualDoc.Open"]
+IN.shelpweb             := ["+{F1}"                                                    ,"Symbol: ManualDoc.Open.inWEB"]
+;;IN.shigh                := ["^+{F7}"                                                              ,"Symbol: Highlight"]
+IN.shigh                := ["^!{F3}"                                                              ,"Symbol: Highlight"]
 
 IN.sbook                := ["+{F11}"                                                        ,"Symbol: Bookmark.Manage"]
 IN.sb                   := ["{F11}"                                                         ,"Symbol: Bookmark.Toggle"]
@@ -113,12 +126,12 @@ IN.rdebug               := ["+{F9}"                                             
 
 ;;;;;;;; vcs
 IN.ver                  := ["!``"                                                       ,"VCS: Menu.History.Blame.ETC"]
-IN.vlog                 := [Func( "_INAction" ).Bind( "^+a", 700, "{text}Show VCS Log")                 ,"VCS: Log"]
+IN.vlog                 := [Func( "_INAction" ).Bind( "^+a", 700, "{text}Show VCS Log")             ,"VCS: log,revert"]
 IN.vs                   := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Show Local Changes")           ,"VCS: Status"]
 IN.vc                   := ["^k"                                                                        ,"VCS: Commit"]
 IN.va                   := ["^!a"                                                                          ,"VCS: Add"]
 IN.vpush                := ["^+k"                                                                   ,"VCS: Push/Amemd"]
-IN.vpull                := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Pull...")                        ,"VCS: Pull"]
+IN.vpull                := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Pull git")                       ,"VCS: Pull"]
 
 
 ;;;;;;;; windows
@@ -130,7 +143,7 @@ IN.whier                := ["^h"                                                
 IN.wcall                := ["^!h"                                                                ,"Window: Call.Graph"]
 IN.wmsg                 := ["sendinput, ^+a `n sleep, 500 `n sendinput, Tool Windows `n sleep, 300 `n sendinput, {enter} `n sleep, 200 `n sendinput, {text}build"  ,"Window: Build.Log.Message"]
 IN.wdebug               := ["!5"                                                                 ,"Window: Debug.View"]
-IN.wlog                 := ["!6"                                                        ,"Window: Runtime.Log.Message"]
+IN.wlog                 := ["!6"                                                  ,"Window: Runtime.Log.Debug.Message"]
 IN.wplug                := [Func( "_INAction" ).Bind( "^+a", 500, "Plugins")                 ,"Window: Plugin.Manager"]
 IN.wpresent             := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Presentation Mode")   ,"Window: FullScreen.Present"]
 IN.wfull                := ["^+{F12}"                                                     ,"Window: FullScreen.Toggle"]
@@ -139,10 +152,11 @@ IN.wfull                := ["^+{F12}"                                           
 ;;;;;;;; tool
 IN.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                            ,"Tool: FullPath.Copy"]
 IN.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool: Explorer.Launch"]
-IN.tee                  := IN.tex
+IN.tt                   := IN.tex
 IN.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool: CommandLine.Interface"]
 IN.tshell               := [Func( "_OSRunTool" ).Bind("^+c", "shell")                    ,"Tool: ExtraShell.Interface"]
 IN.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")                ,"Tool: OpenWith.ExternalEditor"]
+IN.tbrowser             := [Func( "_INAction" ).Bind( "^+a", 500, "{text}Device File Explorer"),"Tool: TargetDevice.File.Explorer"]
 
 
 ;;;;;;;; windows
@@ -186,9 +200,9 @@ Hotkey, IfWinActive, ahk_class SunAwtFrame
 ;;;Hotkey, $^g          ,IN.JumpToLine                  ;;^g
    Hotkey, $^\          ,IN.JumpToMatchingBrace         ;;^+m
    Hotkey, $+Space      ,IN.JumpOutOfMatchingBrace      ;;
-   Hotkey, $!+Left      ,IN.FindWordAtCurrentPos        ;;^F3
-   Hotkey, $!Down       ,IN.FindWordAtCurrentPosDown    ;;F3
-   Hotkey, $!Up         ,IN.FindWordAtCurrentPosUp      ;;+F3
+;;;Hotkey, $!+Left      ,IN.FindWordAtCurrentPos        ;;^F3
+;;;Hotkey, $!Down       ,IN.FindWordAtCurrentPosDown    ;;F3
+;;;Hotkey, $!Up         ,IN.FindWordAtCurrentPosUp      ;;+F3
 
 
    Hotkey, $^y          ,IN.Redo                        ;;^+z
@@ -262,11 +276,11 @@ IN.JumpOutOfMatchingBrace:       ;;+ ::        ;;goto matching brace toggle
     
 IN.FindWordAtCurrentPos:        ;;^F3::        ;;set word as finding-word at current cursor
     sendinput, ^{F3}
-	sendinput, +{F3}
 	return 
 	
 IN.FindWordAtCurrentPosDown:    ;;F3::         ;;find word at current cursor
     sendinput, {F3}
+	return
 /*
     sendinput, % (_t1) ? ("^{F3}") : ("{F3}")
     Loop
@@ -280,12 +294,12 @@ IN.FindWordAtCurrentPosDown:    ;;F3::         ;;find word at current cursor
             
     }
 */    
-    return
 
-IN.FindWordAtCurrentPosUp:       ;;^F3::       ;;find word at current cursor
+IN.FindWordAtCurrentPosUp:       ;;+F3::       ;;find word at current cursor
     sendinput, +{F3}
-;;    _t1 := 1
+    return
 /*
+;;    _t1 := 1
     sendinput, % (_t1) ? ("+{F3}") : ("^{F3}+{F3}")
     Loop
     {
@@ -297,7 +311,7 @@ IN.FindWordAtCurrentPosUp:       ;;^F3::       ;;find word at current cursor
         }
     }
 */
-    return
+
 
     
 ;;;;;;;; edit

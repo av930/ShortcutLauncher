@@ -16,10 +16,13 @@ SetWorkingDir %A_ScriptDir%     ; Ensures a consistent starting directory
 #Include Launcher_DefAction.ahk
 
 
+
 ;;default for OS
+;;add_script
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forWindows.ahk
 ;;Program Editor or IDE 
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forCHrome.ahk
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forSlimjet.ahk
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forIntelliJ.ahk
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forAndroidStudio.ahk
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forEclipse.ahk
@@ -98,6 +101,7 @@ ProgramKeyMapper( ProgramKey, Command ) {
 }
 
 
+;;add_script
 ProgramSelect:
     global MAP := OS
     if       WinActive("ahk_class SunAwtFrame") and WinActive("ahk_exe idea64.exe")  {
@@ -114,6 +118,8 @@ ProgramSelect:
         MAP := ST
     }else if WinActive("ahk_class Chrome_WidgetWin_1") {
         MAP := CH
+    }else if WinActive("ahk_class Slimjet_WidgetWin_1") {
+        MAP := SCH
     }else if WinActive("ahk_class PPTFrameClass")      {
         MAP := PP
     }else
@@ -171,14 +177,18 @@ AutoComplete:
             list_alias .= A_LoopField . "|" ;match starting string
             continue
         }
+		else {
+			
+		}
 		if A_LoopField contains % Query
 			list_content .= A_LoopField . "|" ; populate the new list
 	}
 
     list_multi := list_alias . list_content
-
-	if list_multi =
-		list_multi := list
+	
+	;bugfix: to pass unmatched word to next step match
+	;if list_multi =
+	;	list_multi := list
         
     ;;|| indicate focused item
     list_input := StrReplace(list_multi, "|", "||",,1)

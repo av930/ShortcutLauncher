@@ -13,11 +13,11 @@ OS[file] := "Windows"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;; userdefined definitions
-global _OSEditor        := "D:\OneDrive\_MyProgram\_IDEditor\Notepad++\Notepad++.exe"
-global _OSTerminal      := "D:\OneDrive\_MyProgram\_Shell\_ConEmu\ConEmu64.exe"
-_OSExplorer             := "D:\OneDrive\_MyProgram\_FileBrowser\_Q-Dir_portable\Q-Dir.exe"
-_OSFTP                  := "D:\OneDrive\_MyProgram\_WebComm\_winscp\winscp.exe"
-_OSIMG                  := "D:\OneDrive\_MyProgram\_MultiMedia\IrfanView\i_view32.exe"
+global _OSEditor        := "D:\.gradle\OneDrive\_MyProgram\_IDEditor\Notepad++\Notepad++.exe"
+global _OSTerminal      := "D:\.gradle\OneDrive\_MyProgram\_Shell\_ConEmu\ConEmu64.exe"
+_OSExplorer             := "D:\.gradle\OneDrive\_MyProgram\_FileBrowser\_Q-Dir_portable\Q-Dir.exe"
+_OSFTP                  := "D:\.gradle\OneDrive\_MyProgram\_WebComm\_winscp\winscp.exe"
+_OSIMG                  := "D:\.gradle\OneDrive\_MyProgram\_MultiMedia\IrfanView\i_view32.exe"
 
 ;;;;;;;; userdefined actions
 OS.ex                   := ["Run," . _OSExplorer                                                         ,"Program:FileBrowser"]
@@ -29,6 +29,11 @@ OS.term                 := ["!{delete}"                                         
 ;;;;;;;; Autohotkey        
 OS.hotkey               := [Func( "_OSHotKeys" )                                             ,"Autohotkey:list.AssignedHotkeys"]
 
+
+;;;;;;;; goto Windows Tools
+OS.control              := ["Run, Control Panel"                                                         ,"Window:ControlPanel"]
+OS.install              := ["Run, Appwiz.cpl"                                                   ,"Window:ProgramInstall&Remove"]
+
 ;;;;;;;; Favorite Directories
 OS.c                    := ["Run, c:\"                                                                     ,"Directory:C-drive"]
 OS.d                    := ["Run, d:\"                                                                     ,"Directory:D-drive"]
@@ -39,9 +44,7 @@ OS.doc                  := ["Run," . A_MyDocuments ,                            
 OS.down                 := [Func( "_OSRunMore" ).Bind( "shell:::{374DE290-123F-4565-9164-39C4925E467B}")  ,"Directory:Download"]
 OS.qlaunch              := [Func( "_OSRunMore" ).Bind( "shell:Quick Launch" )                          ,"Directory:QuickLaunch"]
 
-;;;;;;;; goto Windows Tools
-OS.control              := ["Run, Control Panel"                                                         ,"Window:ControlPanel"]
-OS.install              := [Func( "_OSRunMore" ).Bind( "shell:ChangeRemoveProgramsFolder" )     ,"Window:ProgramInstall&Remove"]
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -53,6 +56,7 @@ OS.install              := [Func( "_OSRunMore" ).Bind( "shell:ChangeRemoveProgra
 ;;;Hotkey, $^l          ,OS.AlignLeft                   ;;^l
 ;;;Hotkey, $^r          ,OS.AlignRight                  ;;^r
 ;;;Hotkey, $^e          ,OS.AligncEnter                 ;;^e
+   Hotkey, $^+m         ,OS.DoNothing                   ;;^j
 ;;;Hotkey, $^j          ,OS.AlignJustify                ;;^j
    Hotkey, $#1          ,OS.EditScript
 
@@ -83,6 +87,10 @@ OS.EditScript:
     Gosub ProgramSelect
     ;msgbox, % MAP[file]
     _OSEditScript( MAP[file] )
+    return
+	
+OS.DoNothing:     
+    ;msgbox, % MAP[file]
     return
 
 OS.EndOfFile:

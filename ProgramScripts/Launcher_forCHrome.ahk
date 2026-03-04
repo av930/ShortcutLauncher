@@ -54,25 +54,33 @@ CH.book                 := ["^+o"                                               
 ;;CH.his                  := ["sendinput, !d `n sleep, 500 `n sendinput, {text}chrome://history"    ,"Site:URL.History"]
 ;;CH.play                 := ["sendinput, !d `n sleep, 500 `n sendinput, {text}https://chrome.google.com/webstore/category/extensions?hl=ko","Site:PlayStore.Go"]
 
-Hotkey, IfWinActive, ahk_class Chrome_WidgetWin_1
+
+Hotkey, IfWinActive, ahk_class Chrome_WidgetWin_1 && ( ahk_exe Chrome.exe || slimjet.exe )
 ;;;;;;;;;; opengrok utilities
 ;;;Hotkey, $!LButton    ,CH.SelectWord
 ;;;Hotkey, $^+u         ,NP.ToggleUpperOrLowerCase
-Hotkey, $^.    ,CH.ListBullet
-Hotkey, $^/    ,CH.ListNumber
+Hotkey, $^.             ,CH.ListBullet
+Hotkey, $^/             ,CH.ListNumber
+;;;Hotkey, $Control & Enter       ,CH.AddLowInTable
 ;;;;;;;;
 Hotkey, IfWinActive
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Goto, CH.EndOfFile
 
 
-CH.ListBullet:          ;;^\::        ;;Confluence edit-mode, bullet-list
+
+;;Confluence edit-mode, bullet-list
+CH.ListBullet:          ;;^\::        
     sendinput, ^+b
     return
 
-CH.ListNumber:          ;;^\::        ;;Confluence edit-mode, number-list
-    ;;sendinput, ^+n                    ;;this conflict in chrome incognition mod
+CH.ListNumber:         
+    ;;sendinput, ^+n                  ;;this conflict in chrome incognition mod
     sendinput, {HOME}1.{space}
     return
 
+CH.AddLowInTable:      
+    sendinput, !{down}
+    return
 CH.EndOfFile:

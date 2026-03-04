@@ -1,3 +1,4 @@
+;;MS PowerPoint, Outlook
 PP := {}
 PP["name"] := "MS PowerPoint"
 PP[prog] := POWERPNT.exe
@@ -35,6 +36,7 @@ _PPAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
+PP.tt                   := ["sendinput, !f `n sleep, 300 `n sendinput, iu1"                      ,"File:Open.FileDir"]
 PP.pset                 := ["sendinput, !f `n sleep, 300 `n sendinput, t"                         ,"Program:Settings"]
 ;;;;;;;; file
 PP.fo                   := ["sendinput, !f `n sleep, 300 `n sendinput, o"                                ,"File:Open"]
@@ -63,7 +65,9 @@ PP.dup                  := ["^d"                                                
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;PowerPoint
 GroupAdd, OfficeGroup, ahk_class PPTFrameClass
+;;Outlook
 GroupAdd, OfficeGroup, ahk_class rctrl_renwnd*
 
 Hotkey, IfWinActive, ahk_group Officegroup
@@ -75,6 +79,8 @@ Hotkey, IfWinActive, ahk_group Officegroup
 ;;;Hotkey, $^tab        ,PP.NextFileorTab
 ;;;Hotkey, $^+tab       ,PP.PrevFileorTab
 ;;;Hotkey, $^w          ,PP.CloseCurrentFile            
+   Hotkey, $tab         ,PP.IndentBlock
+   Hotkey, $+tab        ,PP.InOutdentBlock            
 
 
 ;;;;;;;;;;; edit
@@ -105,7 +111,15 @@ PP.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
 PP.CloseCurrentFile:             ;;^w:         ;;close current file
     sendinput, % PP.fc[1]
     return
-    
+
+PP.IndentBlock:                  ;;^!i::       ;;indent block
+    sendinput, !+{Right}
+    return
+
+PP.InOutdentBlock:               ;;!+{Right}/{Left}::       ;;in/outdent block
+    sendinput, !+{Left}
+    return    
+
 
 ;;;;;;;; edit
 PP.Redo:                         ;;^y::        ;;redo

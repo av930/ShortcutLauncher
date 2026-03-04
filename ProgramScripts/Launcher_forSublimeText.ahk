@@ -62,7 +62,6 @@ ST.cfc                  := ["^+["                                               
 ;;;;;;;; windows
 ST.wfull                := ["{F11}"                                                       ,"Window:FullScreen.Toggle"]
 ST.wlist                := ["SoundPlay *-1"                                                   ,"Window:List.toSwitch"]
-ST.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window:Backto.Editor"]
 ST.wdir                 := ["^k^b"                                                           ,"Window:Directory.View"]
 ST.wlayout              := ["!s"                                                              ,"Window:Symbol.Layout"]
 
@@ -72,7 +71,7 @@ ST.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")        
 ST.tt                   := ST.tex
 ST.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool:CommandLine.Interface"]
 ST.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")                ,"Tool:OpenWith.ExternalEditor"]
-
+;;ST.wedit                := ["{ESC}{ESC}{ESC}"                                                 ,"Window:Backto.Editor"]
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

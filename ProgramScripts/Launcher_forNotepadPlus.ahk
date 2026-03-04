@@ -37,7 +37,7 @@ _NPAction( Menu, Sleep, Key ) {
 
 ;;;;;;;; program
 NP.pset                 := ["sendinput, !t `n sendinput, p"                                       ,"Program:Settings"]
-NP.pkey                 := ["^+!s"                                                    ,"Program:Key.Shortcut.Setting"]
+NP.pkey                 := ["sendinput, !t `n sendinput, {down}{down}{enter}"         ,"Program:Key.Shortcut.Setting"]
 
 
 ;;;;;;;; file
@@ -65,8 +65,8 @@ NP.wlayout              := ["!s"                                                
 
 ;;;; tool 
 ;; need to install startexplorer
-NP.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool:FullPath.Copy, NEED2MAP"]
-NP.tee                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool:Explorer.Launch"]
+NP.tpath                := [Func( "_OSCopyText" ).Bind("^+c", "copy")                 ,"Tool:FullPath.Copy, NEED2MAP"]
+NP.tt                   := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool:Explorer.Launch"]
 NP.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool:CommandLine.Interface"]
 NP.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")                ,"Tool:OpenWith.ExternalEditor"]
 
@@ -79,8 +79,11 @@ NP.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")          
 Hotkey, IfWinActive, ahk_class Notepad++
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
-;;;Hotkey, $!Right      ,NP.MoveNextPostion
-;;;Hotkey, $!Left       ,NP.MovePrevPosition
+   Hotkey, $!Right      ,NP.MoveNextCurPosition   
+   Hotkey, $!Left       ,NP.MovePrevCurPosition
+   Hotkey, $!+Right     ,NP.MoveNextModiPostion
+   Hotkey, $!+Left      ,NP.MovePrevModiPosition   
+
 ;;;Hotkey, $!+Up        ,NP.SearchCaller
 ;;;Hotkey, $!+Down      ,NP.JumpToDefinition
 ;;;Hotkey, $^tab        ,NP.NextFileorTab
@@ -88,7 +91,11 @@ Hotkey, IfWinActive, ahk_class Notepad++
 ;;;Hotkey, $^+t         ,NP.ReopenRecentFileorTab
 ;;;Hotkey, $^g          ,NP.JumpToLine
    Hotkey, $^\          ,NP.JumpToMatchingBrace
-;;;Hotkey, $^F3         ,NP.FindWordAtCurrentPosition
+;;;Hotkey, $+Space      ,NP.JumpOutOfMatchingBrace      ;;   
+;;;Hotkey, $!+Left      ,NP.FindWordAtCurrentPos        ;;^F3
+;;;Hotkey, $!Down       ,NP.FindWordAtCurrentPosDown    ;;F3
+;;;Hotkey, $!Up         ,NP.FindWordAtCurrentPosUp      ;;+F3
+
 
 ;;;;;;;;;; edit
 ;;;Hotkey, $^y          ,NP.Redo
@@ -104,6 +111,21 @@ Hotkey, IfWinActive
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Goto, NP.EndOfFile
 
+NP.MoveNextModiPostion:             ;;!Right::      ;;next modified location
+    sendinput, ^!y
+    return
+
+NP.MovePrevModiPosition:            ;;!Left::       ;;previous modified location
+    sendinput, ^!z
+    return
+
+NP.MoveNextCurPosition:         ;;!Right::       ;;previous modified location
+    sendinput, ^+-
+    return
+
+NP.MovePrevCurPosition:         ;;!Left::       ;;previous modified location
+    sendinput, ^-
+    return
 
 NP.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
     sendinput, ^b
@@ -122,5 +144,15 @@ NP.CommentWithBlockComment:      ;;^+/::       ;;comment with block-comment
     sendinput, % (_t2 := !_t2) ? ("^+q") : ("")
     return
 
+NP.FindWordAtCurrentPos:        ;;^F3::        ;;set word as finding-word at current cursor
+    sendinput, ^{F3}
+	return 
+	
+NP.FindWordAtCurrentPosDown:    ;;F3::         ;;find word forward
+    sendinput, {F3}
+	return
 
+NP.FindWordAtCurrentPosUp:       ;;+F3::       ;;find word backword
+    sendinput, +{F3}
+	return
 NP.EndOfFile:
