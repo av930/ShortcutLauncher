@@ -236,14 +236,14 @@ Return
 
 
 ;;;;static hotkey define
-#IfWinActive, Launcher - .*
+#IfWinActive, ^Launcher - .*$
 $Up::ControlSend, ListBox1, {Up}, % "Launcher - "
 $Down::ControlSend, ListBox1, {Down}, % "Launcher - "
 ;Down::ControlFocus, ListBox1, % "Launcher - " . MAP["name"]
 #ifWinActive
 return
 
-#IfWinActive, Launcher - .*
+#IfWinActive, ^Launcher - .*$
 ESC::
 GuiClose:
 GuiEscape:

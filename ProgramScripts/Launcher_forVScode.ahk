@@ -64,19 +64,19 @@ VS.pconf                := ["^+d"                                               
 ;;;;;;;; file
 VS.fo                   := ["^p"                                                                               ,"File: List.Open"]
 ;;;VS.fr                   := ["^!y"                                                                      ,"File: Reload.or.Sync"]
-VS.frecent              := ["^r"                                                                             ,"File: Open.Recent"]
+VS.frecent              := ["^p"                                                                             ,"File: Open.Recent"]
 VS.fc                   := ["^w"                                                                                   ,"File: Close"]
 VS.fca                  := ["sendinput, ^k `n sendinput, ^w"                                                   ,"File: All.Close"]
 VS.fsa                  := [Func( "_VSAction" ).Bind( "^+a", 100, "{text}File: All.Save")                       ,"File: All.Save"]
 VS.fencode              := [Func( "_VSAction" ).Bind( "^+p", 100, "{text}Change File Encoding" )        ,"File: Open.as.Encoding"]
 VS.fchange              := [Func( "_VSAction" ).Bind( "^+p", 100, "{text}Open All change")                  ,"File: Changes.Show"]
-VS.fclone               := ["SoundPlay *-1"                                    ,"File: CloneCopy.Duplicate.Class(not supported )"]
+VS.fclone               := ["^+s"                                                             ,"File: CloneCopy.SaveAs.Duplicate"]
 
 
 ;;;;;;;; symbol search
 VS.sfind                := ["^+f"                                                                ,"Symbol: String.Find.inProject"]
 VS.sreplace             := ["^+h"                                                             ,"Symbol: String.Replace.inProject"]
-VS.sref                 := ["^{F12}"                                                         ,"Symbol: Usage.Reference.inProject"]
+VS.sref                 := ["+!{F12}"                                                        ,"Symbol: Usage.Reference.inProject"]
 VS.sglobal              := ["^t"                                                                        ,"Symbol: List.inProject"]
 VS.slocal               := ["^+o"                                                                          ,"Symbol: List.inFile"]
 VS.srename              := ["{F2}"                                                                      ,"Symbol: Rename.Smartly"]
@@ -88,7 +88,7 @@ VS.sjump                := ["{F12}"                                             
 VS.stype                := ["^+b"                                                                            ,"Symbol: Type.Jump"]
 VS.shelp                := ["^q"                                                                        ,"Symbol: ManualDoc.Open"]
 VS.shelpweb             := ["+{F1}"                                                               ,"Symbol: ManualDoc.Open.inWEB"]
-;;;VS.shigh                := ["^+{F7}"                                                                         ,"Symbol: Highlight"]
+;;;VS.shigh            := ["^+{F7}"                                                                         ,"Symbol: Highlight"]
 VS.shigh                := ["^!{F3}"                                                                         ,"Symbol: Highlight"]
                                                                            
 VS.sbook                := ["+{F11}"                                                                   ,"Symbol: Bookmark.Manage"]
@@ -114,10 +114,10 @@ VS.build                := [Func( "_VSAction" ).Bind( "^+a", 100, "gradle")     
 VS.bb                   := ["^{F9}"                                                                             ,"Build: Project"]
 VS.bt                   := ["^+{F9}"                                                                     ,"Build: Current.Target"]
 VS.bc                   := [Func( "_VSAction" ).Bind( "^+a", 100, "Clean Project" )                              ," Build: Clean"]
-VS.br                   := [Func( "_VSAction" ).Bind( "^+a", 100, "{text}ReBuild Project")                 ,"Run: Agagin.reBuild"]
+VS.br                   := [Func( "_VSAction" ).Bind( "^+a", 100, "{text}ReBuild Project")                  ,"Run: Again.reBuild"]
 ;;;; prerequite: autoscroll to source, autoscroll from source need to checked in prject view          
 VS.run                  := ["^{f5}"                                                                          ,"Run: List.Cmd.Run"]
-VS.rr                   := [Func( "_VSAction" ).Bind( "^+p", 50, "Run Python File in Terminal{enter}")    ,"Run: Run.Current.File"]
+VS.rr                   := [Func( "_VSAction" ).Bind( "^+p", 50, "Run Python File in Terminal{enter}")   ,"Run: Run.Current.File"]
 VS.rdebug               := ["^{F5}"                                                                       ,"Run: and.Start.Debug"]
 
 
@@ -141,19 +141,21 @@ VS.wcall                := ["^!h"                                               
 VS.wmsg                 := ["sendinput, ^+a `n sleep, 100 `n sendinput, Tool Windows `n sleep, 300 `n sendinput, {enter} `n sleep, 200 `n sendinput, {text}build"  ,"Window: Build.Log.Message"]
 VS.wdebug               := ["!5"                                                                            ,"Window: Debug.View"]
 VS.wlog                 := ["!6"                                                             ,"Window: Runtime.Log.Debug.Message"]
-VS.wplug                := [Func( "_VSAction" ).Bind( "^+a", 100, "Plugins")                            ,"Window: Plugin.Manager"]
-VS.wpresent             := [Func( "_VSAction" ).Bind( "^+a", 100, "{text}Presentation Mode")        ,"Window: FullScreen.Present"]
+VS.wplug                := [Func( "_VSAction" ).Bind( "^+p", 100, "Extensions: Show Installed Extensions{enter}")                ,"Window: Plugin.Extension,Manager"]
 VS.wfull                := [Func( "_VSAction" ).Bind( "^+p", 100, "Toggle Maximized Panel{enter}")   ,"Window: FullScreen.Toggle"]
 
 
 
 ;;;;;;;; tool
 VS.tpath                := ["+!c"                                                                          ,"Tool: FullPath.Copy"]
-VS.tt                   := ["+!r"                                                                        ,"Tool: Explorer.Launch"]
+VS.tt                   := [Func( "_VSAction" ).Bind( "^+p", 100, "Reveal in File Explorer {enter}")     ,"Tool: Explorer.Launch"]
 VS.tcmd                 := [Func( "_OSRunTool" ).Bind("+!c", "cmd")                                ,"Tool: CommandLine.Interface"]
 VS.tshell               := [Func( "_OSRunTool" ).Bind("+!c", "shell")                               ,"Tool: ExtraShell.Interface"]
+VS.tterm                := [Func( "_VSAction" ).Bind( "^+", 100, "terminal: Focus Terminal{enter}")    ,"Tool: Teminal.Window.go"]
 VS.tedit                := [Func( "_OSRunTool" ).Bind("+!c", "editor")                           ,"Tool: OpenWith.ExternalEditor"]
 VS.chat                 := ["^!i"                                                                                 ,"Tool: ChatAI"]
+VS.chatextra            := [Func( "_VSAction" ).Bind( "^+p", 100, "Chat:new chat window{enter}")      ,"Tool: ChatAI.extraWindow"]
+VS.chatclear            := [Func( "_VSAction" ).Bind( "^+p", 100, "Chat: Delete All Local Workspace Chat Sessions{enter}")       ,"Tool: delete or clear all history"]
 
 
 ;;;;;;;; windows
