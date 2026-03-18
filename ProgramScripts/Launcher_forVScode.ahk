@@ -58,6 +58,7 @@ VS.project              := ["^r"                                                
 VS.pnew                 := [Func( "_VSAction" ).Bind( "^+p", 100, "{text}add Folder to Workspace" ),       "Project: New.Project"]
 VS.pexit                := [Func( "_VSAction" ).Bind( "^+p", 100, "{text}close Workspace" ),   "Project(Workspace/Folder): Close"]
 VS.pconf                := ["^+d"                                                                   ,"Project: Run Configuration"]
+VS.preload              := [Func( "_VSAction" ).Bind( "^+p", 100, "{text}Reload Window" ),       "Project: Reload Setting(reset)"]
 ;;;VS.psync                := ["^!y"                                                                    ,"Project: Database.Sync"]
 
 
@@ -151,11 +152,13 @@ VS.tpath                := ["+!c"                                               
 VS.tt                   := [Func( "_VSAction" ).Bind( "^+p", 100, "Reveal in File Explorer {enter}")     ,"Tool: Explorer.Launch"]
 VS.tcmd                 := [Func( "_OSRunTool" ).Bind("+!c", "cmd")                                ,"Tool: CommandLine.Interface"]
 VS.tshell               := [Func( "_OSRunTool" ).Bind("+!c", "shell")                               ,"Tool: ExtraShell.Interface"]
-VS.tterm                := [Func( "_VSAction" ).Bind( "^+", 100, "terminal: Focus Terminal{enter}")    ,"Tool: Teminal.Window.go"]
+VS.tterm                := ["^+`"                                                                     ,"Tool: Terminal.Window.go"]
 VS.tedit                := [Func( "_OSRunTool" ).Bind("+!c", "editor")                           ,"Tool: OpenWith.ExternalEditor"]
 VS.chat                 := ["^!i"                                                                                 ,"Tool: ChatAI"]
-VS.chatextra            := [Func( "_VSAction" ).Bind( "^+p", 100, "Chat:new chat window{enter}")      ,"Tool: ChatAI.extraWindow"]
-VS.chatclear            := [Func( "_VSAction" ).Bind( "^+p", 100, "Chat: Delete All Local Workspace Chat Sessions{enter}")       ,"Tool: delete or clear all history"]
+VS.chatextra            := [Func( "_VSAction" ).Bind( "^+p", 100, "Chat: New chat window{enter}")      ,"Tool: ChatAI.extraWindow"]
+VS.chatclear            := [Func( "_VSAction" ).Bind( "^+p", 100, "Chat: Delete All Local Workspace Chat Sessions{enter}")       ,"Tool: ChatAI.deleteclear.AllHistory"]
+VS.chatexport           := [Func( "_VSAction" ).Bind( "^+p", 100, "Chat: Export Chat...{enter}")       ,"Tool: ChatAI.exportLog"]
+
 
 
 ;;;;;;;; windows
@@ -190,14 +193,12 @@ Hotkey, IfWinActive, ahk_exe Code.exe
 ;;;;;;;; move
 ;;;   Hotkey, $!Right      ,VS.MoveNextCurPosition   
 ;;;   Hotkey, $!Left       ,VS.MovePrevCurPosition
-;;;   Hotkey, $!+Right     ,VS.MoveNextModiPosition
-;;;   Hotkey, $!+Left      ,VS.MovePrevModiPosition   
+   Hotkey, $^!Right      ,VS.MoveNextModiPosition        ;;^!Right
+   Hotkey, $^!Left       ,VS.MovePrevModiPosition        ;;^!Left
    
-;;;Hotkey, $!Right      ,VS.MoveNextModiPosition        ;;^!Right
-;;;Hotkey, $!Left       ,VS.MovePrevModiPosition        ;;^!Left
    Hotkey, $!+Up        ,VS.PreviewDefinition           ;;^+i
    Hotkey, $!+Down      ,VS.JumpToDefinition            ;;^b
-   Hotkey, $!+Right     ,VS.JumpToOverrideMethod        ;;^!b
+;;;Hotkey, $!+Right     ,VS.JumpToOverrideMethod        ;;^!b
 ;;;Hotkey, $^tab        ,VS.NextFileorTab               ;;^tab
 ;;;Hotkey, $^+tab       ,VS.PrevFileorTab               ;;^+tab
    Hotkey, $^+o         ,VS.OpenAllSymbol               ;;^+!n
