@@ -1,18 +1,18 @@
-SI := {}
+SI := Map()
 SI["name"] := "SourceInsight v4.0"
-SI[prog] := sourceinsight4.exe
-SI[clas] := si4_Frame
-SI[file] := "SourceInsight"
+SI["prog"] := "sourceinsight4.exe"
+SI["clas"] := "si4_Frame"
+SI["file"] := "SourceInsight"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_SIAction( Menu, Sleep, Key ) {
-    ;;MsgBox, %Menu%, %Sleep%, %Key%
-    SendInput, %Menu%
+_SIAction(Menu, Sleep, Key) {
+    ;;MsgBox(Menu, Sleep, Key)
+    SendInput(Menu)
 
-    WinWaitActive, % ahk_class #32770 ahk_exe . SI[prog]
-    SendInput, {delete}%Key%
-    WinWaitClose,  % ahk_class #32770 ahk_exe . SI[prog]
+    WinWaitActive("ahk_class #32770 ahk_exe " . SI["prog"])
+    SendInput("{delete}" Key)
+    WinWaitClose("ahk_class #32770 ahk_exe " . SI["prog"])
 }
 
 
@@ -23,11 +23,11 @@ _SIAction( Menu, Sleep, Key ) {
 ;;;; count functionality ends with ~c (means count)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Example
-;; SI.fa                := ["^s"                                                                            ,"hotkey"]
-;; SI.fb                := ["sendinput, ^s"                                                         ,"single command"]
-;; SI.fc                := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All"            ,"multi commands"]
-;; SI.fd                := [Func( "_SIAction" ).Bind( "^+a", 500, "{text}File Encoding" )            ,"function call"]
-;; SI.fa                := SI.fb
+;; SI["fa"]             := ["^s"                                                                            ,"hotkey"]
+;; SI["fb"]             := ["sendinput, ^s"                                                         ,"single command"]
+;; SI["fc"]             := ["sendinput, ^+a `n sleep, 500 `n sendinput, {text}Close All"            ,"multi commands"]
+;; SI["fd"]             := [_SIAction.Bind( "^+a", 500, "{text}File Encoding" )                     ,"function call"]
+;; SI["fa"]             := SI["fb"]
 
 
 
@@ -36,72 +36,72 @@ _SIAction( Menu, Sleep, Key ) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-SI.plist                := ["sendinput, !p `n sleep, 300 `n sendinput, o"                           ,"Project:Listup"]
-SI.pexit                := ["!+W"                                                                    ,"Project:Close"]
-SI.pset                 := ["sendinput, !o `n sleep, 300 `n sendinput, p"                         ,"Program:Settings"]
+SI["plist"]              := ["sendinput, !p `n sleep, 300 `n sendinput, o"                           ,"Project:Listup"]
+SI["pexit"]              := ["!+W"                                                                    ,"Project:Close"]
+SI["pset"]               := ["sendinput, !o `n sleep, 300 `n sendinput, p"                         ,"Program:Settings"]
 
-SI.pkey                 := ["sendinput, !h `n sleep, 300 `n sendinput, c"             ,"Program:Key.Shortcut.Setting"]
-SI.pconf                := ["sendinput, !p `n sleep, 300 `n sendinput, i"                    ,"Project:Configuration"]
-SI.psync                := ["!+s"                                                            ,"Project:Database.Sync"]
+SI["pkey"]               := ["sendinput, !h `n sleep, 300 `n sendinput, c"             ,"Program:Key.Shortcut.Setting"]
+SI["pconf"]              := ["sendinput, !p `n sleep, 300 `n sendinput, i"                    ,"Project:Configuration"]
+SI["psync"]              := ["!+s"                                                            ,"Project:Database.Sync"]
 
 
 
 ;;;;;;;; file
-SI.fo                   := ["^o"                                                                         ,"File:Open"]
-SI.fr                   := ["^+o"                                                              ,"File:Reload.or.Sync"]
-SI.frecent              := ["sendinput, !f `n sleep, 300 `n sendinput, f"                         ,"File:Open.Recent"]
-SI.fc                   := ["^w"                                                                        ,"File:Close"]
-SI.fca                  := ["^+w"                                                                   ,"File:All.Close"]
-SI.fsa                  := ["^!a"                                                                    ,"File:All.Save"]
-SI.fencode              := ["!+e"                                                      ,"File:Changes.Show, NEED2MAP"]
-SI.fchange              := ["!{NumpadAdd}"                                                       ,"File:Changes.Show"]
+SI["fo"]                 := ["^o"                                                                         ,"File:Open"]
+SI["fr"]                 := ["^+o"                                                              ,"File:Reload.or.Sync"]
+SI["frecent"]            := ["sendinput, !f `n sleep, 300 `n sendinput, f"                         ,"File:Open.Recent"]
+SI["fc"]                 := ["^w"                                                                        ,"File:Close"]
+SI["fca"]                := ["^+w"                                                                   ,"File:All.Close"]
+SI["fsa"]                := ["^!a"                                                                    ,"File:All.Save"]
+SI["fencode"]            := ["!+e"                                                      ,"File:Changes.Show, NEED2MAP"]
+SI["fchange"]            := ["!{NumpadAdd}"                                                       ,"File:Changes.Show"]
 
 ;;;;;;;; symbol search
-SI.sfind                := ["^+f",                                                    ,"Symbol:String.Find.inProject"]
-SI.sreplace             := ["^+h"                                                  ,"Symbol:String.Replace.inProject"]
-SI.sref                 := ["^/"                                                                 ,"Symbol:Usage.Find"]
-SI.slistgl              := ["{f7}"                                                           ,"Symbol:List.inProject"]
-SI.slistlo              := ["{f8}"                                                              ,"Symbol:List.inFile"]
+SI["sfind"]              := ["^+f"                                                    ,"Symbol:String.Find.inProject"]
+SI["sreplace"]           := ["^+h"                                                  ,"Symbol:String.Replace.inProject"]
+SI["sref"]               := ["^/"                                                                 ,"Symbol:Usage.Find"]
+SI["slistgl"]            := ["{f7}"                                                           ,"Symbol:List.inProject"]
+SI["slistlo"]            := ["{f8}"                                                              ,"Symbol:List.inFile"]
 
-SI.ssearch              := ["^i"                                                                 ,"Symbol:Search.All"]
-SI.srename              := ["^'"                                                             ,"Symbol:Rename.Smartly"]
-SI.ssample              := ["^!w"                                                   ,"Symbol:Samplecode.Search.inWEB"]
+SI["ssearch"]            := ["^i"                                                                 ,"Symbol:Search.All"]
+SI["srename"]            := ["^'"                                                             ,"Symbol:Rename.Smartly"]
+SI["ssample"]            := ["^!w"                                                   ,"Symbol:Samplecode.Search.inWEB"]
 
-SI.spre                 := ["^["                                                         ,"Symbol:Definition.Preview"]
-SI.sjump                := ["^="                                                            ,"Symbol:Definition.Jump"]
-SI.stype                := ["!0"                                                                  ,"Symbol:Type.Jump"]
+SI["spre"]               := ["^["                                                         ,"Symbol:Definition.Preview"]
+SI["sjump"]              := ["^="                                                            ,"Symbol:Definition.Jump"]
+SI["stype"]              := ["!0"                                                                  ,"Symbol:Type.Jump"]
 
-SI.shighlight           := ["+{F8}"                                                                "Symbol:Highlight"]
-SI.sbook                := ["^+m"                                                          ,"Symbol,Manage.Bookmarks"]
-SI.sb                   := ["^m"                                                            ,"Symbol,Toggle.Bookmark"]
+SI["shighlight"]         := ["+{F8}",                                                              "Symbol:Highlight"]
+SI["sbook"]              := ["^+m"                                                          ,"Symbol,Manage.Bookmarks"]
+SI["sb"]                 := ["^m"                                                            ,"Symbol,Toggle.Bookmark"]
 
 
 
 ;;;;;;;; coding
-SI.cc                   := ["^e"                                                       ,"coding:Symbol.Auto.Complete"]
-SI.ct                   := ["^!s"                                                      ,"Coding:Generation.BySnippet"]
-SI.cfo                  := ["^+="                                                                    ,"Coding:UnFold"]
-SI.cfc                  := ["^+-"                                                                      ,"Coding:Fold"]
-SI.cindent              := ["^!i"                                                              ,"Coding:Indent.Block"]
+SI["cc"]                 := ["^e"                                                       ,"coding:Symbol.Auto.Complete"]
+SI["ct"]                 := ["^!s"                                                      ,"Coding:Generation.BySnippet"]
+SI["cfo"]                := ["^+="                                                                    ,"Coding:UnFold"]
+SI["cfc"]                := ["^+-"                                                                      ,"Coding:Fold"]
+SI["cindent"]            := ["^!i"                                                              ,"Coding:Indent.Block"]
 
 
 
 ;;;;;;;; windows
-SI.wfull                := ["{F11}"                                                       ,"Window:FullScreen.Toggle"]
-SI.wlist                := ["sendinput, !v `n sleep, 300 `n sendinput, p"                              ,"Window:List"]
-SI.wedit                := ["{ESC}"                                                           ,"Window:Backto.Editor"]
-SI.wdir                 := ["^p"                                                             ,"Window:Directory.View"]
-SI.wlayout              := ["^]"                                                              ,"Window:Symbol.Layout"]
-SI.whier                := ["!+h"                                                  ,"Window:Call.Hierarchy, NEED2MAP"]
-SI.wcall                := ["^`"                                                                  ,"Window:Call.find"]
-SI.wplug                := ["!k"                                                             ,"Window:Plugin.Manager"]
- 
+SI["wfull"]              := ["{F11}"                                                       ,"Window:FullScreen.Toggle"]
+SI["wlist"]              := ["sendinput, !v `n sleep, 300 `n sendinput, p"                              ,"Window:List"]
+SI["wedit"]              := ["{ESC}"                                                           ,"Window:Backto.Editor"]
+SI["wdir"]               := ["^p"                                                             ,"Window:Directory.View"]
+SI["wlayout"]            := ["^]"                                                              ,"Window:Symbol.Layout"]
+SI["whier"]              := ["!+h"                                                  ,"Window:Call.Hierarchy, NEED2MAP"]
+SI["wcall"]              := ["^``"                                                                 ,"Window:Call.find"]
+SI["wplug"]              := ["!k"                                                             ,"Window:Plugin.Manager"]
+
 ;;;;;;;; tool
-SI.tpath                := [Func( "_OSRunTool" ).Bind("^+c", "copy")                  ,"Tool:FullPath.Copy, NEED2MAP"]
-SI.tex                  := [Func( "_OSRunTool" ).Bind("^+c", "explorer")                      ,"Tool:Explorer.Launch"]
-SI.tt                   := SI.tex
-SI.tcmd                 := [Func( "_OSRunTool" ).Bind("^+c", "cmd")                     ,"Tool:CommandLine.Interface"]
-SI.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")                ,"Tool:OpenWith.ExternalEditor"]
+SI["tpath"]              := [_OSRunTool.Bind("^+c", "copy")                           ,"Tool:FullPath.Copy, NEED2MAP"]
+SI["tex"]                := [_OSRunTool.Bind("^+c", "explorer")                               ,"Tool:Explorer.Launch"]
+SI["tt"]                 := SI["tex"]
+SI["tcmd"]               := [_OSRunTool.Bind("^+c", "cmd")                              ,"Tool:CommandLine.Interface"]
+SI["tedit"]              := [_OSRunTool.Bind("^+c", "editor")                         ,"Tool:OpenWith.ExternalEditor"]
 
 
 
@@ -122,122 +122,120 @@ SI.tedit                := [Func( "_OSRunTool" ).Bind("^+c", "editor")          
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shortcut keymap definition
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Hotkey, IfWinActive, ahk_class si4_Frame
+HotIfWinActive("ahk_class si4_Frame")
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 ;;;;;;;; move
-   Hotkey, $!Right      ,SI.MoveNextPostion
-   Hotkey, $!Left       ,SI.MovePrevPosition
-   Hotkey, $!+Up        ,SI.PreviewDefinition
-   Hotkey, $!+Down      ,SI.JumpToDefinition
-;;;Hotkey, $!+Right     ,SI.JumpToOverrideMethod       
-;;;Hotkey, $^tab        ,SI.NextFileorTab
-;;;Hotkey, $^+tab       ,SI.PrevFileorTab
-;;;Hotkey, $^w          ,SI.CloseCurrentFile            
-   Hotkey, $^+t         ,SI.ReopenRecentFileorTab
-;;;Hotkey, $^g          ,SI.JumpToLine
-   Hotkey, $^\          ,SI.JumpToMatchingBrace
-   Hotkey, $^F3         ,SI.FindWordAtCurrentPosition
+Hotkey("$!Right",         SI_MoveNextPostion)
+Hotkey("$!Left",          SI_MovePrevPosition)
+Hotkey("$!+Up",           SI_PreviewDefinition)
+Hotkey("$!+Down",         SI_JumpToDefinition)
+;;;Hotkey("$!+Right"     ,SI_JumpToOverrideMethod)
+;;;Hotkey("$^tab"        ,SI_NextFileorTab)
+;;;Hotkey("$^+tab"       ,SI_PrevFileorTab)
+;;;Hotkey("$^w"          ,SI_CloseCurrentFile)
+Hotkey("$^+t",             SI_ReopenRecentFileorTab)
+;;;Hotkey("$^g"          ,SI_JumpToLine)
+Hotkey("$^\",             SI_JumpToMatchingBrace)
+Hotkey("$^F3",            SI_FindWordAtCurrentPosition)
 
 ;;;;;;;;;;; edit
-   Hotkey, $^y          ,SI.Redo
-   Hotkey, $^d          ,SI.DuplicateCurrentLine
-   Hotkey, $^+d         ,SI.DeleteCurrentLine
-;;;Hotkey, $^/          ,SI.CommentWithLineComment
-;;;Hotkey, $^+/         ,SI.CommentWithBlockComment
-   Hotkey, $^+u         ,SI.ToggleUpperOrLowerCase
-;;;Hotkey, $^+i         ,SI.IndentBlock
+Hotkey("$^y",             SI_Redo)
+Hotkey("$^d",             SI_DuplicateCurrentLine)
+Hotkey("$^+d",            SI_DeleteCurrentLine)
+;;;Hotkey("$^/"          ,SI_CommentWithLineComment)
+;;;Hotkey("$^+/"         ,SI_CommentWithBlockComment)
+Hotkey("$^+u",            SI_ToggleUpperOrLowerCase)
+;;;Hotkey("$^+i"         ,SI_IndentBlock)
 
 ;;;;;;;;
-Hotkey, IfWinActive
+HotIfWinActive()
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Goto, SI.EndOfFile
 
 
 ;;;;;;;; move
-SI.MoveNextPostion:              ;;!Right::    ;;move next position
-    sendinput, !.
-    return
+SI_MoveNextPostion(*) {          ;;!Right::    ;;move next position
+    SendInput("!.")
+}
 
-SI.MovePrevPosition:             ;;!Left::     ;;move previous position
-    sendinput, !,
-    return
+SI_MovePrevPosition(*) {         ;;!Left::     ;;move previous position
+    SendInput("!,")
+}
 
-SI.PreviewDefinition:            ;;!+Up::      ;;preview definition & type
-    sendinput, % SI.spre[1]
-    return
+SI_PreviewDefinition(*) {        ;;!+Up::      ;;preview definition & type
+    SendInput(SI["spre"][1])
+}
 
-SI.JumpToDefinition:             ;;!+Down::    ;;jump to definition
-    sendinput, ^=
-    return
+SI_JumpToDefinition(*) {         ;;!+Down::    ;;jump to definition
+    SendInput("^=")
+}
 
-SI.JumpToOverrideMethod:         ;;!+Right::   ;;jump to Override Method
-  
-    return
-SI.NextFileorTab:                ;;^tab::      ;;next file or tab
-    sendinput, ^{tab}
-    return
+SI_JumpToOverrideMethod(*) {     ;;!+Right::   ;;jump to Override Method
+}
 
-SI.PrevFileorTab:                ;;^+tab::     ;;previous file or tab
-    sendinput, ^+{tab}
-    return
+SI_NextFileorTab(*) {            ;;^tab::      ;;next file or tab
+    SendInput("^{tab}")
+}
 
-SI.CloseCurrentFile:             ;;^w:         ;;close current file
-    sendinput, % SI.fc[1]
-    return
-    
-SI.ReopenRecentFileorTab:
+SI_PrevFileorTab(*) {            ;;^+tab::     ;;previous file or tab
+    SendInput("^+{tab}")
+}
+
+SI_CloseCurrentFile(*) {         ;;^w:         ;;close current file
+    SendInput(SI["fc"][1])
+}
+
+SI_ReopenRecentFileorTab(*) {
     ;;^+t:        ;;reopen recent closed tab or file
-    sendinput, !f 
-    sleep, 300 
-    sendinput, f
-    return
+    SendInput("!f")
+    Sleep(300)
+    SendInput("f")
+}
 
-SI.JumpToLine:                   ;;^g::        ;;goto line
-    sendinput, ^g
-    return
+SI_JumpToLine(*) {               ;;^g::        ;;goto line
+    SendInput("^g")
+}
 
-SI.JumpToMatchingBrace:          ;;^\::        ;;goto matching brace toggle
-    sendinput, % (_t1 := !_t1) ? ("^+[") : ("^+]")
-    return
+SI_JumpToMatchingBrace(*) {      ;;^\::        ;;goto matching brace toggle
+    global _t1
+    SendInput((_t1 := !_t1) ? "^+[" : "^+]")
+}
 
-SI.FindWordAtCurrentPosition:    ;;^F3::       ;;find word at current cursor
-    sendinput, !f
-    return
-    
+SI_FindWordAtCurrentPosition(*) { ;;^F3::       ;;find word at current cursor
+    SendInput("!f")
+}
+
 ;;;;;;;; edit
-SI.Redo:                         ;;^y::        ;;redo
-    sendinput, ^+z
-    return
+SI_Redo(*) {                     ;;^y::        ;;redo
+    SendInput("^+z")
+}
 
-SI.DuplicateCurrentLine:         ;;^d::        ;;duplicate line
-    sendinput, {HOME}
-    sendinput, {SHIFT DOWN}{END}{SHIFT UP}
-    sendinput, ^c
-    sendinput, {END}{Enter}
-    sendinput, ^v
-    return
+SI_DuplicateCurrentLine(*) {     ;;^d::        ;;duplicate line
+    SendInput("{HOME}")
+    SendInput("{SHIFT DOWN}{END}{SHIFT UP}")
+    SendInput("^c")
+    SendInput("{END}{Enter}")
+    SendInput("^v")
+}
 
-SI.DeleteCurrentLine:            ;;^+d::       ;;delete line
-    sendinput, {HOME}
-    sendinput, {SHIFT DOWN}{END}{SHIFT UP}
-    sendinput, {Del}{Del}
-    return
+SI_DeleteCurrentLine(*) {        ;;^+d::       ;;delete line
+    SendInput("{HOME}")
+    SendInput("{SHIFT DOWN}{END}{SHIFT UP}")
+    SendInput("{Del}{Del}")
+}
 
-SI.CommentWithLineComment:       ;;^/::        ;;comment with line-comment
-    sendinput, ^/
-    return
+SI_CommentWithLineComment(*) {   ;;^/::        ;;comment with line-comment
+    SendInput("^/")
+}
 
-SI.CommentWithBlockComment:      ;;^+/::       ;;comment with block-comment
-    sendinput, ^+/
-    return
+SI_CommentWithBlockComment(*) {  ;;^+/::       ;;comment with block-comment
+    SendInput("^+/")
+}
 
-SI.ToggleUpperOrLowerCase:       ;;^+u::       ;;toggle upper or lower case
-    sendinput, % (_t1 := !_t1) ? ("^+u") : ("^u")
-    return
+SI_ToggleUpperOrLowerCase(*) {   ;;^+u::       ;;toggle upper or lower case
+    global _t1
+    SendInput((_t1 := !_t1) ? "^+u" : "^u")
+}
 
-SI.IndentBlock:                  ;;^!i::       ;;indent block
-    sendinput, % SI.cindent[1]
-    return
-
-
-SI.EndOfFile:
+SI_IndentBlock(*) {              ;;^!i::       ;;indent block
+    SendInput(SI["cindent"][1])
+}

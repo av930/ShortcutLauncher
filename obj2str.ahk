@@ -23,39 +23,14 @@ Example:
       
 */
 
-Obj2Str(obj) { 
- 
-    Linear := True
-    
-    While (A_Index != obj.MaxIndex()) {
-        if !(obj.hasKey(A_Index)) {
-            Linear := False
-            break
-        }
+Obj2Str(obj) {
+    r := ""
+    if (obj is Array) {
+        for v in obj
+            r .= (IsObject(v) ? Obj2Str(v) : (IsNumber(v) ? v : '"' v '"')) ", "
+        return "[" Trim(r, ", ") "]"
     }
-
-    For e, v in obj {
-        if (Linear == False) {
-            if (IsObject(v)) 
-               r .= e ":" Obj2Str(v) ", "        
-            else {                  
-                r .= e ":"  
-                if v is number 
-                    r .= v ", "
-                else 
-                    r .= """" v """, " 
-            }            
-        } else {
-            if (IsObject(v)) 
-                r .= Obj2Str(v) ", "
-            else {          
-                if v is number 
-                    r .= v ", "
-                else 
-                    r .= """" v """, " 
-            }
-        }
-    }
-    return Linear ? "[" trim(r, ", ") "]" 
-                 : "{" trim(r, ", ") "}"
+    for e, v in (obj is Map ? obj : obj.OwnProps())
+        r .= e ":" (IsObject(v) ? Obj2Str(v) : (IsNumber(v) ? v : '"' v '"')) ", "
+    return "{" Trim(r, ", ") "}"
 }

@@ -1,8 +1,8 @@
-OS := {}
+﻿OS := Map()
 OS["name"] := "Windows OS"
-OS[prog] := all.exe
-OS[clas] := all
-OS[file] := "Windows"
+OS["prog"] := "all.exe"
+OS["clas"] := "all"
+OS["file"] := "Windows"
 
 
 
@@ -20,29 +20,29 @@ _OSFTP                  := "D:\.gradle\OneDrive\_MyProgram\_WebComm\_winscp\wins
 _OSIMG                  := "D:\.gradle\OneDrive\_MyProgram\_MultiMedia\IrfanView\i_view32.exe"
 
 ;;;;;;;; userdefined actions
-OS.ex                   := ["Run," . _OSExplorer                                                         ,"Program:FileBrowser"]
-OS.ftp                  := ["Run," . _OSFTP                                                                   ,"Program:WinSCP"]
-OS.img                  := ["Run," . _OSIMG                                                              ,"Program:imageviewer"]
-OS.term                 := ["!{delete}"                                                                     ,"Program:Terminal"]
+OS["ex"]                := ["Run," . _OSExplorer                                                         ,"Program:FileBrowser"]
+OS["ftp"]               := ["Run," . _OSFTP                                                                   ,"Program:WinSCP"]
+OS["img"]               := ["Run," . _OSIMG                                                              ,"Program:imageviewer"]
+OS["term"]              := ["!{delete}"                                                                     ,"Program:Terminal"]
 
 
 ;;;;;;;; Autohotkey        
-OS.hotkey               := [Func( "_OSHotKeys" )                                             ,"Autohotkey:list.AssignedHotkeys"]
+OS["hotkey"]            := [_OSHotKeys                                                       ,"Autohotkey:list.AssignedHotkeys"]
 
 
 ;;;;;;;; goto Windows Tools
-OS.control              := ["Run, Control Panel"                                                         ,"Window:ControlPanel"]
-OS.install              := ["Run, Appwiz.cpl"                                                   ,"Window:ProgramInstall&Remove"]
+OS["control"]           := ["Run, Control Panel"                                                         ,"Window:ControlPanel"]
+OS["install"]           := ["Run, Appwiz.cpl"                                                   ,"Window:ProgramInstall&Remove"]
 
 ;;;;;;;; Favorite Directories
-OS.c                    := ["Run, c:\"                                                                     ,"Directory:C-drive"]
-OS.d                    := ["Run, d:\"                                                                     ,"Directory:D-drive"]
-OS.pf                   := ["Run," . A_ProgramFiles                                                  ,"Directory:Program Files"]
-OS.pfa                  := [Func( "_OSRunMore" ).Bind( "C:\Program Files\", A_ProgramFiles )         ,"Directory:Program Files"] 
-OS.startup              := [Func( "_OSRunMore" ).Bind( "shell:startup" )                                   ,"Directory:StartUp"]
-OS.doc                  := ["Run," . A_MyDocuments ,                                                     "Directory:MyDocument"]
-OS.down                 := [Func( "_OSRunMore" ).Bind( "shell:::{374DE290-123F-4565-9164-39C4925E467B}")  ,"Directory:Download"]
-OS.qlaunch              := [Func( "_OSRunMore" ).Bind( "shell:Quick Launch" )                          ,"Directory:QuickLaunch"]
+OS["c"]                 := ["Run, c:\"                                                                     ,"Directory:C-drive"]
+OS["d"]                 := ["Run, d:\"                                                                     ,"Directory:D-drive"]
+OS["pf"]                := ["Run," . A_ProgramFiles                                                  ,"Directory:Program Files"]
+OS["pfa"]               := [_OSRunMore.Bind( "C:\Program Files\", A_ProgramFiles )                   ,"Directory:Program Files"]
+OS["startup"]           := [_OSRunMore.Bind( "shell:startup" )                                             ,"Directory:StartUp"]
+OS["doc"]               := ["Run," . A_MyDocuments ,                                                     "Directory:MyDocument"]
+OS["down"]              := [_OSRunMore.Bind( "shell:::{374DE290-123F-4565-9164-39C4925E467B}")            ,"Directory:Download"]
+OS["qlaunch"]           := [_OSRunMore.Bind( "shell:Quick Launch" )                                      ,"Directory:QuickLaunch"]
 
 
 
@@ -53,44 +53,43 @@ OS.qlaunch              := [Func( "_OSRunMore" ).Bind( "shell:Quick Launch" )   
 
 ;;;; move, edit functionality must be defined in shortcut not abbreviation for convenience
 
-;;;Hotkey, $^l          ,OS.AlignLeft                   ;;^l
-;;;Hotkey, $^r          ,OS.AlignRight                  ;;^r
-;;;Hotkey, $^e          ,OS.AligncEnter                 ;;^e
-   Hotkey, $^+m         ,OS.DoNothing                   ;;^j
-;;;Hotkey, $^j          ,OS.AlignJustify                ;;^j
-   Hotkey, $#1          ,OS.EditScript
+;;;Hotkey("$^l"          ,OS_AlignLeft)                   ;;^l
+;;;Hotkey("$^r"          ,OS_AlignRight)                  ;;^r
+;;;Hotkey("$^e"          ,OS_AligncEnter)                 ;;^e
+Hotkey("$^+m",             OS_DoNothing)                   ;;^j
+;;;Hotkey("$^j"          ,OS_AlignJustify)                ;;^j
+Hotkey("$#1",              OS_EditScript)
 
 
 
 ;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Goto, OS.EndOfFile
 
+OS_IndentBlock(*) {              ;;^!i::       ;;indent block
+    SendInput(OS["cindent"][1])
+}
 
-OS.IndentBlock:                  ;;^!i::       ;;indent block
-    sendinput, % OS.cindent[1]
-    return
+OS_InOutdentBlock(*) {           ;;!+{Right}/{Left}::       ;;in/outdent block
+    global _t1
+    SendInput((_t1 := !_t1) ? "!+{Right}" : "!+{Left}")
+}
 
-OS.InOutdentBlock:               ;;!+{Right}/{Left}::       ;;in/outdent block
-    sendinput, % (_t1 := !_t1) ? ("!+{Right}") : ("!+{Left}")
-    return
+OS_ScaleUpDownFontSize(*) {      ;;^+>/<::     ;;scale up/down font size
+    global _t1
+    SendInput((_t1 := !_t1) ? "^+>" : "^+<")
+}
 
-OS.ScaleUpDownFontSize:          ;;^+>/<::     ;;scale up/down font size
-    sendinput, % (_t1 := !_t1) ? ("^+>") : ("^+<")
-    return
+OS_ToggleGroup(*) {              ;;^g::       ;;toggle group
+    global _t1
+    SendInput((_t1 := !_t1) ? "^g" : "^+g")
+}
 
-OS.ToggleGroup:                  ;;^g::       ;;toggle group
-    sendinput, % (_t1 := !_t1) ? ("^g") : ("^+g")
-    return
+OS_EditScript(*) {
+    ProgramSelect()
+    ;MsgBox(CurMap["file"])
+    _OSEditScript(CurMap["file"])
+}
 
-OS.EditScript:     
-    Gosub ProgramSelect
-    ;msgbox, % MAP[file]
-    _OSEditScript( MAP[file] )
-    return
-	
-OS.DoNothing:     
-    ;msgbox, % MAP[file]
-    return
-
-OS.EndOfFile:
+OS_DoNothing(*) {
+    ;MsgBox(CurMap["file"])
+}

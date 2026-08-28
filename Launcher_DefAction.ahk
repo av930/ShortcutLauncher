@@ -1,107 +1,95 @@
 ;;;;;;;; list of functions ;;;;;;;;;
 ;;;; execute program as administrator
 ;;;; execute Runlist
-_OSRunMore( RunList* ) {
-    For RunNum, RunItem in RunList
-        Run %RunItem%
+_OSRunMore(RunList*) {
+    for RunNum, RunItem in RunList
+        Run(RunItem)
 }
 
 
-_OSAdmin( RunList* ) { 
-    For RunNum, RunItem in RunList
-        try  
-            Run *RunAs %RunItem%
-        catch e  
-            Exit
+_OSAdmin(RunList*) {
+    for RunNum, RunItem in RunList
+        try
+            Run("*RunAs " RunItem)
+        catch as e
+            return
 }
 
-_OSWARN( Msg ) { 
-    Msgbox,0x13,Warning,%Msg%,1
+_OSWARN(Msg) {
+    MsgBox(Msg, "Warning", 0x13)
 }
 
 
 ;;;; copy text to clipboard
-_OSCopyText( CopyText ) { 
-    Clipboard := CopyText
-    TrayTip, Launcher, %CopyText% copied to clipboard
+_OSCopyText(CopyText) {
+    A_Clipboard := CopyText
+    TrayTip(CopyText . " copied to clipboard", "Launcher")
 }
 
 
-_OSRunTool( PathCmd, Tool ) {
-    send %PathCmd%
-    
-    Sleep, 300
-    fullName := Clipboard
-    SplitPath, fullName, name, dir, ext, name_noext, drive
-    ;;MsgBox, % name  "]["  dir  "]["  Tool
-    
-    if (Tool == "explorer")         {
-        run, % dir
-    }else if (Tool == "cmd")        {
-        if ( _OSTerminal == "" )
-            run, cmd.exe  /K cd /d %dir%
+_OSRunTool(PathCmd, Tool) {
+    Send(PathCmd)
+
+    Sleep(300)
+    fullName := A_Clipboard
+    SplitPath(fullName, &name, &dir, &ext, &name_noext, &drive)
+    ;;MsgBox(name "][" dir "][" Tool)
+
+    if (Tool == "explorer") {
+        Run(dir)
+    } else if (Tool == "cmd") {
+        if (_OSTerminal == "")
+            Run("cmd.exe /K cd /d " dir)
         else
-            run, % _OSTerminal .  " -reuse /dir " . dir
-        
-    }else if (Tool == "shell")     {
-        run, _SHELL.cmd   %dir%
-    }else if (Tool == "editor")     {
-        if ( _OSEditor == "" )
-            run, notepad.exe %fullname%
+            Run(_OSTerminal . " -reuse /dir " . dir)
+
+    } else if (Tool == "shell") {
+        Run("_SHELL.cmd " dir)
+    } else if (Tool == "editor") {
+        if (_OSEditor == "")
+            Run("notepad.exe " fullName)
         else
-            run, %_OSEditor% %fullname%
+            Run(_OSEditor " " fullName)
     }
 }
 
 
-_OSEditScript( FileName ) { 
-    FullPathName = % A_ScriptDir . "\ProgramScripts\Launcher_for" . filename . .ahk        
-    if ( _OSEditor == "" )
-        run, notepad.exe %FullPathName%
+_OSEditScript(FileName) {
+    FullPathName := A_ScriptDir . "\ProgramScripts\Launcher_for" . FileName . ".ahk"
+    if (_OSEditor == "")
+        Run("notepad.exe " FullPathName)
     else
-        run, %_OSEditor% %FullPathName%    
+        Run(_OSEditor " " FullPathName)
 }
 
 
 ;;;; empty trash can
 _OSEmptyRecycleBin() {
-    NumPut( VarSetCapacity( SHQUERYRBINFO,20,0 ), SHQUERYRBINFO )
-    DllCall( "Shell32\SHQueryRecycleBinA", Int,0, UInt,&SHQUERYRBINFO )
-    If (NumGet( SHQUERYRBINFO, 0 ? 12 : 4,"Int64" )) {
-        FileRecycleEmpty
-        SoundPlay C:\Windows\media\recycle.wav
+    buf := Buffer(20, 0)
+    DllCall("Shell32\SHQueryRecycleBinA", "Ptr", 0, "Ptr", buf)
+    if (NumGet(buf, A_PtrSize = 8 ? 12 : 4, "Int64")) {
+        FileRecycleEmpty()
+        SoundPlay("C:\Windows\media\recycle.wav")
     }
-}
-
-
-;;;; go other AHK functions
-_OSGoSub( Subroutine ) {
-    GoSub %Subroutine%
 }
 
 
 ;;;; show key input history
 _OSKeyHist() {
-    KeyHistory
+    KeyHistory()
 }
 
 
 ;;;; show key input history
 _OSHotkeys() {
-    ListHotkeys
+    ListHotkeys()
 }
-
-;;;; ?
-_OSShowMenu( MenuName ) {
-    Menu, %MenuName%, Show
-}
-
 
 ;;;; explorer exit & restart
-_OSRestartExplorer( WaitTime = 100 ) {
-    PostMessage, 0x12, 0, 0, , ahk_exe explorer.exe ; WM_Quit
-    Sleep %WaitTime%
-    PostMessage, 0x12, 0, 0, , ahk_exe explorer.exe ; WM_Quit
-    Sleep %WaitTime%
-    Run %A_Windir%\explorer.exe
+_OSRestartExplorer(WaitTime := 100) {
+    PostMessage(0x12, 0, 0, , "ahk_exe explorer.exe") ; WM_Quit
+    Sleep(WaitTime)
+    PostMessage(0x12, 0, 0, , "ahk_exe explorer.exe") ; WM_Quit
+    Sleep(WaitTime)
+    Run(A_WinDir . "\explorer.exe")
 }
