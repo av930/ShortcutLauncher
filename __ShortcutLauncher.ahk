@@ -47,8 +47,11 @@ CmdListBox := ""
 ;; CurMap is {abbrev: [command, tag]} - build a "key      : tag|..." pick-list
 getKeyfromObj(obj) {
     r := ""
-    for e, v in obj
+    for e, v in obj {
+        if !(v is Array) ;;skip meta entries (name/prog/clas/file), values are plain strings not [command, tag]
+            continue
         r .= Format("{:-10}: {:-10}|", e, v[2])
+    }
     return Trim(r, "|")
 }
 
