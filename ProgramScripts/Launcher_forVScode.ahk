@@ -6,13 +6,13 @@ VS["file"] := "VScode"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_VSAction(Menu, Sleep, Key) {
-    ;MsgBox(Menu, Sleep, Key)
+_VSAction(Menu, DelayMs, Key) {
+    ;MsgBox(Menu, DelayMs, Key)
     static InitialDelay := 50 ;;popup delay
     SendInput(Menu)
 
     WinWaitActive("ahk_class Chrome_WidgetWin_1 ahk_exe " . VS["prog"])
-    InitialDelay += Sleep
+    InitialDelay += DelayMs
 
     Sleep(InitialDelay)
     InitialDelay := 0
@@ -54,10 +54,10 @@ VS["pset"]               := ["^,"                                               
 VS["pkey"]               := ["sendinput, ^k `n sendinput, ^s"                                     ,"Program: Key.Shortcut.Setting"]
 VS["pc"]                 := ["^+p"                                                                      ,"Program: Search.Command"]
 VS["project"]            := ["^r"                                                       ,"Project: List.Project(Workspace/Folder)"]
-VS["pnew"]               := [_VSAction.Bind( "^+p", 100, "{text}add Folder to Workspace" ),               "Project: New.Project"]
-VS["pexit"]              := [_VSAction.Bind( "^+p", 100, "{text}close Workspace" ),           "Project(Workspace/Folder): Close"]
+VS["pnew"]               := [_VSAction.Bind( "^+p", 100, "{text}add Folder to Workspace" ),                 "Project: New.Project"]
+VS["pexit"]              := [_VSAction.Bind( "^+p", 100, "{text}close Workspace" ),             "Project(Workspace/Folder): Close"]
 VS["pconf"]              := ["^+d"                                                                   ,"Project: Run Configuration"]
-VS["preload"]            := [_VSAction.Bind( "^+p", 100, "{text}Reload Window" ),               "Project: Reload Setting(reset)"]
+VS["preload"]            := [_VSAction.Bind( "^+p", 100, "{text}Reload Window" ),                 "Project: Reload Setting(reset)"]
 ;;;VS["psync"]              := ["^!y"                                                                    ,"Project: Database.Sync"]
 
 
@@ -69,7 +69,7 @@ VS["fc"]                 := ["^w"                                               
 VS["fca"]                := ["sendinput, ^k `n sendinput, ^w"                                                   ,"File: All.Close"]
 VS["fsa"]                := [_VSAction.Bind( "^+a", 100, "{text}File: All.Save")                                 ,"File: All.Save"]
 VS["fencode"]            := [_VSAction.Bind( "^+p", 100, "{text}Change File Encoding" )                  ,"File: Open.as.Encoding"]
-VS["fchange"]            := [_VSAction.Bind( "^+p", 100, "{text}Open All change")                          ,"File: Changes.Show"]
+VS["fchange"]            := [_VSAction.Bind( "^+p", 100, "{text}Open All change")                            ,"File: Changes.Show"]
 VS["fclone"]             := ["^+s"                                                             ,"File: CloneCopy.SaveAs.Duplicate"]
 
 
@@ -88,7 +88,7 @@ VS["sjump"]              := ["{F12}"                                            
 VS["stype"]              := ["^+b"                                                                            ,"Symbol: Type.Jump"]
 VS["shelp"]              := ["^q"                                                                        ,"Symbol: ManualDoc.Open"]
 VS["shelpweb"]           := ["+{F1}"                                                               ,"Symbol: ManualDoc.Open.inWEB"]
-;;;VS["shigh"]              := ["^+{F7}"                                                                        ,"Symbol: Highlight"]
+;;;VS["shigh"]              := ["^+{F7}"                                                                      ,"Symbol: Highlight"]
 VS["shigh"]              := ["^!{F3}"                                                                         ,"Symbol: Highlight"]
 
 VS["sbook"]              := ["+{F11}"                                                                   ,"Symbol: Bookmark.Manage"]
@@ -100,7 +100,7 @@ VS["cc"]                 := ["^{space}"                                         
 VS["cp"]                 := ["^+{space}"                                                           ,"Code: Parameter.AutoComplete"]
 VS["ci"]                 := ["^!o"                                                                    ,"Code: Import.AutoComplete"]
 VS["cgen"]               := ["!{insert}"                                          ,"Code: Override.Implement.Constructor.Generate"]
-VS["cfix"]               := ["^.}"                                                                     ,"Code: Error.AutoFix"]
+VS["cfix"]               := ["^.}"                                                                          ,"Code: Error.AutoFix"]
 VS["cerr"]               := ["^{F1}"                                                                            ,"Code: Error.Tip"]
 VS["cf"]                 := ["^+="                                                                          ,"Code: UnFold,Expand"]
 VS["cfc"]                := ["^+-"                                                                             ,"Code: Fold,Close"]
@@ -110,25 +110,25 @@ VS["cformat"]            := ["^!l"                                              
 
 
 ;;;;;;;; build
-VS["build"]              := [_VSAction.Bind( "^+a", 100, "gradle")                                    ,"Build: List.Cmd.Gradle"]
+VS["build"]              := [_VSAction.Bind( "^+a", 100, "gradle")                                       ,"Build: List.Cmd.Gradle"]
 VS["bb"]                 := ["^{F9}"                                                                             ,"Build: Project"]
 VS["bt"]                 := ["^+{F9}"                                                                     ,"Build: Current.Target"]
-VS["bc"]                 := [_VSAction.Bind( "^+a", 100, "Clean Project" )                                     ," Build: Clean"]
-VS["br"]                 := [_VSAction.Bind( "^+a", 100, "{text}ReBuild Project")                          ,"Run: Again.reBuild"]
+VS["bc"]                 := [_VSAction.Bind( "^+a", 100, "Clean Project" )                                         ,"Build: Clean"]
+VS["br"]                 := [_VSAction.Bind( "^+a", 100, "{text}ReBuild Project")                            ,"Run: Again.reBuild"]
 ;;;; prerequite: autoscroll to source, autoscroll from source need to checked in prject view
 VS["run"]                := ["^{f5}"                                                                          ,"Run: List.Cmd.Run"]
-VS["rr"]                 := [_VSAction.Bind( "^+p", 50, "Run Python File in Terminal{enter}")          ,"Run: Run.Current.File"]
+VS["rr"]                 := [_VSAction.Bind( "^+p", 50, "Run Python File in Terminal{enter}")             ,"Run: Run.Current.File"]
 VS["rdebug"]             := ["^{F5}"                                                                       ,"Run: and.Start.Debug"]
 
 
 ;;;;;;;; vcs
 VS["ver"]                := ["!``"                                                            ,      "VCS: Menu.History.Blame.ETC"]
-VS["vlog"]               := [_VSAction.Bind( "^+a", 700, "{text}Show VCS Log")                               ,"VCS: log,revert"]
-VS["vs"]                 := [_VSAction.Bind( "^+a", 100, "{text}Show Local Changes")                             ,"VCS: Status"]
+VS["vlog"]               := [_VSAction.Bind( "^+a", 700, "{text}Show VCS Log")                                  ,"VCS: log,revert"]
+VS["vs"]                 := [_VSAction.Bind( "^+a", 100, "{text}Show Local Changes")                                ,"VCS: Status"]
 VS["vc"]                 := ["^k"                                                                                   ,"VCS: Commit"]
 VS["va"]                 := ["^!a"                                                                                     ,"VCS: Add"]
 VS["vpush"]              := ["^+k"                                                                              ,"VCS: Push/Amemd"]
-VS["vpull"]              := [_VSAction.Bind( "^+a", 100, "{text}Pull git")                                         ,"VCS: Pull"]
+VS["vpull"]              := [_VSAction.Bind( "^+a", 100, "{text}Pull git")                                            ,"VCS: Pull"]
 
 
 ;;;;;;;; layout
@@ -137,7 +137,7 @@ VS["lveti"]              := ["^\"                                               
 
 
 ;;;;;;;; windows
-VS["window"]             := [_VSAction.Bind( "^+a", 100, "{text}Tool Windows")                             ,"Window: List.Menu"]
+VS["window"]             := [_VSAction.Bind( "^+a", 100, "{text}Tool Windows")                                ,"Window: List.Menu"]
 VS["wedit"]              := ["{ESC}"                                                                      ,"Window: Backto.Editor"]
 VS["wdir"]               := ["!1"                                                                        ,"Window: Directory.View"]
 VS["wsymbol"]            := ["!7"                                                                         ,"Window: Symbol.Layout"]
@@ -147,22 +147,22 @@ VS["wmsg"]               := ["sendinput, ^+a `n sleep, 100 `n sendinput, Tool Wi
 VS["wdebug"]             := ["!5"                                                                            ,"Window: Debug.View"]
 VS["wlog"]               := ["!6"                                                             ,"Window: Runtime.Log.Debug.Message"]
 VS["wplug"]              := [_VSAction.Bind( "^+p", 100, "Extensions: Show Installed Extensions{enter}")     ,"Window: Plugin.Extension,Manager"]
-VS["wfull"]              := [_VSAction.Bind( "^+p", 100, "Toggle Maximized Panel{enter}")           ,"Window: FullScreen.Toggle"]
+VS["wfull"]              := [_VSAction.Bind( "^+p", 100, "Toggle Maximized Panel{enter}")             ,"Window: FullScreen.Toggle"]
 
 
 
 ;;;;;;;; tool
 VS["tpath"]              := ["+!c"                                                                          ,"Tool: FullPath.Copy"]
-VS["tt"]                 := [_VSAction.Bind( "^+p", 100, "Reveal in File Explorer {enter}")             ,"Tool: Explorer.Launch"]
-VS["tcmd"]               := [_OSRunTool.Bind("+!c", "cmd")                                        ,"Tool: CommandLine.Interface"]
-VS["tshell"]             := [_OSRunTool.Bind("+!c", "shell")                                       ,"Tool: ExtraShell.Interface"]
+VS["tt"]                 := [_VSAction.Bind( "^+p", 100, "Reveal in File Explorer {enter}")               ,"Tool: Explorer.Launch"]
+VS["tcmd"]               := [_OSRunTool.Bind("+!c", "cmd")                                          ,"Tool: CommandLine.Interface"]
+VS["tshell"]             := [_OSRunTool.Bind("+!c", "shell")                                         ,"Tool: ExtraShell.Interface"]
 VS["tterm"]              := ["^+``"                                                                    ,"Tool: Terminal.Window.go"]
-VS["tedit"]              := [_OSRunTool.Bind("+!c", "editor")                                   ,"Tool: OpenWith.ExternalEditor"]
+VS["tedit"]              := [_OSRunTool.Bind("+!c", "editor")                                     ,"Tool: OpenWith.ExternalEditor"]
 VS["mark"]               := ["^+v"                                                                        ,"Tool: Viewer.Markdown"]
 VS["chat"]               := ["^!i"                                                                                 ,"Tool: ChatAI"]
-VS["chatextra"]          := [_VSAction.Bind( "^+p", 100, "Chat: New chat window{enter}")              ,"Tool: ChatAI.extraWindow"]
+VS["chatextra"]          := [_VSAction.Bind( "^+p", 100, "Chat: New Chat{enter}")                      ,"Tool: ChatAI.extraWindow"]
 VS["chatclear"]          := [_VSAction.Bind( "^+p", 100, "Chat: Delete All Local Workspace Chat Sessions{enter}")  ,"Tool: ChatAI.deleteclear.AllHistory"]
-VS["chatexport"]         := [_VSAction.Bind( "^+p", 100, "Chat: Export Chat...{enter}")               ,"Tool: ChatAI.exportLog"]
+VS["chatexport"]         := [_VSAction.Bind( "^+p", 100, "Chat: Export Chat...{enter}")                  ,"Tool: ChatAI.exportLog"]
 
 
 

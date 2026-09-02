@@ -6,8 +6,8 @@ SI["file"] := "SourceInsight"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_SIAction(Menu, Sleep, Key) {
-    ;;MsgBox(Menu, Sleep, Key)
+_SIAction(Menu, DelayMs, Key) {
+    ;;MsgBox(Menu, DelayMs, Key)
     SendInput(Menu)
 
     WinWaitActive("ahk_class #32770 ahk_exe " . SI["prog"])

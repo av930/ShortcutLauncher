@@ -6,12 +6,12 @@ NP["file"] := "NotepadPlus"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_NPAction(Menu, Sleep, Key) {
-    ;;MsgBox(Menu, Sleep, Key)
+_NPAction(Menu, DelayMs, Key) {
+    ;;MsgBox(Menu, DelayMs, Key)
     SendInput(Menu)
 
     WinWaitActive("ahk_class #32770 ahk_exe " . NP["prog"])
-    Sleep(Sleep)
+    Sleep(DelayMs)
     SendInput("{delete}" Key)
     SendInput("{enter}")
     WinWaitClose("ahk_class #32770 ahk_exe " . NP["prog"])

@@ -7,12 +7,12 @@ PP["file"] := "MSPowerPoint"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_PPAction(Menu, Sleep, Key) {
-    ;;MsgBox(Menu, Sleep, Key)
+_PPAction(Menu, DelayMs, Key) {
+    ;;MsgBox(Menu, DelayMs, Key)
     SendInput(Menu)
 
     WinWaitActive("ahk_class PPTFrameClass ahk_exe " . PP["prog"])
-    Sleep(Sleep)
+    Sleep(DelayMs)
     SendInput("{delete}" Key)
     WinWaitClose("ahk_class PPTFrameClass ahk_exe " . PP["prog"])
 }

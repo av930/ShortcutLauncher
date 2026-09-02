@@ -6,12 +6,12 @@ ADS["file"] := "AndroidStudio"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_ASAction(Menu, Sleep, Key) {
-    ;;MsgBox(Menu, Sleep, Key)
+_ASAction(Menu, DelayMs, Key) {
+    ;;MsgBox(Menu, DelayMs, Key)
     SendInput(Menu)
 
     WinWaitActive("ahk_class SunAwtFrame ahk_exe " . ADS["prog"])
-    Sleep(Sleep)
+    Sleep(DelayMs)
     SendInput("{delete}" Key)
     WinWaitClose("ahk_class SunAwtFrame ahk_exe " . ADS["prog"])
 }

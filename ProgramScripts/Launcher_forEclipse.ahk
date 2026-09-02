@@ -6,11 +6,11 @@ EC["file"] := "Eclipse"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_ECAction(Menu, Sub, Sleep, Key) {
-    ;;MsgBox(Menu, Sleep, Key)
+_ECAction(Menu, Sub, DelayMs, Key) {
+    ;;MsgBox(Menu, DelayMs, Key)
     SendInput(Menu)
     SendInput(Sub)
-    Sleep(Sleep)
+    Sleep(DelayMs)
     SendInput(Key)
     SendInput("{enter}")
 }

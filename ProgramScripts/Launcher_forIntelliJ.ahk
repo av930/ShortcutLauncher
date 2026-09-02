@@ -6,13 +6,13 @@ IJ["file"] := "IntelliJ"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_INAction(Menu, Sleep, Key) {
-    ;MsgBox(Menu, Sleep, Key)
+_INAction(Menu, DelayMs, Key) {
+    ;MsgBox(Menu, DelayMs, Key)
     static InitialDelay := 2000
     SendInput(Menu)
 
     WinWaitActive("ahk_class SunAwtFrame ahk_exe " . IJ["prog"])
-    InitialDelay += Sleep
+    InitialDelay += DelayMs
 
     Sleep(InitialDelay)
     InitialDelay := 0
