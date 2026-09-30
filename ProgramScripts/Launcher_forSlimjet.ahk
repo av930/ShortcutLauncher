@@ -1,4 +1,4 @@
-SCH := CH.Clone()
+SCH := BW.Clone()
 SCH["name"] := "Slimjet"
 SCH["prog"] := "slimjet.exe"
 SCH["clas"] := "Slimjet64_WidgetWin_1"

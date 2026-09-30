@@ -106,7 +106,7 @@ ProgramSelect() {
     } else if (WinActive("ahk_class Chrome_WidgetWin_1") 
         && (WinActive("ahk_exe Chrome.exe") || WinActive("ahk_exe vivaldi.exe")
             || WinActive("ahk_exe vivalid.exe") || WinActive("ahk_exe vvaldi.exe"))) {
-        CurMap := CH
+        CurMap := BW
     } else if WinActive("ahk_class Slimjet_WidgetWin_1") {
         CurMap := SCH
     } else if WinActive("ahk_class PPTFrameClass") {
