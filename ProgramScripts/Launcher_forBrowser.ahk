@@ -1,13 +1,13 @@
-CH := Map()
-CH["name"] := "Browser"
-CH["prog"] := "chrome.exe"
-CH["clas"] := "Chrome_WidgetWin_1"
-CH["file"] := "Browser"
+BW := Map()
+BW["name"] := "Browser"
+BW["prog"] := "chrome.exe"
+BW["clas"] := "Chrome_WidgetWin_1"
+BW["file"] := "Browser"
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; unique action list
-_CHAction(Menu) {
+_BWAction(Menu) {
     ;;MsgBox(Menu)
     SendInput("!d")
     Sleep(50)
@@ -40,44 +40,46 @@ site_plugin := "https://chrome.google.com/webstore/category/extensions?hl=ko"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;; program
-CH["pset"]              := ["sendinput, !d `n sendinput, {text}chrome://settings"                 ,"Program:Settings"]
-CH["pkey"]              := ["sendinput, !d `n sendinput, {text}chrome://extensions/shortcuts"     ,"Program:Shotcuts"]
-CH["pext"]              := ["sendinput, !d `n sendinput, {text}chrome://extensions",       "Program:Extension.Plugin"]
-CH["task"]              := ["+{ESC}"                                                    ,"Program:Chrome.TaskManager"]
-CH["sec"]               := ["^+n"                                                              ,"Program:Mode.Secret"]
+BW["pset"]              := ["sendinput, !d `n sendinput, {text}chrome://settings"                 ,"Program:Settings"]
+BW["pkey"]              := ["sendinput, !d `n sendinput, {text}chrome://extensions/shortcuts"     ,"Program:Shotcuts"]
+BW["pext"]              := ["sendinput, !d `n sendinput, {text}chrome://extensions",       "Program:Extension.Plugin"]
+BW["task"]              := ["+{ESC}"                                                    ,"Program:Chrome.TaskManager"]
+BW["sec"]               := ["^+n"                                                              ,"Program:Mode.Secret"]
 
 ;;;;;;;; site
 
-CH["his"]               := ["^h"                                                                  ,"Site:URL.History"]
-CH["play"]              := [_CHAction.Bind(site_plugin),                                          "Site:PlayStore.Go"]
-CH["book"]              := ["^+o"                                                               ,"Site:Bookmark.View"]
-;;CH["his"]               := ["sendinput, !d `n sleep, 500 `n sendinput, {text}chrome://history"    ,"Site:URL.History"]
-;;CH["play"]              := ["sendinput, !d `n sleep, 500 `n sendinput, {text}https://chrome.google.com/webstore/category/extensions?hl=ko","Site:PlayStore.Go"]
+BW["his"]               := ["^h"                                                                  ,"Site:URL.History"]
+BW["play"]              := [_BWAction.Bind(site_plugin),                                          "Site:PlayStore.Go"]
+BW["book"]              := ["^+o"                                                               ,"Site:Bookmark.View"]
+;;BW["his"]               := ["sendinput, !d `n sleep, 500 `n sendinput, {text}chrome://history"    ,"Site:URL.History"]
+;;BW["play"]              := ["sendinput, !d `n sleep, 500 `n sendinput, {text}https://chrome.google.com/webstore/category/extensions?hl=ko","Site:PlayStore.Go"]
 
 
-;
-HotIfWinActive("ahk_class Chrome_WidgetWin_1 && ( ahk_exe Chrome.exe || vivaldi.exe || vvaldi.exe )")
+GroupAdd("BrowserGroup", "ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe")
+GroupAdd("BrowserGroup", "ahk_class Chrome_WidgetWin_1 ahk_exe vivaldi.exe")
+
+HotIfWinActive("ahk_group BrowserGroup")
 ;;;;;;;;;; opengrok utilities
-;;;Hotkey("$!LButton"    ,CH_SelectWord)
+;;;Hotkey("$!LButton"    ,BW_SelectWord)
 ;;;Hotkey("$^+u"         ,NP_ToggleUpperOrLowerCase)
-Hotkey("$^.",             CH_ListBullet)
-Hotkey("$^/",             CH_ListNumber)
-;;;Hotkey("$Control & Enter"       ,CH_AddLowInTable)
+Hotkey("$^.",             BW_ListBullet)
+Hotkey("$^/",             BW_ListNumber)
+;;;Hotkey("$Control & Enter"       ,BW_AddLowInTable)
 ;;;;;;;;
 HotIfWinActive()
 
 
 ;;Confluence edit-mode, bullet-list
-CH_ListBullet(*) {
+BW_ListBullet(*) {
     SendInput("^+b")
 }
 
-CH_ListNumber(*) {
+BW_ListNumber(*) {
     ;;sendinput, ^+n                  ;;this conflict in chrome incognition mod
     SendInput("{HOME}1.{space}")
 }
 
-CH_AddLowInTable(*) {
+BW_AddLowInTable(*) {
     SendInput("!{down}")
 }
 
