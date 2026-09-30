@@ -20,7 +20,7 @@ SetWorkingDir(A_ScriptDir)      ; Ensures a consistent starting directory
 ;;add_script
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forWindows.ahk
 ;;Program Editor or IDE 
-#Include %A_ScriptDir%\ProgramScripts\Launcher_forCHrome.ahk
+#Include %A_ScriptDir%\ProgramScripts\Launcher_forBrowser.ahk
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forSlimjet.ahk
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forIntelliJ.ahk
 #Include %A_ScriptDir%\ProgramScripts\Launcher_forAndroidStudio.ahk
@@ -103,7 +103,9 @@ ProgramSelect() {
         CurMap := ST
     } else if WinActive("ahk_class Chrome_WidgetWin_1") and WinActive("ahk_exe Code.exe") {
         CurMap := VS
-    } else if WinActive("ahk_class Chrome_WidgetWin_1") and WinActive("ahk_exe Chrome.exe") {
+    } else if (WinActive("ahk_class Chrome_WidgetWin_1") 
+        && (WinActive("ahk_exe Chrome.exe") || WinActive("ahk_exe vivaldi.exe")
+            || WinActive("ahk_exe vivalid.exe") || WinActive("ahk_exe vvaldi.exe"))) {
         CurMap := CH
     } else if WinActive("ahk_class Slimjet_WidgetWin_1") {
         CurMap := SCH
